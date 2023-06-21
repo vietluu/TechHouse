@@ -1,0 +1,123 @@
+
+ /* Mobile: width < 600px  */
+ @media only screen and (max-width: 700px) {
+     header .top-header .top-header-container {
+          font-size: 0.95em;
+     }
+     header .top-header .top-header-container .header-contact {
+          width: 25% !important;
+     }
+     header .top-header .top-header-container .nav-menu {
+          top: 0;
+          left: 10px;
+     }
+
+     header .top-header .top-header-container .header-logo {
+          font-size: 0.7rem;
+     }
+     header .top-header .top-header-container .header-contact span {
+          font-size: 0.75rem;
+     }
+
+     header .search-bar-mobile {
+          font-size: 0.95rem;
+     }
+     header .search-bar-mobile button {
+          margin-right: 10px;
+     }
+     .dots{
+          bottom: 5px;
+     }
+     .news{
+          width: 100%;
+          transform: translateY(10px);
+     }
+     .news .tab-news{
+          width: 100%;
+     }
+    
+     .mobile_info{
+          width: 50% !important;
+     }
+     
+      
+        .side_left,.side_right{
+          width: 100%;
+          padding: 0;
+     }
+        .effect a{
+          position: static !important;
+     }
+     .mobile_sale{
+          width: 100% !important;
+          
+     }
+   } 
+
+
+
+
+/* Tablet: width >= 600px va width < 1024px */
+@media only screen and (min-width:700px) and (max-width: 1024px) {
+    
+     .mobile_info{
+          width: 33.33%;
+     }
+
+    
+    
+
+}
+@media only screen and (min-width:900px) and (max-width: 1500px) {
+     .mobile_info{
+          width: 25%;
+     }
+}
+/* pC: width < 1200px  */
+ @media screen and (max-width: 1200px) {
+     header .top-header .top-header-container .nav-menu {
+       display: block !important;
+     }
+     header .top-header .top-header-container .header-logo h1{
+          padding-left: 25% !important;
+         }
+     header .top-header .top-header-container .header-logo {
+          width: 80%;
+     }
+
+     header .top-header .top-header-container .search-bar {
+          display: none;
+     }
+
+     header .top-header .top-header-container .header-contact {
+      width: 15%;
+     }
+
+     header .top-header .top-header-container .header-contact span:last-child {
+          display: none;
+          font-size: 0.95rem;
+     }
+
+     header .search-bar-mobile {
+          display: block;
+     }
+
+     header .dropdown-menu {
+          display: none;
+     }
+
+     header .top-header .top-header-container .header-contact .header-hotline {
+          display: none !important;
+     }
+     .mobile_sale{
+          width: 50%;
+          
+     }
+     .delivery_content {
+          flex-direction: column;
+          text-align: center;
+          
+        }
+     
+   } 
+

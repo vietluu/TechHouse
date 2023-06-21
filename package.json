@@ -2,24 +2,68 @@
   "name": "techhouse",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "version": "1.1.0",
+  "author": "vietluu",
+  "engines": {
+    "node": ">=16.8.0",
+    "yarn": ">=1.22.0",
+    "npm": "please-use-yarn"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.tsx": [
+      "eslint --no-ignore --fix",
+      "git add --force"
+    ],
+    "*.{json,md}": [
+      "prettier --write",
+      "git add --force"
+    ]
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "SET ENVIRONMENT=./.env &&  node server.ts",
+    "prettier": "prettier --write .",
+    "prepare": "husky install",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@types/node": "20.3.1",
     "@types/react": "18.2.12",
     "@types/react-dom": "18.2.5",
+    "@types/react-slick": "^0.23.10",
+    "@types/slick-carousel": "^1.6.37",
+    "antd": "^5.6.2",
     "autoprefixer": "10.4.14",
-    "eslint": "8.43.0",
+    "eslint": "^8.43.0",
     "eslint-config-next": "13.4.6",
+    "express": "^4.18.2",
+    "img-optimize-loader": "^1.0.7",
     "next": "13.4.6",
     "postcss": "8.4.24",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
     "tailwindcss": "3.3.2",
     "typescript": "5.1.3"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^13.4.6",
+    "clean-css": "^5.3.2",
+    "css-minimizer-webpack-plugin": "^5.0.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-webpack-plugin": "^4.0.1",
+    "file-loader": "^6.2.0",
+    "husky": "^8.0.3",
+    "terser-webpack-plugin": "^5.3.9",
+    "thread-loader": "^4.0.2"
   }
 }

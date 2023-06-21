@@ -1,113 +1,334 @@
-import Image from 'next/image'
+'use client'
+import Image from "next/image";
+import Slider, { Settings } from "react-slick";
 
 export default function Home() {
+  const setting: Settings = {
+    arrows:false,
+    dots: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    swipe:true,
+    autoplaySpeed:3000,
+    swipeToSlide:true,
+    adaptiveHeight: true,
+    infinite: true,
+    customPaging: () => (
+      <span className="dot"></span>
+    )
+  };
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="flex min-h-screen flex-col items-center justify-between">
+      <div className="slideshow-container">
+        <Slider {...setting}>
+          <div className="img-box">
+          <Image fill priority src="/assets/images/banner/slideshow_1.jpg" alt="" />
+          </div>
+          <div className="img-box">
+          <Image fill priority src="/assets/images/banner/slideshow_2.jpg" alt="" />
+          </div>
+          <div className="img-box">
+          <Image fill priority src="/assets/images/banner/slideshow_3.jpg" alt="" />
+          </div>     
+       </Slider>
+        
+      </div>
+
+      <div className="news">
+        <div className="news-container">
+          <div className="tab-news">
+            <a href="#">
+              <img src="/assets/images/banner/img_banner_home_1.jpg" alt="" />
+            </a>
+          </div>
+          <div className="tab-news">
+            <a href="#">
+              <img src="/assets/images/banner/img_banner_home_2.jpg" alt="" />
+            </a>
+          </div>
+          <div className="tab-news">
+            <a href="#">
+              <img src="/assets/images/banner/img_banner_home_3.jpg" alt="" />
+            </a>
+          </div>
         </div>
       </div>
+      <div className="fluid_container">
+        <div className="product">
+            <section className="news_product">
+                <div className="product_title">
+                    <h2>
+                        Sản phẩm mới
+                    </h2>
+                    <h4>
+                        Cập nhật những sản phẩm mới nhất
+                    </h4>
+                </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+                <div className="device_product" id ="product_show" >
+                    
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+                    <a href="detailCart.aspx" className="mobile_info">
+                        <img src="/assets/images/sp/iphone/ip13-pro_2.jpg" alt=""/>
+                        <p className="mobile_name">
+                            Iphone 13 ProMax
+                        </p>
+                        <p className="mobile_paid">
+                            30.000.000đ
+                        </p>
+                    </a>
+                    <a href="detailCart.aspx" className="mobile_info">
+                        <img src="/assets/images/sp/iphone/ipad-pro-12-9-2021-1-0009.jpg" alt=""/>
+                        <p className="mobile_name">
+                            Ipad pro 2021
+                        </p>
+                        <p className="mobile_paid">
+                            30.000.000đ
+                        </p>
+                    </a>
+                    <a href="detailCart.aspx" className="mobile_info">
+                        <img src="/assets/images/sp/samsung/samsung-galaxy-s21-fe.jpg" alt=""/>
+                        <p className="mobile_name">
+                            Samsung s21 fe
+                        </p>
+                        <p className="mobile_paid">
+                            25.900.000đ <s> 27.000.000đ</s>
+                        </p>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
+                        <span className="sale">-5%</span>
+                    </a>
+                    <a href="detailCart.aspx" className="mobile_info">
+                        <img src="/assets/images/sp/xiaomi/xiaomi-mi-10t-pro_2_.jpg" alt=""/>
+                        <p className="mobile_name">
+                            xiaomi Mi 10t Pro
+                        </p>
+                        <p className="mobile_paid">
+                            26.550.000đ <s>28.800.000đ</s>
+                        </p>
+                        <span className="sale">-2%</span>
+                    </a>
+                    <a href="detailCart.aspx" className="mobile_info">
+                        <img src="/assets/images/sp/iphone/iphone_11_white_4_.jpg" alt=""/>
+                        <p className="mobile_name">
+                            Iphone 11
+                        </p>
+                        <p className="mobile_paid">
+                            20.000.000đ
+                        </p>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+                    </a>
+                    <a href="detailCart.aspx" className="mobile_info">
+                        <img src="/assets/images/sp/samsung/samsung-galaxy-tab-s8-002.jpg" alt=""/>
+                        <p className="mobile_name">
+                            Samsung galaxy tab S8
+                        </p>
+                        <p className="mobile_paid">
+                            30.000.000đ
+                        </p>
+                    </a>
+                    <a href="detailCart.aspx" className="mobile_info">
+                        <img src="/assets/images/sp/xiaomi/xiaomi-mi-11-lite-5g-2_10.jpg" alt=""/>
+                        <p className="mobile_name">
+                            Xiaomi mi11 lite 5g
+                        </p>
+                        <p className="mobile_paid">
+                            26.600.000đ <s>28.300.000đ</s>
+                        </p>
+                        <span className="sale">-3%</span>
+                    </a>
+                    <a href="detailCart.aspx" className="mobile_info">
+                        <img src="/assets/images/sp/samsung/samsung-galaxy-tab-s7-1.jpg" alt=""/>
+                        <p className="mobile_name">
+                            Samsung galaxy tab S8
+                        </p>
+                        <p className="mobile_paid">
+                            26.600.000đ <s>28.300.000đ</s>
+                        </p>
+                        <span className="sale">-5%</span>
+                    </a>
+                    <a href="detailCart.aspx" className="mobile_info">
+                        <img src="/assets/images/sp/iphone/iphone_12_pro_max_white_1.jpg" alt=""/>
+                        <p className="mobile_name">
+                            Iphone 12 pro max
+                        </p>
+                        <p className="mobile_paid">
+                            25.000.000đ
+                        </p>
+                    </a>
+
+                    <a href="detailCart.aspx" className="mobile_info">
+                        <img src="/assets/images/sp/iphone/iphoneSE.jpg" alt=""/>
+                        <p className="mobile_name">
+                            Iphone SE 2
+                        </p>
+                        <p className="mobile_paid">
+                            17.550.000đ <s>19.550.000đ</s>
+                        </p>
+                        <span className="sale">-10%</span>
+                    </a>
+
+
+                </div>
+
+
+            </section>
+        </div>
+
+        <div className="sale_off">
+            <div className="side_left effect">
+                <a href="#">
+                    <img src="/assets/images/banner/img_banner_center_1.jpg" alt=""/>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </a>
+                <a href="#">
+                    <img src="/assets/images/banner/img_banner_center_2.jpg" alt=""/>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+            <div className="side_right effect++">
+                <a href="#">
+                    <img src="/assets/images/banner/img_banner_center_3.jpg" alt=""/>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+        </div>
+        <div className="sale_device">
+            <div className="product">
+                <section className="news_product">
+                    <div className="product_title">
+                        <h2>
+                            Sản Phẩm Khuyễn mãi
+                        </h2>
+                        <h4>
+                            Giảm giá lên tới 50%
+                        </h4>
+                    </div>
+                    <div className="device_product_sale">
+
+                        <a href="#" className="mobile_sale">
+                            <img src="/assets/images/sp/iphone/ip13-pro_2.jpg" alt=""/>
+                            <div className="right_info">
+                                <p className="mobile_name">
+                                    Điện thoại Iphone 13 ProMax
+                                </p>
+                                <p className="mobile_paid">
+                                    30.000.000đ
+                                </p>
+                            </div>
+
+                        </a>
+                        <a href="#" className="mobile_sale">
+                            <img src="/assets/images/sp/iphone/ipad-pro-12-9-2021-1-0009.jpg" alt=""/>
+                            <div className="right_info">
+                                <p className="mobile_name">
+                                    Máy tính bảng Ipad pro 2021
+                                </p>
+                                <p className="mobile_paid">
+                                    30.000.000đ
+                                </p>
+                            </div>
+                        </a>
+                        <a href="#" className="mobile_sale">
+                            <img src="/assets/images/sp/samsung/samsung-galaxy-s21-fe.jpg" alt=""/>
+                            <div className="right_info">
+                                <p className="mobile_name">
+                                    Điện thoại Samsung s21 fe
+                                </p>
+                                <p className="mobile_paid">
+                                    25.900.000đ <s> 27.000.000đ</s>
+                                </p>
+                            </div>
+
+                            <span className="sale">-5%</span>
+                        </a>
+                        <a href="#" className="mobile_sale">
+                            <img src="/assets/images/sp/xiaomi/xiaomi-mi-10t-pro_2_.jpg" alt=""/>
+                            <div className="right_info">
+                                <p className="mobile_name">
+                                    Điện thoại xiaomi Mi 10t Pro
+                                </p>
+                                <p className="mobile_paid">
+                                    26.550.000đ <s>28.800.000đ</s>
+                                </p>
+                            </div>
+                            <span className="sale">-2%</span>
+                        </a>
+                        <a href="#" className="mobile_sale">
+                            <img src="/assets/images/sp/iphone/iphone_11_white_4_.jpg" alt=""/>
+                            <div className="right_info">
+                                <p className="mobile_name">
+                                    Điện thoại Iphone 11
+                                </p>
+                                <p className="mobile_paid">
+                                    20.000.000đ
+                                </p>
+                            </div>
+
+                        </a>
+                        <a href="#" className="mobile_sale">
+                            <img src="/assets/images/sp/samsung/samsung-galaxy-tab-s8-002.jpg" alt=""/>
+                            <div className="right_info">
+                                <p className="mobile_name">
+                                    Máy tính bảng Samsung galaxy tab S8
+                                </p>
+                                <p className="mobile_paid">
+                                    30.000.000đ
+                                </p>
+                            </div>
+                        </a>
+                        <a href="#" className="mobile_sale">
+                            <img src="/assets/images/sp/xiaomi/xiaomi-mi-11-lite-5g-2_10.jpg" alt=""/>
+                            <div className="right_info">
+                                <p className="mobile_name">
+                                    Điện thoại Xiaomi mi11 lite 5g
+                                </p>
+                                <p className="mobile_paid">
+                                    26.600.000đ <s>28.300.000đ</s>
+                                </p>
+                            </div>
+                            <span className="sale">-3%</span>
+                        </a>
+                        <a href="#" className="mobile_sale">
+                            <img src="/assets/images/sp/samsung/samsung-galaxy-tab-s7-1.jpg" alt=""/>
+                            <div className="right_info">
+                                <p className="mobile_name">
+                                    Máy tính bảng Samsung galaxy tab S8
+                                </p>
+                                <p className="mobile_paid">
+                                    26.600.000đ <s>28.300.000đ</s>
+                                </p>
+                            </div>
+                            <span className="sale">-5%</span>
+                        </a>
+                        <a href="#" className="mobile_sale">
+                            <img src="/assets/images/sp/iphone/iphoneSE.jpg" alt=""/>
+                            <div className="right_info">
+                                <p className="mobile_name">
+                                    Điện thoại Iphone SE 2
+                                </p>
+                                <p className="mobile_paid">
+                                    17.550.000đ <s>19.550.000đ</s>
+                                </p>
+                            </div>
+                            <span className="sale">-10%</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
     </main>
-  )
+  );
 }

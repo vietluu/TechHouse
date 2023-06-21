@@ -1,0 +1,39 @@
+
+   
+   a {
+        display: block;
+        text-decoration: none;
+   }
+   
+   ul {
+        margin: 0;
+        padding: 0;
+   }
+   li {
+        list-style: none;
+   }
+   html {
+        text-rendering: optimizeLegibility;
+        scroll-behavior: smooth;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 16px;
+   /*      min-width: 280px; */
+   }
+   
+   
+   
+   /*default */
+   :root {
+        --back-ground-footer: #1fb5d4;
+        
+        --smooth: all .3s ease-in;
+   }
+   
+
+   
+   .col {
+        padding-left: 4px;
+        padding-right: 4px;
+   }
+   
+   

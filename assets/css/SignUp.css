@@ -1,0 +1,81 @@
+﻿body {
+    background: linear-gradient(to right, #448855, #508ea3, #1e5b75);
+    font-family: 'Poppins', sans-serif;
+}
+
+#form {
+    width: 400px;
+    margin: 20vh auto 0 auto;
+    padding: 20px;
+    background-color: whitesmoke;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+    #form h1 {
+        color: #0f2027;
+        text-align: center;
+        letter-spacing: 4px;
+    }
+
+    #form button {
+        padding: 10px;
+        margin-top: 10px;
+        width: 100%;
+        color: white;
+        background-color: rgb(41, 57, 194);
+        border: none;
+        border-radius: 15px;
+    }
+
+        #form button:hover {
+            background-color: rgb(89, 104, 224);
+            cursor: pointer;
+        }
+
+.input-control {
+    display: flex;
+    flex-direction: column;
+}
+
+    .input-control input {
+        border: 2px solid #f0f0f0;
+        border-radius: 4px;
+        display: block;
+        font-size: 12px;
+        padding: 12px;
+        width: 94%;
+    }
+
+        .input-control input:focus {
+            outline: 0;
+        }
+
+    .input-control.success input {
+        border-color: #00ca98;
+    }
+
+    .input-control.error input {
+        border-color: #ff3860;
+    }
+
+    .input-control .error {
+        color: #ff3860;
+        font-size: 9px;
+        height: 13px;
+    }
+
+p {
+    color: rgb(0, 0, 0);
+    text-align: center;
+    font-size: 26px;
+}
+
+    p a {
+        color: #f0f0f0;
+        font-size: 28px;
+    }
+
+        p a:hover {
+            color: #0b7ce6;
+        }

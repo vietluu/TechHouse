@@ -1,0 +1,13 @@
+﻿.fluid_container {
+    width: min(max(75vw, 1200px), 100%);
+}
+
+.filter {
+    margin: 25px 0 0 13px;
+    font-size: 16px;
+    width: 90px;
+    color: dimgray;
+    height: 27px;
+    text-align: center;
+    border: 1px solid rgba(134, 134, 134, 0.267);
+}
