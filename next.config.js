@@ -13,11 +13,12 @@ const nextConfig = {
 //   compiler: {
 //     removeConsole: true,
 //   },
-  experimental: {
-    appDir: true,
-    mdxRs: true,
+  // experimental: {
+  //   appDir: true,
+  //   mdxRs: true,
+  //   serverActions:true,
  
-  },
+  // },
 
   poweredByHeader: false,
   reactStrictMode: true,
@@ -142,5 +143,14 @@ const nextConfig = {
     staticFolder: '/public',
     isDev, // Pass through env variables
   },
+  images:{
+  
+      remotePatterns: [
+        {
+          protocol: "https" || "http",
+          hostname: "**",
+        },]
+    
+  }
 };
 module.exports = withBundleAnalyzer(nextConfig);

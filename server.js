@@ -29,11 +29,11 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = express();
-    //@ts-ignore
-  server.get('*', (req,res) => {
+
+  server.get('*', (req, res) => {
     return handle(req, res);
   });
- //@ts-ignore
+
   server.listen(PORT, (err) => {
     if (err) throw err;
     const serverUrl = `http://localhost:${PORT}`;

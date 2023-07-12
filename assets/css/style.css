@@ -16,6 +16,8 @@
 
 html {
   scroll-behavior: smooth;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .img-box img{
@@ -317,6 +319,7 @@ header .dropdown-menu .menu-wrapper {
 header .dropdown-menu .menu-wrapper .menu-ul {
   list-style-type: none;
   padding: 0 70px;
+  margin: 0;
 }
 
 header .dropdown-menu .menu-wrapper .menu-ul li {
