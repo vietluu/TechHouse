@@ -1,4 +1,20 @@
-﻿body {
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  margin: auto;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  color: var(--text-color);
+
+}
+html {
+  scroll-behavior: smooth;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
     background: linear-gradient(to right, #448855, #508ea3, #1e5b75);
     font-family: 'Poppins', sans-serif;
 }

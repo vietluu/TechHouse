@@ -1,8 +1,8 @@
 export default function Footer() {
     return (
         <footer>
-        <div className="row delivery">
-            <div className="delivery_content col c-4 ">
+        <div className="columns-3 sm:columns-1 delivery">
+            <div className="delivery_content ">
                 <div className="delivery_content-img mg-0 pd-3">
                     <img src="./assets/Image/policy_icon_1.png" alt=""/>
                 </div>
@@ -13,7 +13,7 @@ export default function Footer() {
                 </div>
 
             </div>
-            <div className="delivery_content col c-4 ">
+            <div className="delivery_content ">
                 <div className="delivery_content-img mg-0 pd-3 ">
                     <img src="/assets/Image/policy_icon_2.png" alt=""/>
                 </div>
@@ -23,7 +23,7 @@ export default function Footer() {
                     <p>Bảo hành 12 tháng, đổi trả 15 ngày.</p>
                 </div>
             </div>
-            <div className="delivery_content col c-4 ">
+            <div className="delivery_content ">
                 <div className="delivery_content-img mg-0 pd-3 ">
                     <img src="/assets/Image/policy_icon_3.png" alt=""/>
                 </div>
@@ -34,34 +34,34 @@ export default function Footer() {
                 </div>
             </div>
         </div>
-        <div className="">
-            <div className="row text-left">
-                <div className="col c-4  pd-3 footer__content1">
-                    <h4 className="pd-3 text-main"> Giới thiệu</h4>
-                    <div className="pd-1 ">
-                        <p className="pd-1 ">Trang mua sắm trực tuyến của thương hiệu Apple ,phụ kiện, giúp bạn tiếp cận xu
+        <div className="column-1 px-3">
+            <div className="grid grid-cols-3 sm:grid-cols-1 sm:w-full text-left">
+                <div className="px-4 sm:p-0 footer__content1">
+                    <h4 className="pd-3 text-main "> Giới thiệu</h4>
+                    <div className="p-2 columns-1 p-1">
+                        <p className="px-9 text-center lg:px-2 ">Trang mua sắm trực tuyến của thương hiệu Apple ,phụ kiện, giúp bạn tiếp cận xu
                             hướng công nghệ mới nhất.</p>
-                        <img className="pd-1 c-5" src="/assets/Image/logo_bocongthuong.png" alt=""/>
+                        <img className="p-1 max-w-xs " src="/assets/Image/logo_bocongthuong.png" alt=""/>
                     </div>
                 </div>
 
-                <div className="col c-4  pd-3  footer__content2">
-                    <h4 className="pd-1 text-main">Liên kết</h4>
+                <div className="sm:w-full  footer__content2">
+                    <h4 className="text-main">Liên kết</h4>
 
-                    <ul className="mg-auto  pd-1">
-                        <li className="pd-1"><a href="#"> <i className="fas fa-arrow-right"></i> Tìm Kiếm</a></li>
-                        <li className="pd-1"><a href="#"> <i className="fas fa-arrow-right"></i> Chính sách đổi trả</a></li>
-                        <li className="pd-1"><a href="#"> <i className="fas fa-arrow-right"></i> Chính sách bảo mật</a></li>
-                        <li className="pd-1"><a href="#"> <i className="fas fa-arrow-right"></i> Tìm Kiếm</a></li>
-                        <li className="pd-1"><a href="#"> <i className="fas fa-arrow-right"></i> Điều khoản dịch vụ</a></li>
+                    <ul className="sm:w-full p-1">
+                        <li className="p-1"><a href="#"> <i className="fas fa-arrow-right"></i> Tìm Kiếm</a></li>
+                        <li className="p-1"><a href="#"> <i className="fas fa-arrow-right"></i> Chính sách đổi trả</a></li>
+                        <li className="p-1"><a href="#"> <i className="fas fa-arrow-right"></i> Chính sách bảo mật</a></li>
+                        <li className="p-1"><a href="#"> <i className="fas fa-arrow-right"></i> Tìm Kiếm</a></li>
+                        <li className="p-1"><a href="#"> <i className="fas fa-arrow-right"></i> Điều khoản dịch vụ</a></li>
                     </ul>
 
                 </div>
 
-                <div className="col c-4  pd-3  footer__content3">
+                <div className="  sm:w-full  footer__content3">
                     <h4 className="pd-1 text-main">Thông tin liên hệ</h4>
 
-                    <ul className="pd-1">
+                    <ul className="p-1 sm:w-full">
                         <li className="pd-1"><i className="pd-1 fas fa-map-marker-alt"></i><span>Khoa CNTT - 96 Định Công</span>
                         </li>
                         <li className="pd-1"><i className="pd-1 fas fa-phone-alt"></i><span>0123.456.789</span></li>

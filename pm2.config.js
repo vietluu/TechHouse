@@ -2,7 +2,7 @@ module.exports = {
     apps: [
       {
         name: 'techhouse',
-        script: './server.ts', // start script
+        script: './server.js', // start script
         cwd: './', // current workspace
         watch: [
           // watch directorys and restart when they change
