@@ -2,15 +2,11 @@ import { Profile } from '@/types/profileType';
 import { api } from '@/utils/api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { Sign } from 'crypto';
-// type State = {
-//   isLoading: boolean;
-//     hasErr: boolean;
-//     data:Profile
-// };
+
 const initialState = {
   isLoading: false,
     hasErr: false,
-    data:{}
+    data: null
 };
 export const SignIn = createAsyncThunk('/auth/login', async (body: any) => {
     const res: any = await api.post('auth/login', body);
@@ -22,7 +18,7 @@ export const authSlice = createSlice({
   initialState,
     reducers: {
         signOut: (state) => {
-            state.data = {}
+            state.data = null
       }
   },
   extraReducers(builder) {

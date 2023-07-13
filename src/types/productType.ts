@@ -2,7 +2,11 @@ export type product =  {
     id:number,
     title:string,
     price:string,
-    category:{[key:string]:string},
+    category:string,
     description:string,
-    images:[string]
+    images: [string],
+    discountPercentage: number,
+    rating: number,
+    brand: string,
+    thumbnail: string,
 }

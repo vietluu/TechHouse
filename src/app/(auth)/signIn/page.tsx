@@ -3,23 +3,19 @@ import { api } from '@/utils/api';
 import { Button, Form, Input } from 'antd';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
-import {getCookie, setCookie} from 'cookies-next'
-import { useLayoutEffect } from 'react';
-import { useAppDispatch ,useAppSelector} from '@/redux/hooks';
 import { SignIn } from '@/redux/slice/profile';
 function page() {
   const router = useRouter();
-  const data = useAppSelector(state => state.AuthSlice.data)
-  console.log(data)
-  const dispatch = useAppDispatch()
   const login = async (data: any) => {
-    const res = await dispatch(SignIn(data))
-    if (res.payload.status === 200) {
+    const res = await api.post('auth/login', data);
+    if (res.status === 200) {
       
-        console.log(res.payload.data.token)
-        localStorage.setItem('token', res.payload.data.token);
-  
-        Cookies.set('token', res.payload.data.token, {
+        console.log(res.data.token)
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('name', res.data.lastName);
+        localStorage.setItem('image', res.data.image);
+
+        Cookies.set('token', res.data.token, {
           secure: true,
           sameSite: 'strict',
         

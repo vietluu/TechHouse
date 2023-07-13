@@ -10,7 +10,7 @@ function detail({data}: {data:product}) {
 
             <div className=" max-h-[600px] h-full">
                 <div className="col c-2 choose_left pd-3">
-                    <Image width={400} height={400} className='aspect-[1/1]  max-w-[400px] max-h-[400px]' priority src={data.images[0]} alt='image'/>
+                    <Image width={400} height={400} className='aspect-[1/1]  max-w-[400px] max-h-[400px]' priority src={data.thumbnail} alt='image'/>
                 </div>
               
             </div>
@@ -22,7 +22,7 @@ function detail({data}: {data:product}) {
                     <h1 id="title_product"></h1>
                     
                     <p>{data.description}</p>
-                     <p>{data.category.name}</p>
+                     <p>{data.category}</p>
                     
 
                 </div>
