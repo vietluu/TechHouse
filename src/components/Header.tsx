@@ -54,13 +54,13 @@ function Header() {
   const [openKeys, setOpenKeys] = useState(['']);
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(0);
+  const [user, setUser] = useState<{ name: string, image: string }>({
+    name: '',
+    image:''
+  });
   const data = useAppSelector(state => state.AuthSlice.data)
-  console.log(data)
   useEffect(() => {
-    setSize(window?.innerWidth);
-    window.addEventListener('scroll', scroll);
-    window.addEventListener('resize', onChangeSize);
-    setPage(window.scrollY);
+    
     if (menuToggle) {
       document.body.style.position = 'fixed';
     } else {
@@ -75,7 +75,16 @@ function Header() {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
     }
   };
-  
+  useLayoutEffect(() => {
+    setSize(window?.innerWidth);
+    window.addEventListener('scroll', scroll);
+    window.addEventListener('resize', onChangeSize);
+    setPage(window.scrollY);
+    setUser({
+      name: localStorage.getItem('name') || '',
+      image:localStorage.getItem('image') || ''
+    })
+   },[])
   const onChangeSize = (): void => {
     setSize(window?.innerWidth);
   };
@@ -150,11 +159,11 @@ function Header() {
               </Link>
             </div>
             <div className="header-user flex" >
-                {/* <span>
-                  {data?.image ? <Image priority width={50} height={50} src={data.image} alt='avt' className='rounded-full w-[50px] h-[50px] ' /> :<i className="fas fa-user fa-2x"></i>}
+                <span>
+                  {user?.image ? <Image priority width={50} height={50} src={user.image} alt='avt' className='rounded-full w-[50px] h-[50px] ' /> :<i className="fas fa-user fa-2x"></i>}
                 </span>{' '}
-                {data?.firstName ? <span>{data.firstName }</span> : <span> <Link href='signIn'>Đăng Ký/ Đăng Nhập </Link></span>}
-               */}
+                {user?.name ? <span>{user.name }</span> : <span> <Link href='signIn'>Đăng Ký/ Đăng Nhập </Link></span>}
+              
             </div>
           </div>
         </div>

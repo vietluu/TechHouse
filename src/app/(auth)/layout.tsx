@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import '/assets/css/signIn.css'
 import 'antd/dist/reset.css';
-import { Providers } from '@/redux/Provider';
 
 export const metadata: Metadata = {
   title: 'TechHouse',
@@ -17,9 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>
         {children}
-        </Providers>
       </body>
     </html>
   );
