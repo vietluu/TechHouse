@@ -27,14 +27,14 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-    getItem('Trang chủ', 'home'),
-    getItem('Sản phẩm', 'sub1', '', [
+  getItem('Trang chủ', 'home'),
+  getItem('Sản phẩm', 'sub1', '', [
     getItem('Option 1', '1'),
     getItem('Option 2', '2'),
     getItem('Option 3', '3'),
     getItem('Option 4', '4'),
   ]),
-    getItem('Product view', 'sub2', '', [
+  getItem('Product view', 'sub2', '', [
     getItem('Option 5', '5'),
     getItem('Option 6', '6'),
     getItem('Submenu', 'sub3'),
@@ -54,13 +54,12 @@ function Header() {
   const [openKeys, setOpenKeys] = useState(['']);
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(0);
-  const [user, setUser] = useState<{ name: string, image: string }>({
+  const [user, setUser] = useState<{ name: string; image: string }>({
     name: '',
-    image:''
+    image: '',
   });
-  const data = useAppSelector(state => state.AuthSlice.data)
+  const data = useAppSelector((state) => state.AuthSlice.data);
   useEffect(() => {
-    
     if (menuToggle) {
       document.body.style.position = 'fixed';
     } else {
@@ -80,11 +79,13 @@ function Header() {
     window.addEventListener('scroll', scroll);
     window.addEventListener('resize', onChangeSize);
     setPage(window.scrollY);
-    setUser({
-      name: localStorage.getItem('name') || '',
-      image:localStorage.getItem('image') || ''
-    })
-   },[])
+    if (localStorage.getItem('token')) {
+      setUser({
+        name: localStorage.getItem('name') || '',
+        image: localStorage.getItem('image') || '',
+      });
+    }
+  }, []);
   const onChangeSize = (): void => {
     setSize(window?.innerWidth);
   };
@@ -98,7 +99,7 @@ function Header() {
   const toggleMenu = () => {
     setMenuToggle(!menuToggle);
   };
-  console.log('render')
+  console.log('render');
   return (
     <header>
       <div className="top-header">
@@ -110,7 +111,6 @@ function Header() {
           {menuToggle && size < 900 && (
             <div className="mobile-menu">
               <div className="mobile-wrapper">
-              
                 <Menu
                   mode="inline"
                   openKeys={openKeys}
@@ -122,7 +122,7 @@ function Header() {
             </div>
           )}
           <div className="header-logo">
-            <h1 className="text-3xl sm:text-3xl  font-bold">
+            <h1 className="text-3xl sm:text-3xl m-0 font-bold">
               <Link href="/">TechHouse</Link>
             </h1>
           </div>
@@ -137,8 +137,8 @@ function Header() {
             </button>
           </div>
           <div className="header-contact">
-            
-            {size > 900 &&  <div className="flex">
+            {size > 900 && (
+              <div className="flex">
                 <span>
                   <i className="fas fa-phone fa-2x"></i>
                 </span>
@@ -147,8 +147,9 @@ function Header() {
                   <br />
                   0963638362
                 </span>
-              </div>}
-           
+              </div>
+            )}
+
             <div className="header-cart">
               <Link href="cart.aspx">
                 <span className="cart">
@@ -158,12 +159,29 @@ function Header() {
                 <span>Giỏ Hàng</span>
               </Link>
             </div>
-            <div className="header-user flex" >
+            <div className="header-user flex">
+              <span>
+                {user?.image ? (
+                  <Image
+                    priority
+                    width={50}
+                    height={50}
+                    src={user.image}
+                    alt="avt"
+                    className="rounded-full w-[50px] h-[50px] "
+                  />
+                ) : (
+                  <i className="fas fa-user fa-2x"></i>
+                )}
+              </span>{' '}
+              {user?.name ? (
+                <span>{user.name}</span>
+              ) : (
                 <span>
-                  {user?.image ? <Image priority width={50} height={50} src={user.image} alt='avt' className='rounded-full w-[50px] h-[50px] ' /> :<i className="fas fa-user fa-2x"></i>}
-                </span>{' '}
-                {user?.name ? <span>{user.name }</span> : <span> <Link href='signIn'>Đăng Ký/ Đăng Nhập </Link></span>}
-              
+                  {' '}
+                  <Link href="signIn">Đăng Ký/ Đăng Nhập </Link>
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -230,4 +248,4 @@ function Header() {
     </header>
   );
 }
-export default memo(Header)
+export default memo(Header);

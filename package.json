@@ -19,7 +19,7 @@
       "eslint --fix",
       "git add --force"
     ],
-    "*.{json,md}": [
+    "*.{json,md,tsx,ts}": [
       "prettier --write",
       "git add --force"
     ]
@@ -28,7 +28,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "SET ENVIRONMENT=./.env &&  node server.js",
-    "prettier": "prettier --write .",
+    "format": "prettier --write .",
     "prepare": "husky install",
     "analyze": "ANALYZE=true next build"
   },

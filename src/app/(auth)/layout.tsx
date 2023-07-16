@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import '/assets/css/signIn.css'
+import '/assets/css/signIn.css';
 import 'antd/dist/reset.css';
 
 export const metadata: Metadata = {
@@ -11,13 +11,10 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-  }) {
-  
+}) {
   return (
     <html lang="en">
-      <body>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
