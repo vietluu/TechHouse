@@ -19,7 +19,7 @@
       "eslint --fix",
       "git add --force"
     ],
-    "*.{json,md,tsx,ts}": [
+    "*.{json,md,tsx,ts,css,ts}": [
       "prettier --write",
       "git add --force"
     ]
@@ -27,12 +27,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "SET ENVIRONMENT=./.env &&  node server.js",
+    "start": "SET ENVIRONMENT=./.env &&  node server.ts",
     "format": "prettier --write .",
     "prepare": "husky install",
     "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/js-cookie": "^3.0.3",
     "@types/node": "20.3.1",
