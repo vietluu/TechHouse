@@ -10,14 +10,14 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const isDev = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
 const nextConfig = {
   swcMinify: true,
-//   compiler: {
-//     removeConsole: true,
-//   },
+  //   compiler: {
+  //     removeConsole: true,
+  //   },
   // experimental: {
   //   appDir: true,
   //   mdxRs: true,
   //   serverActions:true,
- 
+
   // },
 
   poweredByHeader: false,
@@ -73,25 +73,25 @@ const nextConfig = {
           // number of jobs a worker processes in parallel
           // defaults to 20
           workerParallelJobs: 50,
-    
+
           // additional node.js arguments
           workerNodeArgs: ['--max-old-space-size=1024'],
-    
+
           // Allow to respawn a dead worker pool
           // respawning slows down the entire compilation
           // and should be set to false for development
           poolRespawn: false,
-    
+
           // timeout for killing the worker processes when idle
           // defaults to 500 (ms)
           // can be set to Infinity for watching builds to keep workers alive
           poolTimeout: 2000,
-    
+
           // number of jobs the poll distributes to the workers
           // defaults to 200
           // decrease of less efficient but more fair distribution
           poolParallelJobs: 50,
-    
+
           // name of the pool
           // can be used to create different pools with elsewise identical options
           name: 'my-pool',
@@ -112,8 +112,6 @@ const nextConfig = {
           exclude: [`node_modules`],
         })
       );
-
-
     }
     config.module.rules.push({
       test: /\.(jpe?g|png|gif|svg)$/i,
@@ -143,14 +141,13 @@ const nextConfig = {
     staticFolder: '/public',
     isDev, // Pass through env variables
   },
-  images:{
-  
-      remotePatterns: [
-        {
-          protocol: "https" || "http",
-          hostname: "**",
-        },]
-    
-  }
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https' || 'http',
+        hostname: '**',
+      },
+    ],
+  },
 };
 module.exports = withBundleAnalyzer(nextConfig);

@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
+import Link from 'next/link';
 import Slider, { Settings } from 'react-slick';
-
 export default function Home() {
   const setting: Settings = {
     arrows: false,
@@ -15,7 +15,7 @@ export default function Home() {
     adaptiveHeight: true,
     infinite: true,
     customPaging: () => <span className="dot"></span>,
-    };
+  };
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <div className="slideshow-container">
@@ -50,19 +50,34 @@ export default function Home() {
       <div className="news">
         <div className="news-container">
           <div className="tab-news">
-            <a href="#">
-              <img src="/assets/images/banner/img_banner_home_1.jpg" alt="" />
-            </a>
+            <Link href="#">
+              <Image
+                height={400}
+                width={400}
+                src="/assets/images/banner/img_banner_home_1.jpg"
+                alt=""
+              />
+            </Link>
           </div>
           <div className="tab-news">
-            <a href="#">
-              <img src="/assets/images/banner/img_banner_home_2.jpg" alt="" />
-            </a>
+            <Link href="#">
+              <Image
+                height={400}
+                width={400}
+                src="/assets/images/banner/img_banner_home_2.jpg"
+                alt=""
+              />
+            </Link>
           </div>
           <div className="tab-news">
-            <a href="#">
-              <img src="/assets/images/banner/img_banner_home_3.jpg" alt="" />
-            </a>
+            <Link href="#">
+              <Image
+                height={400}
+                width={400}
+                src="/assets/images/banner/img_banner_home_3.jpg"
+                alt=""
+              />
+            </Link>
           </div>
         </div>
       </div>
@@ -75,21 +90,30 @@ export default function Home() {
             </div>
 
             <div className="device_product" id="product_show">
-              <a href="detailCart.aspx" className="mobile_info">
-                <img src="/assets/images/sp/iphone/ip13-pro_2.jpg" alt="" />
+              <Link href="detailCart.aspx" className="mobile_info">
+                <Image
+                  height={400}
+                  width={400}
+                  src="/assets/images/sp/iphone/ip13-pro_2.jpg"
+                  alt=""
+                />
                 <p className="mobile_name">Iphone 13 ProMax</p>
                 <p className="mobile_paid">30.000.000đ</p>
-              </a>
-              <a href="detailCart.aspx" className="mobile_info">
-                <img
+              </Link>
+              <Link href="detailCart.aspx" className="mobile_info">
+                <Image
+                  height={400}
+                  width={400}
                   src="/assets/images/sp/iphone/ipad-pro-12-9-2021-1-0009.jpg"
                   alt=""
                 />
                 <p className="mobile_name">Ipad pro 2021</p>
                 <p className="mobile_paid">30.000.000đ</p>
-              </a>
-              <a href="detailCart.aspx" className="mobile_info">
-                <img
+              </Link>
+              <Link href="detailCart.aspx" className="mobile_info">
+                <Image
+                  height={400}
+                  width={400}
                   src="/assets/images/sp/samsung/samsung-galaxy-s21-fe.jpg"
                   alt=""
                 />
@@ -99,9 +123,11 @@ export default function Home() {
                 </p>
 
                 <span className="sale">-5%</span>
-              </a>
-              <a href="detailCart.aspx" className="mobile_info">
-                <img
+              </Link>
+              <Link href="detailCart.aspx" className="mobile_info">
+                <Image
+                  height={400}
+                  width={400}
                   src="/assets/images/sp/xiaomi/xiaomi-mi-10t-pro_2_.jpg"
                   alt=""
                 />
@@ -110,25 +136,31 @@ export default function Home() {
                   26.550.000đ <s>28.800.000đ</s>
                 </p>
                 <span className="sale">-2%</span>
-              </a>
-              <a href="detailCart.aspx" className="mobile_info">
-                <img
+              </Link>
+              <Link href="detailCart.aspx" className="mobile_info">
+                <Image
+                  height={400}
+                  width={400}
                   src="/assets/images/sp/iphone/iphone_11_white_4_.jpg"
                   alt=""
                 />
                 <p className="mobile_name">Iphone 11</p>
                 <p className="mobile_paid">20.000.000đ</p>
-              </a>
-              <a href="detailCart.aspx" className="mobile_info">
-                <img
+              </Link>
+              <Link href="detailCart.aspx" className="mobile_info">
+                <Image
+                  height={400}
+                  width={400}
                   src="/assets/images/sp/samsung/samsung-galaxy-tab-s8-002.jpg"
                   alt=""
                 />
                 <p className="mobile_name">Samsung galaxy tab S8</p>
                 <p className="mobile_paid">30.000.000đ</p>
-              </a>
-              <a href="detailCart.aspx" className="mobile_info">
-                <img
+              </Link>
+              <Link href="detailCart.aspx" className="mobile_info">
+                <Image
+                  height={400}
+                  width={400}
                   src="/assets/images/sp/xiaomi/xiaomi-mi-11-lite-5g-2_10.jpg"
                   alt=""
                 />
@@ -137,9 +169,11 @@ export default function Home() {
                   26.600.000đ <s>28.300.000đ</s>
                 </p>
                 <span className="sale">-3%</span>
-              </a>
-              <a href="detailCart.aspx" className="mobile_info">
-                <img
+              </Link>
+              <Link href="detailCart.aspx" className="mobile_info">
+                <Image
+                  height={400}
+                  width={400}
                   src="/assets/images/sp/samsung/samsung-galaxy-tab-s7-1.jpg"
                   alt=""
                 />
@@ -148,53 +182,75 @@ export default function Home() {
                   26.600.000đ <s>28.300.000đ</s>
                 </p>
                 <span className="sale">-5%</span>
-              </a>
-              <a href="detailCart.aspx" className="mobile_info">
-                <img
+              </Link>
+              <Link href="detailCart.aspx" className="mobile_info">
+                <Image
+                  height={400}
+                  width={400}
                   src="/assets/images/sp/iphone/iphone_12_pro_max_white_1.jpg"
                   alt=""
                 />
                 <p className="mobile_name">Iphone 12 pro max</p>
                 <p className="mobile_paid">25.000.000đ</p>
-              </a>
+              </Link>
 
-              <a href="detailCart.aspx" className="mobile_info">
-                <img src="/assets/images/sp/iphone/iphoneSE.jpg" alt="" />
+              <Link href="detailCart.aspx" className="mobile_info">
+                <Image
+                  height={400}
+                  width={400}
+                  src="/assets/images/sp/iphone/iphoneSE.jpg"
+                  alt=""
+                />
                 <p className="mobile_name">Iphone SE 2</p>
                 <p className="mobile_paid">
                   17.550.000đ <s>19.550.000đ</s>
                 </p>
                 <span className="sale">-10%</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>
 
         <div className="sale_off">
           <div className="side_left effect">
-            <a href="#">
-              <img src="/assets/images/banner/img_banner_center_1.jpg" alt="" />
+            <Link href="#">
+              <Image
+                height={400}
+                width={400}
+                src="/assets/images/banner/img_banner_center_1.jpg"
+                alt=""
+              />
               <span></span>
               <span></span>
               <span></span>
               <span></span>
-            </a>
-            <a href="#">
-              <img src="/assets/images/banner/img_banner_center_2.jpg" alt="" />
+            </Link>
+            <Link href="#">
+              <Image
+                height={400}
+                width={400}
+                src="/assets/images/banner/img_banner_center_2.jpg"
+                alt=""
+              />
               <span></span>
               <span></span>
               <span></span>
               <span></span>
-            </a>
+            </Link>
           </div>
           <div className="side_right effect++">
-            <a href="#">
-              <img src="/assets/images/banner/img_banner_center_3.jpg" alt="" />
+            <Link href="#">
+              <Image
+                height={400}
+                width={400}
+                src="/assets/images/banner/img_banner_center_3.jpg"
+                alt=""
+              />
               <span></span>
               <span></span>
               <span></span>
               <span></span>
-            </a>
+            </Link>
           </div>
         </div>
         <div className="sale_device">
@@ -205,15 +261,22 @@ export default function Home() {
                 <h4>Giảm giá lên tới 50%</h4>
               </div>
               <div className="device_product_sale">
-                <a href="#" className="mobile_sale">
-                  <img src="/assets/images/sp/iphone/ip13-pro_2.jpg" alt="" />
+                <Link href="#" className="mobile_sale">
+                  <Image
+                    height={400}
+                    width={400}
+                    src="/assets/images/sp/iphone/ip13-pro_2.jpg"
+                    alt=""
+                  />
                   <div className="right_info">
                     <p className="mobile_name">Điện thoại Iphone 13 ProMax</p>
                     <p className="mobile_paid">30.000.000đ</p>
                   </div>
-                </a>
-                <a href="#" className="mobile_sale">
-                  <img
+                </Link>
+                <Link href="#" className="mobile_sale">
+                  <Image
+                    height={400}
+                    width={400}
                     src="/assets/images/sp/iphone/ipad-pro-12-9-2021-1-0009.jpg"
                     alt=""
                   />
@@ -221,9 +284,11 @@ export default function Home() {
                     <p className="mobile_name">Máy tính bảng Ipad pro 2021</p>
                     <p className="mobile_paid">30.000.000đ</p>
                   </div>
-                </a>
-                <a href="#" className="mobile_sale">
-                  <img
+                </Link>
+                <Link href="#" className="mobile_sale">
+                  <Image
+                    height={400}
+                    width={400}
                     src="/assets/images/sp/samsung/samsung-galaxy-s21-fe.jpg"
                     alt=""
                   />
@@ -235,9 +300,11 @@ export default function Home() {
                   </div>
 
                   <span className="sale">-5%</span>
-                </a>
-                <a href="#" className="mobile_sale">
-                  <img
+                </Link>
+                <Link href="#" className="mobile_sale">
+                  <Image
+                    height={400}
+                    width={400}
                     src="/assets/images/sp/xiaomi/xiaomi-mi-10t-pro_2_.jpg"
                     alt=""
                   />
@@ -248,9 +315,11 @@ export default function Home() {
                     </p>
                   </div>
                   <span className="sale">-2%</span>
-                </a>
-                <a href="#" className="mobile_sale">
-                  <img
+                </Link>
+                <Link href="#" className="mobile_sale">
+                  <Image
+                    height={400}
+                    width={400}
                     src="/assets/images/sp/iphone/iphone_11_white_4_.jpg"
                     alt=""
                   />
@@ -258,9 +327,11 @@ export default function Home() {
                     <p className="mobile_name">Điện thoại Iphone 11</p>
                     <p className="mobile_paid">20.000.000đ</p>
                   </div>
-                </a>
-                <a href="#" className="mobile_sale">
-                  <img
+                </Link>
+                <Link href="#" className="mobile_sale">
+                  <Image
+                    height={400}
+                    width={400}
                     src="/assets/images/sp/samsung/samsung-galaxy-tab-s8-002.jpg"
                     alt=""
                   />
@@ -270,9 +341,11 @@ export default function Home() {
                     </p>
                     <p className="mobile_paid">30.000.000đ</p>
                   </div>
-                </a>
-                <a href="#" className="mobile_sale">
-                  <img
+                </Link>
+                <Link href="#" className="mobile_sale">
+                  <Image
+                    height={400}
+                    width={400}
                     src="/assets/images/sp/xiaomi/xiaomi-mi-11-lite-5g-2_10.jpg"
                     alt=""
                   />
@@ -285,9 +358,11 @@ export default function Home() {
                     </p>
                   </div>
                   <span className="sale">-3%</span>
-                </a>
-                <a href="#" className="mobile_sale">
-                  <img
+                </Link>
+                <Link href="#" className="mobile_sale">
+                  <Image
+                    height={400}
+                    width={400}
                     src="/assets/images/sp/samsung/samsung-galaxy-tab-s7-1.jpg"
                     alt=""
                   />
@@ -300,9 +375,14 @@ export default function Home() {
                     </p>
                   </div>
                   <span className="sale">-5%</span>
-                </a>
-                <a href="#" className="mobile_sale">
-                  <img src="/assets/images/sp/iphone/iphoneSE.jpg" alt="" />
+                </Link>
+                <Link href="#" className="mobile_sale">
+                  <Image
+                    height={400}
+                    width={400}
+                    src="/assets/images/sp/iphone/iphoneSE.jpg"
+                    alt=""
+                  />
                   <div className="right_info">
                     <p className="mobile_name">Điện thoại Iphone SE 2</p>
                     <p className="mobile_paid">
@@ -310,7 +390,7 @@ export default function Home() {
                     </p>
                   </div>
                   <span className="sale">-10%</span>
-                </a>
+                </Link>
               </div>
             </section>
           </div>
