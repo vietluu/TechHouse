@@ -8,6 +8,7 @@ import { Profile } from '@/types/profileType';
 import Image from 'next/image';
 import { useAppSelector } from '@/redux/hooks';
 import { stat } from 'fs';
+import { useRouter } from 'next/navigation';
 type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(
@@ -27,9 +28,9 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem('Trang chủ', 'home'),
-  getItem('Sản phẩm', 'sub1', '', [
-    getItem('Option 1', '1'),
+  getItem('Trang chủ', '/'),
+  getItem('Sản phẩm', '/product', '', [
+    getItem('all product', '/product'),
     getItem('Option 2', '2'),
     getItem('Option 3', '3'),
     getItem('Option 4', '4'),
@@ -39,12 +40,12 @@ const items: MenuItem[] = [
     getItem('Option 6', '6'),
     getItem('Submenu', 'sub3'),
   ]),
-  getItem('Blog', 'blog'),
+  getItem('Blog', '/blog'),
 
-  getItem('Giới thiệu', 'about'),
+  getItem('Giới thiệu', '/about'),
 
-  getItem('Liên hệ', 'contact'),
-  getItem('SignIn/SignUp', 'sign'),
+  getItem('Liên hệ', '/contact'),
+  getItem('SignIn/SignUp', '/sign'),
 ];
 
 // submenu keys of first level
@@ -58,6 +59,7 @@ function Header() {
     name: '',
     image: '',
   });
+  const router = useRouter();
   const data = useAppSelector((state) => state.AuthSlice.data);
   useEffect(() => {
     if (menuToggle) {
@@ -117,6 +119,9 @@ function Header() {
                   onOpenChange={onOpenChange}
                   style={{ width: '100%' }}
                   items={items}
+                  onSelect={async (items: MenuItem) => {
+                    await router.push(`${items?.key}`), setMenuToggle(false);
+                  }}
                 />
               </div>
             </div>
@@ -171,7 +176,10 @@ function Header() {
                     className="rounded-full w-[50px] h-[50px] "
                   />
                 ) : (
-                  <i className="fas fa-user fa-2x"></i>
+                  <Link href="signIn">
+                    {' '}
+                    <i className="fas fa-user fa-2x"></i>
+                  </Link>
                 )}
               </span>{' '}
               {user?.name ? (
