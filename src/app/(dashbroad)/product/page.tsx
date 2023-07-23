@@ -6,10 +6,9 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 export const dynamicParams = true;
 
-const Product = dynamicImport(() => import('@/ui/Product'), { ssr: false });
+const Product = dynamicImport(() => import('@/ui/Product'), { ssr: true });
 type data = any;
 const getData = async (data: number) => {
-  console.log(data);
   // const nextCookies = cookies(); // Get cookies object
   // const token = nextCookies.get('token')?.value // Find cookie
   // {

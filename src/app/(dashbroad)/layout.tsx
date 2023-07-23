@@ -8,6 +8,7 @@ import '/assets/css/slick.css';
 import '/assets/css/owl.carousel.css';
 import 'antd/dist/reset.css';
 import '/assets/css/responsive.css';
+import NextTopLoader from 'nextjs-toploader';
 
 export const metadata: Metadata = {
   title: 'TechHouse',
@@ -23,6 +24,7 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <Providers>
+          <NextTopLoader color="#fff" />
           <Header />
           <Template>{children}</Template>
           <Footer />

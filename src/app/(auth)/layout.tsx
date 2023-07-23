@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
-import '/assets/css/signIn.css';
+import '/assets/css/SignIn.css';
 import 'antd/dist/reset.css';
+import NextTopLoader from 'nextjs-toploader';
 
 export const metadata: Metadata = {
   title: 'TechHouse',
@@ -14,7 +15,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <NextTopLoader />
+        {children}
+      </body>
     </html>
   );
 }
