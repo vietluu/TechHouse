@@ -41,9 +41,11 @@ export default function index({
                   className=" aspect-[4/3]"
                   width={400}
                   height={300}
-                  priority
                   src={value?.thumbnail}
-                  alt=""
+                  alt={value.title}
+                  quality={1}
+                  priority
+                  title={value.title}
                 />
                 <p className="mobile_name pt-2 mb-2 mt-3">{value.title}</p>
                 <p className="mobile_paid mb-2">

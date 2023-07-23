@@ -7,7 +7,7 @@ import { SignIn } from '@/redux/slice/profile';
 function page() {
   const router = useRouter();
   const login = async (data: any) => {
-    const res = await api.post('auth/login', data);
+    const res = await api.post('/auth/login', data);
     if (res.status === 200) {
       console.log(res.data.token);
       localStorage.setItem('token', res.data.token);

@@ -29,7 +29,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "pm2.config.ts",
-    "server.ts"
+    "server.js"
   ],
   "exclude": ["node_modules"]
 }
