@@ -22,26 +22,35 @@ export default function Home() {
         <Slider {...setting}>
           <div className="img-box">
             <Image
-              fill
+              width={1000}
+              height={1000}
               priority
               src="/assets/images/banner/slideshow_1.jpg"
               alt=""
+              className="w-full h-full"
+              quality={100}
             />
           </div>
           <div className="img-box">
             <Image
-              fill
               priority
               src="/assets/images/banner/slideshow_2.jpg"
               alt=""
+              width={1000}
+              height={1000}
+              className="w-full h-full"
+              quality={100}
             />
           </div>
           <div className="img-box">
             <Image
-              fill
+              width={1000}
+              height={1000}
+              quality={100}
               priority
               src="/assets/images/banner/slideshow_3.jpg"
               alt=""
+              className="w-full h-full"
             />
           </div>
         </Slider>

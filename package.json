@@ -59,6 +59,7 @@
     "react-slick": "^0.29.0",
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
+    "sass": "^1.64.1",
     "slick-carousel": "^1.8.1",
     "tailwindcss": "3.3.2",
     "typescript": "5.1.3"

@@ -3,7 +3,7 @@ import { api } from '@/utils/api';
 import { Button, Form, Input } from 'antd';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
-
+import { SignIn } from '@/redux/slice/profile';
 function page() {
   const router = useRouter();
   const login = async (data: any) => {
@@ -45,7 +45,7 @@ function page() {
       </Form>
 
       <p className="mt-2">
-        <span>Chưa có tài khoản?</span> <a> Đăng Ký tại đây!</a>
+        <span>Đã có tài khoản?</span> <a> Đăng Nhập tại đây!</a>
       </p>
     </div>
   );

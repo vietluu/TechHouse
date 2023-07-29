@@ -12,16 +12,15 @@ const nextConfig = {
   swcMinify: true,
     compiler: {
       removeConsole: true,
-    },
-  // experimental: {
-  //   appDir: true,
-  //   mdxRs: true,
-  //   serverActions:true,
-
-  // },
-
+  },
+  generateEtags: false,
+  onDemandEntries: {
+    maxInactiveAge: 1000 * 60 * 60,
+    pagesBufferLength: 5,
+  },
   poweredByHeader: false,
   reactStrictMode: true,
+  productionBrowserSourceMaps: false,
   webpack: (config, { dev, isServer }) => {
     config.resolve.alias['@'] = path.resolve(__dirname, './src');
 
@@ -114,7 +113,7 @@ const nextConfig = {
       );
     }
     config.module.rules.push({
-      test: /\.(jpe?g|png|gif|svg)$/i,
+      test: /\.(jpe?g|png|gif|svg|jpg)$/i,
       use: [
         {
           loader: `img-optimize-loader`,
@@ -124,6 +123,7 @@ const nextConfig = {
               webp: true,
               disableOnDevelopment: true,
               publicPath: 'auto',
+            
             },
           },
         },
