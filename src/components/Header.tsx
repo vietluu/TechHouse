@@ -3,12 +3,10 @@ import Link from 'next/link';
 import { memo, useEffect, useLayoutEffect, useState } from 'react';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
-import { api } from '@/utils/api';
-import { Profile } from '@/types/profileType';
 import Image from 'next/image';
-import { useAppSelector } from '@/redux/hooks';
-import { stat } from 'fs';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { useRouter } from 'next/navigation';
+import { getCart } from '@/redux/slice/cartSlice';
 type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(
@@ -50,17 +48,22 @@ const items: MenuItem[] = [
 
 // submenu keys of first level
 const rootSubmenuKeys = ['sub1', 'sub2'];
+
 function Header() {
   const [menuToggle, setMenuToggle] = useState<Boolean>(false);
   const [openKeys, setOpenKeys] = useState(['']);
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(0);
+  const [show, setShow] = useState(false);
   const [user, setUser] = useState<{ name: string; image: string }>({
     name: '',
     image: '',
   });
+
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((state) => state.CartSlice.data);
   const router = useRouter();
-  const data = useAppSelector((state) => state.AuthSlice.data);
+
   useEffect(() => {
     if (menuToggle) {
       document.body.style.position = 'fixed';
@@ -87,21 +90,20 @@ function Header() {
         image: localStorage.getItem('image') || '',
       });
     }
+    if (localStorage.getItem('id')) {
+      dispatch(getCart(Number(localStorage.getItem('id'))));
+    }
   }, []);
   const onChangeSize = (): void => {
     setSize(window?.innerWidth);
   };
-  // const handleShowDropdown = (e: any): void => {
-  //   e.children[1].classList.toggle('activebtn');
-  //   e.children[2].classList.toggle('open');
-  // };
+
   const scroll = (): void => {
     setPage(window.scrollY);
   };
   const toggleMenu = () => {
     setMenuToggle(!menuToggle);
   };
-  console.log('render');
   return (
     <header>
       <div className="top-header">
@@ -110,7 +112,7 @@ function Header() {
             <div className="icon-menu" onClick={toggleMenu}></div>
           </div>
 
-          {menuToggle && size < 900 && (
+          {menuToggle && size < 1200 && (
             <div className="mobile-menu">
               <div className="mobile-wrapper">
                 <Menu
@@ -155,25 +157,59 @@ function Header() {
               </div>
             )}
 
-            <div className="header-cart">
-              <Link href="cart.aspx">
+            <div
+              className="header-cart relative"
+              onMouseOver={() => setShow(true)}
+              onMouseLeave={() => {
+                setShow(false);
+              }}
+            >
+              <Link href="cart">
                 <span className="cart">
                   <i className="fa fa-cart-plus fa-2x"></i>
-                  <sup id="count">0</sup>
+                  <sup id="count">{data?.carts[0]?.totalProducts || 0}</sup>
                 </span>
                 <span>Giỏ Hàng</span>
               </Link>
+              {user.name && (
+                <>
+                  {show && (
+                    <div className="z-20 right-0 mt-1 cart-list absolute max-w-[250px] w-[250px] max-h-[200px] rounded-sm overflow-y-scroll bg-slate-200 p-1 top-[1.5rem]">
+                      {data?.carts[0].products.length ? (
+                        <>
+                          {data.carts[0].products.map((val) => (
+                            <Link href={`product/${val.id}`}>
+                              <div className="rounded-sm bg-white px-1 py-3 text-black flex flex-row flex-nowrap mb-1">
+                                <span className="w-[87%] mx-0">
+                                  {val.title}
+                                </span>
+                                <span className="w-[13%]">
+                                  {' x '}
+                                  {val?.quantity}
+                                </span>
+                              </div>
+                            </Link>
+                          ))}
+                        </>
+                      ) : (
+                        <h3>no data</h3>
+                      )}
+                    </div>
+                  )}
+                </>
+              )}
             </div>
+
             <div className="header-user flex">
               <span>
                 {user?.image ? (
                   <Image
                     priority
-                    width={50}
-                    height={50}
+                    width={40}
+                    height={40}
                     src={user.image}
                     alt="avt"
-                    className="rounded-full w-[50px] h-[50px] "
+                    className="rounded-full w-[40px] h-[40px] aspect-[1/1] "
                   />
                 ) : (
                   <Link href="signIn">

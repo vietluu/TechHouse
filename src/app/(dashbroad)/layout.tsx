@@ -1,16 +1,9 @@
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import Template from './template';
 import { Metadata } from 'next';
-import { Providers } from '@/redux/Provider';
-import '/assets/css/style.css';
-import '/assets/css/slick.css';
-import '/assets/css/owl.carousel.css';
-import 'antd/dist/reset.css';
-import '/assets/css/responsive.css';
-import '/assets/css/owl.carousel.css';
-import '/assets/css/slick.css';
+import '/assets/scss/style.scss';
 import NextTopLoader from 'nextjs-toploader';
+import Providers from '@/redux/Provider';
 
 export const metadata: Metadata = {
   title: 'TechHouse',
@@ -28,7 +21,7 @@ export default async function RootLayout({
         <Providers>
           <NextTopLoader color="#fff" />
           <Header />
-          <Template>{children}</Template>
+          {children}
           <Footer />
         </Providers>
       </body>
