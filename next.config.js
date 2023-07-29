@@ -10,8 +10,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const isDev = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
 const nextConfig = {
   swcMinify: true,
-    compiler: {
-      removeConsole: true,
+  compiler: {
+    removeConsole: true,
   },
   generateEtags: false,
   onDemandEntries: {
@@ -123,7 +123,6 @@ const nextConfig = {
               webp: true,
               disableOnDevelopment: true,
               publicPath: 'auto',
-            
             },
           },
         },

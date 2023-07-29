@@ -9,6 +9,7 @@ import React, {
   useState,
 } from 'react';
 import Slider, { Settings } from 'react-slick';
+
 function SlideProduct({ image }: { image: [string] }) {
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);

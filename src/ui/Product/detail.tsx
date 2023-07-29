@@ -27,7 +27,7 @@ function detail({ data }: { data: product }) {
       await dispatch(addCart(body));
       dispatch(getCart(Number(localStorage.getItem('id'))));
     }
-    router.push(`signIn?callbackUrl=${window.location.href}`);
+    router.push(`signIn?callbackUrl=${path}`);
   };
 
   const changeCount = useCallback(

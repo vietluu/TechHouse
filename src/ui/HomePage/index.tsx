@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Slider, { Settings } from 'react-slick';
+
 export default function Home() {
   const setting: Settings = {
     arrows: false,
