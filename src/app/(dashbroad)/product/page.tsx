@@ -3,7 +3,7 @@ import dynamicImport from 'next/dynamic';
 import { cookies } from 'next/headers'; // Import cookies
 
 export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 60;
 export const dynamicParams = true;
 
 const Product = dynamicImport(() => import('@/ui/Product'), { ssr: true });

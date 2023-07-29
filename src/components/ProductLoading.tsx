@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { Skeleton } from 'antd';
+
 function ProductLoading() {
   return (
     <div className="flex flex-col max-w-[200px]">

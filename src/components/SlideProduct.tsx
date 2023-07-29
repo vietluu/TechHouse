@@ -9,6 +9,7 @@ import React, {
   useState,
 } from 'react';
 import Slider, { Settings } from 'react-slick';
+
 function SlideProduct({ image }: { image: [string] }) {
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
@@ -34,7 +35,7 @@ function SlideProduct({ image }: { image: [string] }) {
     autoplay: false,
     swipe: true,
     swipeToSlide: true,
-    adaptiveHeight: true,
+    adaptiveHeight: false,
     infinite: true,
     centerPadding: '30px',
     focusOnSelect: true,
@@ -54,10 +55,11 @@ function SlideProduct({ image }: { image: [string] }) {
       >
         {image?.map((data: string) => (
           <Image
-            width={300}
-            height={300}
-            className="aspect-[1/1]"
+            width={1000}
+            height={1000}
+            className="aspect-[1/1] object-contain"
             src={data}
+            quality={100}
             alt="product"
           />
         ))}
@@ -70,8 +72,9 @@ function SlideProduct({ image }: { image: [string] }) {
       >
         {image?.map((data: string) => (
           <Image
-            width={70}
-            height={70}
+            width={700}
+            height={700}
+            quality={100}
             className="aspect-[1/1] mt-4 p-1"
             src={data}
             alt="product"

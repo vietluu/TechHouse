@@ -1,11 +1,35 @@
 'use client';
 import React, { useCallback, useEffect, useState } from 'react';
-import { product } from '@/types/productType';
+import { cartAdd, product } from '@/types/productType';
 import Image from 'next/image';
 import SlideProduct from '@/components/SlideProduct';
 import { Rate } from 'antd';
+import { useAppDispatch } from '@/redux/hooks';
+import { addCart, getCart } from '@/redux/slice/cartSlice';
+import { useRouter, usePathname } from 'next/navigation';
+
 function detail({ data }: { data: product }) {
   const [count, setCount] = useState<number>(1);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const path = usePathname();
+  const addCartData = async () => {
+    if (localStorage.getItem('id')) {
+      const body: cartAdd = {
+        userId: Number(localStorage.getItem('id')),
+        products: [
+          {
+            id: data.id,
+            quantity: count,
+          },
+        ],
+      };
+      await dispatch(addCart(body));
+      dispatch(getCart(Number(localStorage.getItem('id'))));
+    }
+    router.push(`signIn?callbackUrl=${path}`);
+  };
+
   const changeCount = useCallback(
     (value: string) => {
       switch (value) {
@@ -21,6 +45,7 @@ function detail({ data }: { data: product }) {
     },
     [count]
   );
+
   return (
     <section className="fluid_container">
       <div className=" bg-white container grid grid-cols-2 md:grid-cols-1 p-3 my-7">
@@ -32,13 +57,9 @@ function detail({ data }: { data: product }) {
           <div className="product-description">
             <span id="product_id">{data.title}</span>
             <div>
-              <span className="text-sm">{data.rating}</span>
-              <Rate
-                value={data.rating}
-                allowHalf
-                style={{ fontSize: '0.8rem' }}
-              />
-              <span>Đã mua: </span>
+              <span className="text-sm">{data.rating + ' '}</span>
+              <Rate value={data.rating} allowHalf />
+              <span>{'  '}Đã mua: </span>
               <span className="text-sm">{`${data.stock}`}</span>
             </div>
             <p>{data.description}</p>
@@ -52,7 +73,7 @@ function detail({ data }: { data: product }) {
             </div>
             <p className="mobile_paid my-5 bg-slate-300 p-3">
               <span className="text-xl">{data.price + '$  '}</span>
-              <span className="text-sm text-[#eb5757] p-1 bg-[#fff0e9] rounded-sm">
+              <span className="text-[#eb5757] p-1 bg-[#fff0e9] rounded-sm">
                 {'-' + Math.floor(data.discountPercentage) + '%'}
               </span>
             </p>
@@ -83,6 +104,7 @@ function detail({ data }: { data: product }) {
               type="button"
               id="btn_process"
               className="px-4 py-3 bg-green-300"
+              onClick={addCartData}
             >
               Thêm vào giỏ
             </button>

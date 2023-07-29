@@ -14,7 +14,6 @@ export default function index({
   const path = usePathname();
   const router = useRouter();
   const changePage = (value: number) => {
-    console.log(value);
     router.push(path + `?page=${value}`);
   };
   return (
@@ -30,7 +29,7 @@ export default function index({
           </div> */}
 
       <div className="product py-5">
-        <div className="bg-[#dedcdc] p-4 grid place-content-center items-center  gap-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl-grid-cols-4 grid-cols-5	">
+        <div className="bg-[#dedcdc] p-4 grid place-content-center items-center  gap-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5	">
           {data?.products?.length &&
             data.products.map((value: product) => (
               <Link
@@ -39,11 +38,11 @@ export default function index({
               >
                 <Image
                   className=" aspect-[4/3]"
-                  width={400}
-                  height={300}
+                  width={1000}
+                  height={1000}
                   src={value?.thumbnail}
                   alt={value.title}
-                  quality={1}
+                  quality={100}
                   priority
                   title={value.title}
                 />
