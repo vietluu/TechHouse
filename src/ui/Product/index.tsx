@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Pagination, Rate } from 'antd';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
+import ProductLoading from '@/components/ProductLoading';
 
 export default function index({
   data,
@@ -29,8 +30,8 @@ export default function index({
           </div> */}
 
       <div className="product py-5">
-        <div className="bg-[#dedcdc] p-4 grid place-content-center items-center  gap-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5	">
-          {data?.products?.length &&
+        <div className="bg-[#dedcdc] p-4 grid place-content-center items-center  gap-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5	">
+          {data?.products?.length ? (
             data.products.map((value: product) => (
               <Link
                 href={path + '/' + value.id}
@@ -62,7 +63,14 @@ export default function index({
                   <span className="text-sm">{` (${value.stock})`}</span>
                 </div>
               </Link>
-            ))}
+            ))
+          ) : (
+            <>
+              {Array(20).map((index) => (
+                <ProductLoading />
+              ))}
+            </>
+          )}
         </div>
         <div className="flex justify-center items-center py-5">
           <Pagination

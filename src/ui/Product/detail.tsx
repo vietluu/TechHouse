@@ -1,18 +1,19 @@
 'use client';
 import React, { useCallback, useEffect, useState } from 'react';
 import { cartAdd, product } from '@/types/productType';
-import Image from 'next/image';
 import SlideProduct from '@/components/SlideProduct';
 import { Rate } from 'antd';
 import { useAppDispatch } from '@/redux/hooks';
 import { addCart, getCart } from '@/redux/slice/cartSlice';
 import { useRouter, usePathname } from 'next/navigation';
+import BreadCrumb from '@/components/BreadCrumb';
 
 function detail({ data }: { data: product }) {
   const [count, setCount] = useState<number>(1);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const path = usePathname();
+
   const addCartData = async () => {
     if (localStorage.getItem('id')) {
       const body: cartAdd = {
@@ -48,12 +49,13 @@ function detail({ data }: { data: product }) {
 
   return (
     <section className="fluid_container">
-      <div className=" bg-white container grid grid-cols-2 md:grid-cols-1 p-3 my-7">
+      <BreadCrumb title={data.title} />
+      <div className=" bg-white container gri grid grid-cols-2 md:grid-cols-1 p-3 my-3">
         <div className="ml-0 pr-3 max-w-full ">
           <SlideProduct image={data.images} />
         </div>
 
-        <div className="ml-0 mt-0 w-full pl-3">
+        <div className="ml-0 mt-0 w-full pl-3 md:pl-0">
           <div className="product-description">
             <span id="product_id">{data.title}</span>
             <div>
@@ -62,7 +64,7 @@ function detail({ data }: { data: product }) {
               <span>{'  '}Đã mua: </span>
               <span className="text-sm">{`${data.stock}`}</span>
             </div>
-            <p>{data.description}</p>
+            <p className="py-3">{data.description}</p>
             <div className="py-3">
               <span>Thương hiệu: </span>
               <span className=" p-1 bg-slate-300 ml-2">{data.brand}</span>
@@ -73,7 +75,7 @@ function detail({ data }: { data: product }) {
             </div>
             <p className="mobile_paid my-5 bg-slate-300 p-3">
               <span className="text-xl">{data.price + '$  '}</span>
-              <span className="text-[#eb5757] p-1 bg-[#fff0e9] rounded-sm">
+              <span className="text-[#eb5757] p-1 bg-[#fff0e9] rounded-sm ml-7">
                 {'-' + Math.floor(data.discountPercentage) + '%'}
               </span>
             </p>

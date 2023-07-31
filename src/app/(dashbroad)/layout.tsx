@@ -4,6 +4,10 @@ import { Metadata } from 'next';
 import '/assets/scss/style.scss';
 import NextTopLoader from 'nextjs-toploader';
 import Providers from '@/redux/Provider';
+import dynamic from 'next/dynamic';
+const DynamicReduxProvider = dynamic(() => import('@/redux/Provider'), {
+  ssr: false,
+});
 
 export const metadata: Metadata = {
   title: 'TechHouse',
@@ -18,12 +22,12 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>
+        <DynamicReduxProvider>
           <NextTopLoader color="#fff" />
           <Header />
           {children}
           <Footer />
-        </Providers>
+        </DynamicReduxProvider>
       </body>
     </html>
   );

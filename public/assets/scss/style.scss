@@ -170,7 +170,7 @@ body {
 header {
   .top-header {
     width: 100%;
-    padding: 10px;
+    padding: 5px 0;
     background-color: $background-color_2;
 
     .top-header-container {
@@ -1171,5 +1171,10 @@ header {
         }
       }
     }
+  }
+}
+.ant-breadcrumb{
+  li{
+    margin: 0 5px !important;
   }
 }

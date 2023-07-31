@@ -55,6 +55,7 @@ function Header() {
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(0);
   const [show, setShow] = useState(false);
+  const [userMenu, setUsermenu] = useState(false);
   const [user, setUser] = useState<{ name: string; image: string }>({
     name: '',
     image: '',
@@ -71,6 +72,7 @@ function Header() {
       document.body.style.position = 'static';
     }
   }, [menuToggle]);
+
   const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
     if (rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
@@ -79,6 +81,7 @@ function Header() {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
     }
   };
+
   useLayoutEffect(() => {
     setSize(window?.innerWidth);
     window.addEventListener('scroll', scroll);
@@ -93,7 +96,8 @@ function Header() {
     if (localStorage.getItem('id')) {
       dispatch(getCart(Number(localStorage.getItem('id'))));
     }
-  }, []);
+  }, [localStorage.getItem('token')]);
+
   const onChangeSize = (): void => {
     setSize(window?.innerWidth);
   };
@@ -103,6 +107,9 @@ function Header() {
   };
   const toggleMenu = () => {
     setMenuToggle(!menuToggle);
+  };
+  const signOut = () => {
+    localStorage.removeItem('token');
   };
   return (
     <header>
@@ -147,7 +154,7 @@ function Header() {
             {size > 900 && (
               <div className="flex">
                 <span>
-                  <i className="fas fa-phone fa-2x"></i>
+                  <span className="fas fa-phone fa-2x"></span>
                 </span>
                 <span>
                   Hotline:
@@ -200,32 +207,37 @@ function Header() {
               )}
             </div>
 
-            <div className="header-user flex">
-              <span>
-                {user?.image ? (
-                  <Image
-                    priority
-                    width={40}
-                    height={40}
-                    src={user.image}
-                    alt="avt"
-                    className="rounded-full w-[40px] h-[40px] aspect-[1/1] "
-                  />
+            <div className="header-user">
+              <div
+                className=" relative"
+                onMouseOver={(e) => setUsermenu(true)}
+                onMouseLeave={() => setUsermenu(false)}
+              >
+                {localStorage.getItem('token') ? (
+                  <>
+                    <Image
+                      priority
+                      width={40}
+                      height={40}
+                      src={user.image}
+                      alt="avt"
+                      className=" inline-block rounded-full w-[40px] h-[40px] aspect-[1/1] "
+                    />
+                    <span className="!m-0 pl-1 inline-block">{user.name}</span>
+                    {userMenu && (
+                      <ul className="absolute bottom-[-45px] right-0 z-20 bg-white shadow-md shadow-gray-400 text-black p-3 list-none">
+                        <li onClick={signOut}>Sign Out</li>
+                      </ul>
+                    )}
+                  </>
                 ) : (
-                  <Link href="signIn">
+                  <Link href="signIn" className="flex">
                     {' '}
-                    <i className="fas fa-user fa-2x"></i>
+                    <span className="fas fa-user fa-2x"></span>
+                    <span className="pl-1"> Đăng Ký/ Đăng Nhập</span>
                   </Link>
                 )}
-              </span>{' '}
-              {user?.name ? (
-                <span>{user.name}</span>
-              ) : (
-                <span>
-                  {' '}
-                  <Link href="signIn">Đăng Ký/ Đăng Nhập </Link>
-                </span>
-              )}
+              </div>
             </div>
           </div>
         </div>

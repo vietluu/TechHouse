@@ -15,6 +15,13 @@ function SlideProduct({ image }: { image: [string] }) {
   const [nav2, setNav2] = useState(null);
   const ref1 = useRef(null);
   const ref2 = useRef(null);
+
+  useLayoutEffect(() => {
+    if (image.length < 4) {
+      image.push(...image);
+    }
+  }, []);
+
   const setting: Settings = {
     arrows: false,
     dots: false,
@@ -72,8 +79,8 @@ function SlideProduct({ image }: { image: [string] }) {
       >
         {image?.map((data: string) => (
           <Image
-            width={700}
-            height={700}
+            width={100}
+            height={100}
             quality={100}
             className="aspect-[1/1] mt-4 p-1"
             src={data}
