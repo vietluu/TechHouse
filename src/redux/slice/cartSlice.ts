@@ -35,6 +35,7 @@ export const cartSlice = createSlice({
       .addCase(getCart.rejected, (state) => {
         state.hasErr = true;
         state.isLoading = false;
+        state.data = null;
       })
       .addCase(addCart.pending, (state) => {
         state.isLoading = true;

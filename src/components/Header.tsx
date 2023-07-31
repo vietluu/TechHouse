@@ -81,7 +81,6 @@ function Header() {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
     }
   };
-
   useLayoutEffect(() => {
     setSize(window?.innerWidth);
     window.addEventListener('scroll', scroll);
@@ -93,9 +92,8 @@ function Header() {
         image: localStorage.getItem('image') || '',
       });
     }
-    if (localStorage.getItem('id')) {
-      dispatch(getCart(Number(localStorage.getItem('id'))));
-    }
+
+    dispatch(getCart(Number(localStorage.getItem('id'))));
   }, [localStorage.getItem('token')]);
 
   const onChangeSize = (): void => {
@@ -108,7 +106,11 @@ function Header() {
   const toggleMenu = () => {
     setMenuToggle(!menuToggle);
   };
-  const signOut = () => {
+  const signOut = async () => {
+    setUsermenu(false);
+    localStorage.removeItem('id');
+    localStorage.removeItem('name');
+    localStorage.removeItem('image');
     localStorage.removeItem('token');
   };
   return (
@@ -174,7 +176,9 @@ function Header() {
               <Link href="cart">
                 <span className="cart">
                   <i className="fa fa-cart-plus fa-2x"></i>
-                  <sup id="count">{data?.carts[0]?.totalProducts || 0}</sup>
+                  <sup id="count">
+                    {data?.carts?.length ? data?.carts[0].totalProducts : 0}
+                  </sup>
                 </span>
                 <span>Giỏ Hàng</span>
               </Link>
@@ -233,7 +237,7 @@ function Header() {
                 ) : (
                   <Link href="signIn" className="flex">
                     {' '}
-                    <span className="fas fa-user fa-2x"></span>
+                    <i className="fa fa-user fa-2x"></i>
                     <span className="pl-1"> Đăng Ký/ Đăng Nhập</span>
                   </Link>
                 )}
