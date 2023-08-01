@@ -34,7 +34,7 @@ export default function index({
           {data?.products?.length ? (
             data.products.map((value: product) => (
               <Link
-                href={path + '/' + value.id}
+                href={'product/' + value.id}
                 className="rounded-md w-full h-full  bg-white block pt-1 pb-4 px-2"
               >
                 <Image

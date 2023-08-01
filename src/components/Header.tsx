@@ -1,8 +1,8 @@
 'use client';
 import Link from 'next/link';
-import { memo, useEffect, useLayoutEffect, useState } from 'react';
+import { memo, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { MenuProps } from 'antd';
-import { Menu } from 'antd';
+import { Button, Form, Input, Menu } from 'antd';
 import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { useRouter } from 'next/navigation';
@@ -33,11 +33,7 @@ const items: MenuItem[] = [
     getItem('Option 3', '3'),
     getItem('Option 4', '4'),
   ]),
-  getItem('Product view', 'sub2', '', [
-    getItem('Option 5', '5'),
-    getItem('Option 6', '6'),
-    getItem('Submenu', 'sub3'),
-  ]),
+
   getItem('Blog', '/blog'),
 
   getItem('Giới thiệu', '/about'),
@@ -60,7 +56,7 @@ function Header() {
     name: '',
     image: '',
   });
-
+  const refInput = useRef(null);
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.CartSlice.data);
   const router = useRouter();
@@ -113,6 +109,10 @@ function Header() {
     localStorage.removeItem('image');
     localStorage.removeItem('token');
   };
+  const getSearch = async () => {
+    //@ts-ignore
+    await router.push(`/Search?keyword=${refInput.current?.value}`);
+  };
   return (
     <header>
       <div className="top-header">
@@ -144,11 +144,12 @@ function Header() {
           </div>
           <div className="search-bar">
             <input
+              ref={refInput}
               id="search-input"
               type="text"
               placeholder="nhập tìm kiếm..."
             />
-            <button type="button">
+            <button type="button" onClick={(e) => getSearch()}>
               <i className="fas fa-search"></i>
             </button>
           </div>
@@ -175,7 +176,7 @@ function Header() {
             >
               <Link href="cart">
                 <span className="cart">
-                  <i className="fa fa-cart-plus fa-2x"></i>
+                  <b className="fa fa-cart-plus fa-2x"></b>
                   <sup id="count">
                     {data?.carts?.length ? data?.carts[0].totalProducts : 0}
                   </sup>
@@ -237,7 +238,7 @@ function Header() {
                 ) : (
                   <Link href="signIn" className="flex">
                     {' '}
-                    <i className="fa fa-user fa-2x"></i>
+                    <b className="fa fa-user fa-2x"></b>
                     <span className="pl-1"> Đăng Ký/ Đăng Nhập</span>
                   </Link>
                 )}
@@ -254,7 +255,7 @@ function Header() {
             placeholder="nhập tìm kiếm..."
           />
           <button type="button">
-            <i className="fas fa-search"></i>
+            <b className="fas fa-search"></b>
           </button>
         </div>
       </div>
@@ -279,20 +280,7 @@ function Header() {
                 </li>
               </ul>
             </li>
-            <li>
-              <Link href="productIphone.aspx">Product View</Link>
-              <ul className="sub-menu">
-                <li>
-                  <Link href="detailCart.aspx?id=1">iphone 13 pro max</Link>
-                </li>
-                <li>
-                  <Link href="#">xiaomi 12 pro</Link>
-                </li>
-                <li>
-                  <Link href="#">samsung galaxy s22</Link>
-                </li>
-              </ul>
-            </li>
+
             <li>
               <Link href="blog.aspx">Blog</Link>
             </li>
