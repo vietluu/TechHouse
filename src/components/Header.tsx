@@ -93,7 +93,7 @@ function Header() {
     }
 
     dispatch(getCart(Number(localStorage.getItem('id'))));
-  }, [userData]);
+  }, []);
 
   const onChangeSize = (): void => {
     setSize(window?.innerWidth);
@@ -112,6 +112,11 @@ function Header() {
     localStorage.removeItem('name');
     localStorage.removeItem('image');
     localStorage.removeItem('token');
+    setUser({
+      name: '',
+      image: '',
+    });
+    dispatch(getCart(Number(localStorage.getItem('id'))));
   };
   const getSearch = async () => {
     //@ts-ignore
@@ -187,7 +192,7 @@ function Header() {
                 </span>
                 <span>Giỏ Hàng</span>
               </Link>
-              {userData && (
+              {user.name && (
                 <>
                   {show && (
                     <div className="z-20 right-0 mt-1 cart-list absolute max-w-[250px] w-[250px] max-h-[200px] rounded-sm overflow-y-scroll bg-slate-200 p-1 top-[1.5rem]">
@@ -222,7 +227,7 @@ function Header() {
                 onMouseOver={(e) => setUsermenu(true)}
                 onMouseLeave={() => setUsermenu(false)}
               >
-                {localStorage.getItem('token') ? (
+                {user.name ? (
                   <>
                     <Image
                       priority
@@ -232,9 +237,11 @@ function Header() {
                       alt="avt"
                       className=" inline-block rounded-full w-[40px] h-[40px] aspect-[1/1] "
                     />
-                    <span className="!m-0 pl-1 inline-block">{user.name}</span>
+                    <span className="!m-0 lg:hidden pl-1 inline-block">
+                      {user.name}
+                    </span>
                     {userMenu && (
-                      <ul className="absolute bottom-[-45px] right-0 z-20 bg-white shadow-md shadow-gray-400 text-black p-3 list-none">
+                      <ul className="min-w-[80px] absolute bottom-[-45px] right-0 z-20 bg-white shadow-md shadow-gray-400 text-black p-3 list-none">
                         <li onClick={signOutAction}>Sign Out</li>
                       </ul>
                     )}
