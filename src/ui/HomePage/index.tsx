@@ -1,4 +1,5 @@
 'use client';
+import AdModal from '@/components/AdModal';
 import Image from 'next/image';
 import Link from 'next/link';
 import Slider, { Settings } from 'react-slick';
@@ -19,6 +20,7 @@ export default function Home() {
   };
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
+      <AdModal />
       <div className="slideshow-container">
         <Slider {...setting}>
           <div className="img-box">

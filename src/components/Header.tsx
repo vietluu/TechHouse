@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { memo, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { memo, use, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { MenuProps } from 'antd';
 import { Button, Form, Input, Menu } from 'antd';
 import Image from 'next/image';
@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { useRouter } from 'next/navigation';
 import { getCart } from '@/redux/slice/cartSlice';
 import { signOut } from '@/redux/slice/profile';
+import Item from 'antd/es/list/Item';
 type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(
@@ -25,24 +26,6 @@ function getItem(
     type,
   } as MenuItem;
 }
-
-const items: MenuItem[] = [
-  getItem('Trang chủ', '/'),
-  getItem('Sản phẩm', '/product', '', [
-    getItem('all product', '/product'),
-    getItem('Option 2', '2'),
-    getItem('Option 3', '3'),
-    getItem('Option 4', '4'),
-  ]),
-
-  getItem('Blog', '/blog'),
-
-  getItem('Giới thiệu', '/about'),
-
-  getItem('Liên hệ', '/contact'),
-  getItem('SignIn/SignUp', '/sign'),
-];
-
 // submenu keys of first level
 const rootSubmenuKeys = ['sub1', 'sub2'];
 
@@ -57,19 +40,45 @@ function Header() {
     name: '',
     image: '',
   });
+  const [navData, setNavData] = useState<MenuItem[]>([]);
   const refInput = useRef(null);
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.CartSlice.data);
   const userData = useAppSelector((state) => state.AuthSlice.data);
-
   const router = useRouter();
+  let items: MenuItem[] = [];
+  if (typeof window !== 'undefined') {
+    items = [
+      getItem('Trang chủ', '/'),
+      getItem('Sản phẩm', '/product', '', [
+        getItem('Tất cả sản phẩm', '/product'),
+        getItem('Sản phẩm giảm giá', '#'),
+        getItem('Sản phẩm hot', '#'),
+        getItem('Sản Phẩm mới', '#'),
+      ]),
+
+      getItem('Blog', '/blog'),
+
+      getItem('Giới thiệu', '/about'),
+
+      getItem('Liên hệ', '/contact'),
+      localStorage?.getItem('token')
+        ? getItem('SignOut', 'signout')
+        : getItem('SignIn/SignUp', '/signIn'),
+    ];
+  }
 
   useEffect(() => {
     if (menuToggle) {
       document.body.style.position = 'fixed';
+      document.body.style.height = '100vh';
+      document.body.style.overflowY = 'hidden';
     } else {
       document.body.style.position = 'static';
+      document.body.style.height = 'auto';
+      document.body.style.overflowY = 'auto';
     }
+    items.length && setNavData(items);
   }, [menuToggle]);
 
   const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
@@ -80,6 +89,7 @@ function Header() {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
     }
   };
+
   useLayoutEffect(() => {
     setSize(window?.innerWidth);
     window.addEventListener('scroll', scroll);
@@ -91,9 +101,8 @@ function Header() {
         image: localStorage.getItem('image') || '',
       });
     }
-
     dispatch(getCart(Number(localStorage.getItem('id'))));
-  }, []);
+  }, [use.name]);
 
   const onChangeSize = (): void => {
     setSize(window?.innerWidth);
@@ -102,9 +111,11 @@ function Header() {
   const scroll = (): void => {
     setPage(window.scrollY);
   };
+
   const toggleMenu = () => {
     setMenuToggle(!menuToggle);
   };
+
   const signOutAction = async () => {
     setUsermenu(false);
     dispatch(signOut);
@@ -116,6 +127,7 @@ function Header() {
       name: '',
       image: '',
     });
+
     dispatch(getCart(Number(localStorage.getItem('id'))));
   };
   const getSearch = async () => {
@@ -138,9 +150,16 @@ function Header() {
                   openKeys={openKeys}
                   onOpenChange={onOpenChange}
                   style={{ width: '100%' }}
-                  items={items}
+                  items={navData}
                   onSelect={async (items: MenuItem) => {
-                    await router.push(`${items?.key}`), setMenuToggle(false);
+                    console.log(items?.key);
+                    if (items?.key == 'signout') {
+                      setMenuToggle(false);
+                      return signOutAction();
+                    }
+                    return (
+                      await router.push(`${items?.key}`), setMenuToggle(false)
+                    );
                   }}
                 />
               </div>
@@ -261,11 +280,12 @@ function Header() {
       <div className="search-bar-mobile">
         <div className="searchbar-wraper">
           <input
+            ref={refInput}
             id="m-search-input"
             type="text"
             placeholder="nhập tìm kiếm..."
           />
-          <button type="button">
+          <button type="button" onClick={(e) => getSearch()}>
             <b className="fas fa-search"></b>
           </button>
         </div>
@@ -281,25 +301,25 @@ function Header() {
               <Link href="product">Sản Phẩm</Link>
               <ul className="sub-menu">
                 <li>
-                  <Link href="productIphone.aspx">iphone</Link>
+                  <Link href="#">Sản phẩm mới</Link>
                 </li>
                 <li>
-                  <Link href="#">samsung</Link>
+                  <Link href="#">Sản phẩm giảm giá</Link>
                 </li>
                 <li>
-                  <Link href="#">xiaomi</Link>
+                  <Link href="#">Sản phẩm hot</Link>
                 </li>
               </ul>
             </li>
 
             <li>
-              <Link href="blog.aspx">Blog</Link>
+              <Link href="blog">Blog</Link>
             </li>
             <li>
-              <Link href="gioithieu.aspx">Giới Thiệu</Link>
+              <Link href="about">Giới Thiệu</Link>
             </li>
             <li>
-              <Link href="#">Liên Hệ</Link>
+              <Link href="contact">Liên Hệ</Link>
             </li>
           </ul>
         </div>

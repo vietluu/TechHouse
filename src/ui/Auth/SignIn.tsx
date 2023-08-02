@@ -40,14 +40,14 @@ function SignIn({ callback }: { callback: string | undefined }) {
         }}
       >
         <h1 className="text-2xl text-center">Đăng Nhập</h1>
-        <Form.Item name="username" label="UserName">
+        <Form.Item name="username" label="Tài khoản">
           <Input id="email" className="w-full" />
         </Form.Item>
 
-        <Form.Item name="password" label="mat khau" className="w-full">
+        <Form.Item name="password" label="Mật khẩu" className="w-full">
           <Input.Password />
         </Form.Item>
-        <Button htmlType="submit">Sign In</Button>
+        <Button htmlType="submit">Đăng nhập</Button>
       </Form>
 
       <p className="mt-2">

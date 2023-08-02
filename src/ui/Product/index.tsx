@@ -4,7 +4,7 @@ import { product } from '@/types/productType';
 import Link from 'next/link';
 import { Pagination, Rate } from 'antd';
 import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import ProductLoading from '@/components/ProductLoading';
 
 export default function index({
@@ -14,8 +14,12 @@ export default function index({
 }) {
   const path = usePathname();
   const router = useRouter();
+  const param = useSearchParams().get('keyword');
   const changePage = (value: number) => {
-    router.push(path + `?page=${value}`);
+    if (param) {
+      return router.push(path + `?keyword=${param}&page=${value}`);
+    }
+    return router.push(path + `?page=${value}`);
   };
   return (
     <div className="fluid_container">

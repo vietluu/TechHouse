@@ -93,7 +93,7 @@ export default function Footer() {
             <ul className="p-1 sm:w-full">
               <li className="pd-1">
                 <i className="pd-1 fas fa-map-marker-alt"></i>
-                <span>Khoa CNTT - 96 Định Công</span>
+                <span>TechHouse - Thanh Xuân, Hà Nội</span>
               </li>
               <li className="pd-1">
                 <i className="pd-1 fas fa-phone-alt"></i>
