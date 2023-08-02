@@ -1,6 +1,6 @@
 'use client';
 import { api } from '@/utils/api';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { useAppDispatch } from '@/redux/hooks';
@@ -11,8 +11,17 @@ function SignIn({ callback }: { callback: string | undefined }) {
   const dispatch = useAppDispatch();
 
   const login = async (data: any) => {
+    message.loading({
+      key: 'loadind',
+      duration: 3,
+      content: 'Đang đăng nhập...',
+    });
     const res = await dispatch(signIn(data));
+    message.destroy();
     if (res.payload.status == 200) {
+      message.success({
+        content: 'Đăng nhập thành công!',
+      });
       let token = res.payload.data.token;
       localStorage.setItem('token', token);
       localStorage.setItem('name', res.payload.data.lastName);
@@ -27,6 +36,10 @@ function SignIn({ callback }: { callback: string | undefined }) {
         return router.push(callback);
       }
       router.push('/');
+    } else {
+      message.error({
+        content: 'Đăng nhập thất bại!',
+      });
     }
   };
 
@@ -50,9 +63,9 @@ function SignIn({ callback }: { callback: string | undefined }) {
         <Button htmlType="submit">Đăng nhập</Button>
       </Form>
 
-      <p className="mt-2">
+      <div className="mt-2 flex flex-row ">
         <span>Chưa có tài khoản?</span> <a> Đăng Ký tại đây!</a>
-      </p>
+      </div>
     </div>
   );
 }

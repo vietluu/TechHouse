@@ -8,7 +8,7 @@ const initialState: ProfileData = {
   hasErr: false,
   data: null,
 };
-export const signIn = createAsyncThunk('/auth/login', async (body: any) => {
+export const signIn = createAsyncThunk('auth/login', async (body: any) => {
   const res: any = await api.post('auth/login', body);
   return res;
 });

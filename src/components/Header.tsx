@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { getCart } from '@/redux/slice/cartSlice';
 import { signOut } from '@/redux/slice/profile';
 import Item from 'antd/es/list/Item';
+import SearchBar from './SearchBar';
 type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(
@@ -41,7 +42,6 @@ function Header() {
     image: '',
   });
   const [navData, setNavData] = useState<MenuItem[]>([]);
-  const refInput = useRef(null);
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.CartSlice.data);
   const userData = useAppSelector((state) => state.AuthSlice.data);
@@ -130,10 +130,7 @@ function Header() {
 
     dispatch(getCart(Number(localStorage.getItem('id'))));
   };
-  const getSearch = async () => {
-    //@ts-ignore
-    await router.push(`/Search?keyword=${refInput.current?.value}`);
-  };
+
   return (
     <header>
       <div className="top-header">
@@ -171,19 +168,11 @@ function Header() {
             </h1>
           </div>
           <div className="search-bar">
-            <input
-              ref={refInput}
-              id="search-input"
-              type="text"
-              placeholder="nhập tìm kiếm..."
-            />
-            <button type="button" onClick={(e) => getSearch()}>
-              <i className="fas fa-search"></i>
-            </button>
+            <SearchBar />
           </div>
           <div className="header-contact">
             {size > 900 && (
-              <div className="flex">
+              <Link href={'tel:19008198'} className="flex">
                 <span>
                   <span className="fas fa-phone fa-2x"></span>
                 </span>
@@ -192,7 +181,7 @@ function Header() {
                   <br />
                   0963638362
                 </span>
-              </div>
+              </Link>
             )}
 
             <div
@@ -218,7 +207,7 @@ function Header() {
                       {data?.carts[0].products.length ? (
                         <>
                           {data.carts[0].products.map((val) => (
-                            <Link href={`product/${val.id}`}>
+                            <Link key={val.id} href={`product/${val.id}`}>
                               <div className="rounded-sm bg-white px-1 py-3 text-black flex flex-row flex-nowrap mb-1">
                                 <span className="w-[87%] mx-0">
                                   {val.title}
@@ -279,15 +268,7 @@ function Header() {
       </div>
       <div className="search-bar-mobile">
         <div className="searchbar-wraper">
-          <input
-            ref={refInput}
-            id="m-search-input"
-            type="text"
-            placeholder="nhập tìm kiếm..."
-          />
-          <button type="button" onClick={(e) => getSearch()}>
-            <b className="fas fa-search"></b>
-          </button>
+          <SearchBar />
         </div>
       </div>
 
