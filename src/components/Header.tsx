@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { useRouter } from 'next/navigation';
 import { getCart } from '@/redux/slice/cartSlice';
+import { signOut } from '@/redux/slice/profile';
 type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(
@@ -59,6 +60,8 @@ function Header() {
   const refInput = useRef(null);
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.CartSlice.data);
+  const userData = useAppSelector((state) => state.AuthSlice.data);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -90,7 +93,7 @@ function Header() {
     }
 
     dispatch(getCart(Number(localStorage.getItem('id'))));
-  }, [localStorage.getItem('token')]);
+  }, [userData]);
 
   const onChangeSize = (): void => {
     setSize(window?.innerWidth);
@@ -102,8 +105,9 @@ function Header() {
   const toggleMenu = () => {
     setMenuToggle(!menuToggle);
   };
-  const signOut = async () => {
+  const signOutAction = async () => {
     setUsermenu(false);
+    dispatch(signOut);
     localStorage.removeItem('id');
     localStorage.removeItem('name');
     localStorage.removeItem('image');
@@ -183,7 +187,7 @@ function Header() {
                 </span>
                 <span>Giỏ Hàng</span>
               </Link>
-              {user.name && (
+              {userData && (
                 <>
                   {show && (
                     <div className="z-20 right-0 mt-1 cart-list absolute max-w-[250px] w-[250px] max-h-[200px] rounded-sm overflow-y-scroll bg-slate-200 p-1 top-[1.5rem]">
@@ -231,7 +235,7 @@ function Header() {
                     <span className="!m-0 pl-1 inline-block">{user.name}</span>
                     {userMenu && (
                       <ul className="absolute bottom-[-45px] right-0 z-20 bg-white shadow-md shadow-gray-400 text-black p-3 list-none">
-                        <li onClick={signOut}>Sign Out</li>
+                        <li onClick={signOutAction}>Sign Out</li>
                       </ul>
                     )}
                   </>

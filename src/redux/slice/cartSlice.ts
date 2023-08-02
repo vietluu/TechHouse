@@ -20,7 +20,11 @@ export const addCart = createAsyncThunk('cart/add', async (body: cartAdd) => {
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {},
+  reducers: {
+    SignOut: (state) => {
+      state.data = null;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(getCart.pending, (state) => {

@@ -9,13 +9,6 @@ export const dynamicParams = true;
 const Product = dynamicImport(() => import('@/ui/Product'), { ssr: true });
 type data = any;
 const getData = async (data: number) => {
-  // const nextCookies = cookies(); // Get cookies object
-  // const token = nextCookies.get('token')?.value // Find cookie
-  // {
-  //   headers: {
-  //     Authorization: 'BEARER ' + token
-  //   }
-  // }
   const res = await api.get(
     `/products?skip=${(data ? data - 1 : 0) * 10}&limit=20`
   );
