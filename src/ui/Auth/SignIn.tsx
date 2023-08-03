@@ -5,10 +5,17 @@ import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { useAppDispatch } from '@/redux/hooks';
 import { signIn } from '@/redux/slice/profile';
+import '/assets/css/SignIn.css';
+import '/assets/css/reset.css';
+import { useLayoutEffect } from 'react';
 
 function SignIn({ callback }: { callback: string | undefined }) {
   const router = useRouter();
   const dispatch = useAppDispatch();
+
+  if (localStorage.getItem('token')) {
+    return router.back();
+  }
 
   const login = async (data: any) => {
     message.loading({
@@ -45,26 +52,29 @@ function SignIn({ callback }: { callback: string | undefined }) {
 
   return (
     <div className="container_form">
-      <Form
-        id="form"
-        layout="vertical"
-        onFinish={async (value) => {
-          await login(value);
-        }}
-      >
-        <h1 className="text-2xl text-center">Đăng Nhập</h1>
-        <Form.Item name="username" label="Tài khoản">
-          <Input id="email" className="w-full" />
-        </Form.Item>
+      <div className="p-1">
+        <Form
+          id="form"
+          layout="vertical"
+          onFinish={async (value) => {
+            await login(value);
+          }}
+        >
+          <h1 className="text-2xl text-center">Đăng Nhập</h1>
+          <Form.Item name="username" label="Tài khoản">
+            <Input id="email" className="w-full" />
+          </Form.Item>
 
-        <Form.Item name="password" label="Mật khẩu" className="w-full">
-          <Input.Password />
-        </Form.Item>
-        <Button htmlType="submit">Đăng nhập</Button>
-      </Form>
-
-      <div className="mt-2 flex flex-row ">
-        <span>Chưa có tài khoản?</span> <a> Đăng Ký tại đây!</a>
+          <Form.Item name="password" label="Mật khẩu" className="w-full">
+            <Input.Password />
+          </Form.Item>
+          <div className="mt-2 flex flex-row justify-around">
+            <Button htmlType="submit">Đăng nhập</Button>
+            <span className="pl-1">
+              <span>Chưa có tài khoản?</span> <a> Đăng Ký tại đây!</a>
+            </span>
+          </div>
+        </Form>
       </div>
     </div>
   );

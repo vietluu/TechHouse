@@ -30,12 +30,24 @@ export default async function page({
       <div className="fluid_container">
         <h3 className="text-2xl py-[50px] text-center">
           {' '}
-          Result for {`"`}
+          Kết quả tìm kiếm {`"`}
           {searchParams.keyword}
-          {`"`}: No Data
+          {`"`}: Không có dữ liệu
         </h3>
       </div>
     );
   }
-  return <Product data={data} />;
+  return (
+    <>
+      <div className="fluid_container">
+        <h3 className="text-2xl pt-3 text-left">
+          {' '}
+          Kết quả tìm kiếm {`"`}
+          {searchParams.keyword}
+          {`"`}:
+        </h3>
+      </div>
+      <Product data={data} />
+    </>
+  );
 }

@@ -45,6 +45,7 @@
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "cookies-next": "^2.1.2",
+    "critters": "^0.0.19",
     "eslint": "^8.43.0",
     "eslint-config-next": "13.4.6",
     "express": "^4.18.2",

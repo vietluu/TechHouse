@@ -52,9 +52,9 @@ function Header() {
       getItem('Trang chủ', '/'),
       getItem('Sản phẩm', '/product', '', [
         getItem('Tất cả sản phẩm', '/product'),
-        getItem('Sản phẩm giảm giá', '#'),
-        getItem('Sản phẩm hot', '#'),
-        getItem('Sản Phẩm mới', '#'),
+        getItem('Sản phẩm giảm giá', '/product'),
+        getItem('Sản phẩm hot', '/product'),
+        getItem('Sản Phẩm mới', '/product'),
       ]),
 
       getItem('Blog', '/blog'),
@@ -282,13 +282,13 @@ function Header() {
               <Link href="product">Sản Phẩm</Link>
               <ul className="sub-menu">
                 <li>
-                  <Link href="#">Sản phẩm mới</Link>
+                  <Link href="/product">Sản phẩm mới</Link>
                 </li>
                 <li>
-                  <Link href="#">Sản phẩm giảm giá</Link>
+                  <Link href="/product">Sản phẩm giảm giá</Link>
                 </li>
                 <li>
-                  <Link href="#">Sản phẩm hot</Link>
+                  <Link href="/product">Sản phẩm hot</Link>
                 </li>
               </ul>
             </li>

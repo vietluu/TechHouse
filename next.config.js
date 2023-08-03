@@ -13,6 +13,10 @@ const nextConfig = {
   compiler: {
     removeConsole: false,
   },
+  experimental: {
+    appDir: true,
+    optimizeCss: true,
+    },
   generateEtags: false,
   onDemandEntries: {
     maxInactiveAge: 1000 * 60 * 60,
@@ -20,7 +24,10 @@ const nextConfig = {
   },
   poweredByHeader: false,
   reactStrictMode: true,
-  productionBrowserSourceMaps: false,
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
+  },
+  
   webpack: (config, { dev, isServer }) => {
     config.resolve.alias['@'] = path.resolve(__dirname, './src');
 

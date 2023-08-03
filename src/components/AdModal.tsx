@@ -26,7 +26,7 @@ const AdModal = () => {
           </p>
           <p>các chức năng có thể sử dụng:</p>
           <ol>
-            <li>Đăng nhập</li>
+            <li>Đăng nhập -{'>'} username: kminchelle, password: 0lelplR</li>
             <li>Tìm kiếm</li>
             <li>Thêm giỏ hàng (có thể xử lí nhưng api không lưu lại)</li>
             <li>một số chức năng đang triển khai...</li>

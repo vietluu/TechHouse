@@ -37,13 +37,13 @@ export default function Footer() {
         <div className="grid grid-cols-3 sm:grid-cols-1 sm:w-full text-left">
           <div className="px-4 sm:p-0 footer__content1">
             <h4 className="pd-3 text-main "> Giới thiệu</h4>
-            <div className="p-2 columns-1 p-1">
+            <div className="p-2 columns-1 p-1 w-full">
               <p className="px-9 text-center lg:px-2 ">
                 Trang mua sắm trực tuyến của thương hiệu Apple ,phụ kiện, giúp
                 bạn tiếp cận xu hướng công nghệ mới nhất.
               </p>
               <img
-                className="p-1 max-w-xs "
+                className="p-1 max-w-xs w-full"
                 src="/assets/Image/logo_bocongthuong.png"
                 alt=""
               />

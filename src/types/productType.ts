@@ -11,6 +11,27 @@ export type product = {
   thumbnail: string;
   stock: number;
 };
+export type Listproduct = {
+  products: [
+    {
+      id: number;
+      title: string;
+      price: string;
+      category: string;
+      description: string;
+      images: [string];
+      discountPercentage: number;
+      rating: number;
+      brand: string;
+      thumbnail: string;
+      stock: number;
+    }
+  ];
+
+  total: number;
+  skip: number;
+  limit: number;
+};
 export type cart = {
   isLoading: Boolean;
   hasErr: Boolean;

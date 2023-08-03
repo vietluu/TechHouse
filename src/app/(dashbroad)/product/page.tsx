@@ -1,13 +1,17 @@
+import ProductLoading from '@/components/ProductLoading';
 import { api } from '@/utils/api';
 import dynamicImport from 'next/dynamic';
-import { cookies } from 'next/headers'; // Import cookies
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 60;
 export const dynamicParams = true;
-
-const Product = dynamicImport(() => import('@/ui/Product'), { ssr: true });
-type data = any;
+// import Product from '@/components/Product';
+import { Listproduct } from '@/types/productType';
+const Product = dynamicImport(() => import('@/ui/Product'), {
+  ssr: false,
+  loading: () => <ProductLoading />,
+});
+type data = { products: []; total: number; skip: number; limit: number };
 const getData = async (data: number) => {
   const res = await api.get(
     `/products?skip=${(data ? data - 1 : 0) * 10}&limit=20`
