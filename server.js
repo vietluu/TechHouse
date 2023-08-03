@@ -24,7 +24,8 @@ function getIPAdress() {
 
 const { isDev } = publicRuntimeConfig;
 const { PORT } = serverRuntimeConfig;
-const app = next({ dev: isDev });
+const HOSTNAME='localhost';
+const app = next({ dev: isDev,hostname: HOSTNAME, port: PORT });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {

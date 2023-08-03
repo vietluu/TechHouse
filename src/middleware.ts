@@ -2,14 +2,16 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  // Clone the request headers and set a new header `x-hello-from-middleware1`
   const requestHeaders = new Headers(request.headers);
+  if (request.nextUrl.pathname.startsWith('/signIn')) {
+    const token = requestHeaders.get('cookie'); // Get cookies object
+    if (token) {
+      return NextResponse.redirect(new URL('/', request.url));
+    }
+  }
   requestHeaders.set('cookie', '');
-
-  // You can also set request headers in NextResponse.rewrite
   const response = NextResponse.next({
     request: {
-      // New request headers
       headers: requestHeaders,
     },
   });

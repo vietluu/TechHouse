@@ -10,6 +10,7 @@ import { getCart } from '@/redux/slice/cartSlice';
 import { signOut } from '@/redux/slice/profile';
 import Item from 'antd/es/list/Item';
 import SearchBar from './SearchBar';
+import Cookies from 'js-cookie';
 type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(
@@ -47,6 +48,7 @@ function Header() {
   const userData = useAppSelector((state) => state.AuthSlice.data);
   const router = useRouter();
   let items: MenuItem[] = [];
+
   if (typeof window !== 'undefined') {
     items = [
       getItem('Trang chủ', '/'),
@@ -119,6 +121,7 @@ function Header() {
   const signOutAction = async () => {
     setUsermenu(false);
     dispatch(signOut);
+    await Cookies.remove('token');
     localStorage.removeItem('id');
     localStorage.removeItem('name');
     localStorage.removeItem('image');

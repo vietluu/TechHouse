@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
-const SignIn = dynamic(() => import('@/ui/Auth/SignIn'), { ssr: false });
 import React from 'react';
+const SignIn = dynamic(() => import('@/ui/Auth/SignIn'), { ssr: false });
 
 type Props = {
   params: { id: string };

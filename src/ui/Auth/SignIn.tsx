@@ -9,13 +9,9 @@ import '/assets/css/SignIn.css';
 import '/assets/css/reset.css';
 import { useLayoutEffect } from 'react';
 
-function SignIn({ callback }: { callback: string | undefined }) {
+const SignIn = ({ callback }: { callback: string | undefined }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-
-  if (localStorage.getItem('token')) {
-    return router.back();
-  }
 
   const login = async (data: any) => {
     message.loading({
@@ -78,6 +74,6 @@ function SignIn({ callback }: { callback: string | undefined }) {
       </div>
     </div>
   );
-}
+};
 
 export default SignIn;
