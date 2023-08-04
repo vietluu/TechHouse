@@ -5,6 +5,7 @@ export function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   if (request.nextUrl.pathname.startsWith('/signIn')) {
     const token = requestHeaders.get('cookie'); // Get cookies object
+    console.log(token);
     if (token) {
       return NextResponse.redirect(new URL('/', request.url));
     }

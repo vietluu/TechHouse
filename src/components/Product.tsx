@@ -3,8 +3,8 @@ import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
 import { product } from '@/types/productType';
-import { Rate } from 'antd';
-
+import dynamic from 'next/dynamic';
+const Star = dynamic(() => import('./Star'), { ssr: false });
 function Product({ value }: { value: product }) {
   return (
     <>
@@ -30,7 +30,7 @@ function Product({ value }: { value: product }) {
           </span>
         </p>
         <div>
-          <Rate value={value.rating} allowHalf style={{ fontSize: '0.8rem' }} />
+          <Star rate={value.rating} star={false} />
           <span className="text-sm">{` (${value.stock})`}</span>
         </div>
       </Link>

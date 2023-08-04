@@ -1,7 +1,10 @@
 import ComingSoon from '@/components/ComingSoon';
+import { Metadata } from 'next';
 import React from 'react';
-
-function page() {
+export const metadata: Metadata = {
+  title: 'Cart',
+};
+function page(): React.JSX.Element {
   return <ComingSoon />;
 }
 

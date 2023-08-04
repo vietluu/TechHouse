@@ -4,7 +4,7 @@ import { product } from '@/types/productType';
 import { Pagination } from 'antd';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import Product from '@/components/Product';
+const Product = dynamic(() => import('@/components/Product'));
 export default function index({
   data,
 }: {
