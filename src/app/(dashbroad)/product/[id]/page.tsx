@@ -9,10 +9,10 @@ const Detail = dynamic(() => import('@/ui/Product/detail'), {
   ssr: false,
 });
 type data = [];
-export async function generateMetadata(
-  { params, searchParams }: PropsType,
-  parent?: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: PropsType): Promise<Metadata> {
   // read route params
   const id = params.id;
 
@@ -20,13 +20,12 @@ export async function generateMetadata(
   const res = await api.get(`/products/${id}`);
 
   // optionally access and extend (rather than replace) parent metadata
-  const previousImages = (await parent)?.openGraph?.images || [];
 
   return {
     title: res.data.title,
 
     openGraph: {
-      images: [`${res.data.thumbnail}`] || [...previousImages],
+      images: [`${res.data.thumbnail}`] || [],
     },
   };
 }
