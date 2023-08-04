@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   keywords: ['next.js', 'reactjs', 'typescript', 'strnix'],
   icons: { icon: '/next.svg', apple: '/next.svg' },
   appleWebApp: true,
+  verification: {
+    google: '13V7E2I7nCJk7IROlz05ZTirDn17vPbKRuAZRm_9H3E',
+  },
   robots: {
     index: false,
     follow: true,
