@@ -9,7 +9,7 @@ function Product({ value }: { value: product }) {
   return (
     <>
       <Link
-        href={'product/' + value?.id}
+        href={'/product/' + value?.id}
         className="rounded-md w-full h-full  bg-white block pt-1 pb-4 px-2"
       >
         <Image

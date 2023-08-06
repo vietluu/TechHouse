@@ -107,7 +107,7 @@ export default function Home({
             <div className="device_product" id="product_show">
               {newProduct.length &&
                 newProduct.map((value: product) => (
-                  <Link href={`product/${value.id}`} className="mobile_info">
+                  <Link href={`/product/${value.id}`} className="mobile_info">
                     <Image
                       height={400}
                       width={400}
@@ -191,7 +191,7 @@ export default function Home({
               <div className="device_product_sale">
                 {saleOff.length &&
                   saleOff.map((value: product) => (
-                    <Link href={`product/${value.id}`} className="mobile_sale">
+                    <Link href={`/product/${value.id}`} className="mobile_sale">
                       <Image
                         height={400}
                         width={400}

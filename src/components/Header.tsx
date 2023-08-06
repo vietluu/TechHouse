@@ -210,14 +210,12 @@ function Header() {
                         <>
                           {data.carts[0].products.map((val: any) => (
                             <Link key={val.id} href={`/product/${val.id}`}>
-                              <div className="rounded-sm bg-white px-1 py-3 text-black flex flex-row flex-nowrap mb-1">
-                                <span className="w-[87%] mx-0">
-                                  {val.title}
-                                </span>
-                                <span className="w-[13%]">
+                              <div className="rounded-sm  bg-white px-1 py-3 text-black flex flex-row flex-nowrap mb-1">
+                                <div className="w-[87%] mx-0">{val.title}</div>
+                                <div className="w-[13%]">
                                   {' x '}
                                   {val?.quantity}
-                                </span>
+                                </div>
                               </div>
                             </Link>
                           ))}
@@ -257,7 +255,7 @@ function Header() {
                     )}
                   </>
                 ) : (
-                  <Link href="signIn" className="flex">
+                  <Link href="/signIn" className="flex">
                     {' '}
                     <b className="fa fa-user fa-2x"></b>
                     <span className="pl-1"> Đăng Ký/ Đăng Nhập</span>
@@ -296,13 +294,13 @@ function Header() {
             </li>
 
             <li>
-              <Link href="blog">Blog</Link>
+              <Link href="/blog">Blog</Link>
             </li>
             <li>
-              <Link href="about">Giới Thiệu</Link>
+              <Link href="/about">Giới Thiệu</Link>
             </li>
             <li>
-              <Link href="contact">Liên Hệ</Link>
+              <Link href="/contact">Liên Hệ</Link>
             </li>
           </ul>
         </div>
