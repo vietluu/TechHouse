@@ -35,32 +35,34 @@ export type Listproduct = {
 export type cart = {
   isLoading: Boolean;
   hasErr: Boolean;
-  data: {
-    carts: [
-      {
-        id: number;
-        products: [
+  data:
+    | {
+        carts: [
           {
             id: number;
-            title: string;
-            price: number;
-            quantity: number;
+            products: [
+              {
+                id: number;
+                title: string;
+                price: number;
+                quantity: number;
+                total: number;
+                discountPercentage: number;
+                discountedPrice: number;
+              }
+            ];
             total: number;
-            discountPercentage: number;
-            discountedPrice: number;
+            discountedTotal: number;
+            userId: number; // user id is 5
+            totalProducts: number;
+            totalQuantity: number;
           }
         ];
         total: number;
-        discountedTotal: number;
-        userId: number; // user id is 5
-        totalProducts: number;
-        totalQuantity: number;
+        skip: number;
+        limit: number;
       }
-    ];
-    total: number;
-    skip: number;
-    limit: number;
-  } | null;
+    | any;
 };
 
 export type cartAdd = {

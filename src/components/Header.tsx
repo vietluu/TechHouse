@@ -48,7 +48,6 @@ function Header() {
   const userData = useAppSelector((state) => state.AuthSlice.data);
   const router = useRouter();
   let items: MenuItem[] = [];
-
   if (typeof window !== 'undefined') {
     items = [
       getItem('Trang chủ', '/'),
@@ -194,7 +193,7 @@ function Header() {
                 setShow(false);
               }}
             >
-              <Link href="cart">
+              <Link href="/cart">
                 <span className="cart">
                   <b className="fa fa-cart-plus fa-2x"></b>
                   <sup id="count">
@@ -209,8 +208,8 @@ function Header() {
                     <div className="z-20 right-0 mt-1 cart-list absolute max-w-[250px] w-[250px] max-h-[200px] rounded-sm overflow-y-scroll bg-slate-200 p-1 top-[1.5rem]">
                       {data?.carts[0].products.length ? (
                         <>
-                          {data.carts[0].products.map((val) => (
-                            <Link key={val.id} href={`product/${val.id}`}>
+                          {data.carts[0].products.map((val: any) => (
+                            <Link key={val.id} href={`/product/${val.id}`}>
                               <div className="rounded-sm bg-white px-1 py-3 text-black flex flex-row flex-nowrap mb-1">
                                 <span className="w-[87%] mx-0">
                                   {val.title}

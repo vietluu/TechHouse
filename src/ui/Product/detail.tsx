@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Listproduct, cartAdd, product } from '@/types/productType';
 import SlideProduct from '@/components/SlideProduct';
-import { Rate } from 'antd';
+import { Rate, message } from 'antd';
 import { useAppDispatch } from '@/redux/hooks';
 import { addCart, getCart } from '@/redux/slice/cartSlice';
 import { useRouter, usePathname } from 'next/navigation';
@@ -28,9 +28,11 @@ function detail({ data }: { data: { product: product; sub: Listproduct } }) {
         ],
       };
       await dispatch(addCart(body));
-      dispatch(getCart(Number(localStorage.getItem('id'))));
+      message.success('thêm thành công!');
+    } else {
+      message.warning('vui lòng đăng nhập!');
+      router.push(`/signIn?callbackUrl=${path}`);
     }
-    router.push(`signIn?callbackUrl=${path}`);
   };
 
   const changeCount = useCallback(

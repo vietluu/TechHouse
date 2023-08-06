@@ -48,6 +48,21 @@ export const cartSlice = createSlice({
       .addCase(addCart.fulfilled, (state, action) => {
         state.isLoading = false;
         state.hasErr = false;
+        action.payload.data.products.map((e: any) => {
+          state.data?.carts[0].products.map((x: any) => {
+            if (x.id == e.id) {
+              x.quantity += e.quantity;
+            }
+          });
+          if (
+            state.data?.carts[0].products.filter((x: any) => x.id == e.id)
+              .length < 1
+          ) {
+            state.data?.carts[0].products.push(e);
+            state.data.carts[0].totalProducts =
+              state.data?.carts[0].totalProducts + 1;
+          }
+        });
       })
       .addCase(addCart.rejected, (state) => {
         state.hasErr = true;
