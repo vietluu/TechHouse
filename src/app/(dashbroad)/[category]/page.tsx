@@ -7,9 +7,9 @@ export const revalidate = 60;
 export const dynamicParams = true;
 const Product = dynamicImport(() => import('@/ui/Product'));
 type data = { products: []; total: number; skip: number; limit: number };
-const getData = async (data: number) => {
+const getData = async (category: string | any, data: number) => {
   const res = await api.get(
-    `/products?skip=${(data ? data - 1 : 0) * 10}&limit=20`
+    `/products/category/${category}?skip=${(data ? data - 1 : 0) * 10}&limit=20`
   );
   return res.data;
 };
@@ -21,10 +21,9 @@ export default async function page({
   params,
   searchParams,
 }: {
-  params: string;
+  params: string | any;
   searchParams: { [key: string]: string };
 }) {
-  let page = Number(searchParams.page) || 1;
-  const data: data = await getData(page);
+  const data: data = await getData(params?.category, Number(searchParams.page));
   return <Product data={data} />;
 }

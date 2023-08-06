@@ -64,6 +64,7 @@ function SlideProduct({ image }: { image: [string] }) {
           <Image
             width={1000}
             height={1000}
+            priority
             className="aspect-[1/1] object-contain"
             src={data}
             quality={100}
@@ -81,6 +82,7 @@ function SlideProduct({ image }: { image: [string] }) {
           <Image
             width={100}
             height={100}
+            loading="lazy"
             quality={100}
             className="aspect-[1/1] mt-4 p-1"
             src={data}

@@ -1,7 +1,7 @@
 export type product = {
   id: number;
   title: string;
-  price: string;
+  price: number;
   category: string;
   description: string;
   images: [string];
@@ -16,7 +16,7 @@ export type Listproduct = {
     {
       id: number;
       title: string;
-      price: string;
+      price: number;
       category: string;
       description: string;
       images: [string];

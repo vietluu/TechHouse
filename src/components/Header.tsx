@@ -270,7 +270,7 @@ function Header() {
         </div>
       </div>
       <div className="search-bar-mobile">
-        <div className="searchbar-wraper">
+        <div className="searchbar-wraper bg-white shadow-sm shadow-slate-400">
           <SearchBar />
         </div>
       </div>

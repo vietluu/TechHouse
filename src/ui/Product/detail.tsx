@@ -1,18 +1,20 @@
 'use client';
 import React, { useCallback, useEffect, useState } from 'react';
-import { cartAdd, product } from '@/types/productType';
+import { Listproduct, cartAdd, product } from '@/types/productType';
 import SlideProduct from '@/components/SlideProduct';
 import { Rate } from 'antd';
 import { useAppDispatch } from '@/redux/hooks';
 import { addCart, getCart } from '@/redux/slice/cartSlice';
 import { useRouter, usePathname } from 'next/navigation';
 import BreadCrumb from '@/components/BreadCrumb';
+import Product from '@/components/Product';
 
-function detail({ data }: { data: product }) {
+function detail({ data }: { data: { product: product; sub: Listproduct } }) {
   const [count, setCount] = useState<number>(1);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const path = usePathname();
+  const { product, sub } = data;
 
   const addCartData = async () => {
     if (localStorage.getItem('id')) {
@@ -20,7 +22,7 @@ function detail({ data }: { data: product }) {
         userId: Number(localStorage.getItem('id')),
         products: [
           {
-            id: data.id,
+            id: product.id,
             quantity: count,
           },
         ],
@@ -49,34 +51,34 @@ function detail({ data }: { data: product }) {
 
   return (
     <section className="fluid_container">
-      <BreadCrumb title={data.title} />
+      <BreadCrumb title={product.title} />
       <div className=" bg-white container gri grid grid-cols-2 md:grid-cols-1 p-3 my-3">
         <div className="ml-0 pr-3 max-w-full ">
-          <SlideProduct image={data.images} />
+          <SlideProduct image={product.images} />
         </div>
 
         <div className="ml-0 mt-0 w-full pl-3 md:pl-0">
           <div className="product-description">
-            <span id="product_id">{data.title}</span>
+            <span id="product_id">{product.title}</span>
             <div>
-              <span className="text-sm">{data.rating + ' '}</span>
-              <Rate value={data.rating} allowHalf />
+              <span className="text-sm">{product.rating + ' '}</span>
+              <Rate value={product.rating} allowHalf />
               <span>{'  '}Đã mua: </span>
-              <span className="text-sm">{`${data.stock}`}</span>
+              <span className="text-sm">{`${product.stock}`}</span>
             </div>
-            <p className="py-3">{data.description}</p>
+            <p className="py-3">{product.description}</p>
             <div className="py-3">
               <span>Thương hiệu: </span>
-              <span className=" p-1 bg-slate-300 ml-2">{data.brand}</span>
+              <span className=" p-1 bg-slate-300 ml-2">{product.brand}</span>
             </div>
             <div className="py-3">
               <span>Phân loại: </span>
-              <span className=" p-1 bg-slate-300 ml-2">{data.category}</span>
+              <span className=" p-1 bg-slate-300 ml-2">{product.category}</span>
             </div>
             <p className="mobile_paid my-5 bg-slate-300 p-3">
-              <span className="text-xl">{data.price + '$  '}</span>
+              <span className="text-xl">{product.price + '$  '}</span>
               <span className="text-[#eb5757] p-1 bg-[#fff0e9] rounded-sm ml-7">
-                {'-' + Math.floor(data.discountPercentage) + '%'}
+                {'-' + Math.floor(product.discountPercentage) + '%'}
               </span>
             </p>
             <div>
@@ -110,6 +112,18 @@ function detail({ data }: { data: product }) {
             >
               Thêm vào giỏ
             </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="product_title">
+        <h2>Sản phẩm liên quan</h2>
+      </div>
+      <div className="fluid_container">
+        <div className="product py-5">
+          <div className="bg-[#dedcdc] p-4 grid place-content-center items-center  gap-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5	">
+            {sub?.products?.length &&
+              sub.products.map((value: product) => <Product value={value} />)}
           </div>
         </div>
       </div>

@@ -1,10 +1,17 @@
 'use client';
 import AdModal from '@/components/AdModal';
+import { product } from '@/types/productType';
 import Image from 'next/image';
 import Link from 'next/link';
 import Slider, { Settings } from 'react-slick';
 
-export default function Home() {
+export default function Home({
+  saleOff,
+  newProduct,
+}: {
+  saleOff: product[];
+  newProduct: product[];
+}) {
   const setting: Settings = {
     arrows: false,
     dots: true,
@@ -23,7 +30,7 @@ export default function Home() {
       <AdModal />
       <div className="slideshow-container">
         <Slider {...setting}>
-          <div className="img-box">
+          <Link className="img-box" href={'mens-watches'}>
             <Image
               width={1000}
               height={1000}
@@ -33,8 +40,8 @@ export default function Home() {
               className="w-full h-full"
               quality={100}
             />
-          </div>
-          <div className="img-box">
+          </Link>
+          <Link className="img-box" href={'laptops'}>
             <Image
               priority
               src="/assets/images/banner/slideshow_2.jpg"
@@ -44,8 +51,8 @@ export default function Home() {
               className="w-full h-full"
               quality={100}
             />
-          </div>
-          <div className="img-box">
+          </Link>
+          <Link className="img-box" href={'lighting'}>
             <Image
               width={1000}
               height={1000}
@@ -55,42 +62,38 @@ export default function Home() {
               alt=""
               className="w-full h-full"
             />
-          </div>
+          </Link>
         </Slider>
       </div>
 
       <div className="news">
         <div className="news-container">
-          <div className="tab-news">
-            <Link href="#">
-              <Image
-                height={400}
-                width={400}
-                src="/assets/images/banner/img_banner_home_1.jpg"
-                alt=""
-              />
-            </Link>
-          </div>
-          <div className="tab-news">
-            <Link href="#">
-              <Image
-                height={400}
-                width={400}
-                src="/assets/images/banner/img_banner_home_2.jpg"
-                alt=""
-              />
-            </Link>
-          </div>
-          <div className="tab-news">
-            <Link href="#">
-              <Image
-                height={400}
-                width={400}
-                src="/assets/images/banner/img_banner_home_3.jpg"
-                alt=""
-              />
-            </Link>
-          </div>
+          <Link href="mens-watches" className="tab-news">
+            <Image
+              height={400}
+              width={400}
+              src="/assets/images/banner/img_banner_home_1.jpg"
+              alt=""
+            />
+          </Link>
+
+          <Link href="smartphones" className="tab-news">
+            <Image
+              height={400}
+              width={400}
+              src="/assets/images/banner/img_banner_home_2.jpg"
+              alt=""
+            />
+          </Link>
+
+          <Link href="product" className="tab-news">
+            <Image
+              height={400}
+              width={400}
+              src="/assets/images/banner/img_banner_home_3.jpg"
+              alt=""
+            />
+          </Link>
         </div>
       </div>
       <div className="fluid_container">
@@ -102,130 +105,43 @@ export default function Home() {
             </div>
 
             <div className="device_product" id="product_show">
-              <Link href="detailCart.aspx" className="mobile_info">
-                <Image
-                  height={400}
-                  width={400}
-                  src="/assets/images/sp/iphone/ip13-pro_2.jpg"
-                  alt=""
-                />
-                <p className="mobile_name">Iphone 13 ProMax</p>
-                <p className="mobile_paid">30.000.000đ</p>
-              </Link>
-              <Link href="detailCart.aspx" className="mobile_info">
-                <Image
-                  height={400}
-                  width={400}
-                  src="/assets/images/sp/iphone/ipad-pro-12-9-2021-1-0009.jpg"
-                  alt=""
-                />
-                <p className="mobile_name">Ipad pro 2021</p>
-                <p className="mobile_paid">30.000.000đ</p>
-              </Link>
-              <Link href="detailCart.aspx" className="mobile_info">
-                <Image
-                  height={400}
-                  width={400}
-                  src="/assets/images/sp/samsung/samsung-galaxy-s21-fe.jpg"
-                  alt=""
-                />
-                <p className="mobile_name">Samsung s21 fe</p>
-                <p className="mobile_paid">
-                  25.900.000đ <s> 27.000.000đ</s>
-                </p>
-
-                <span className="sale">-5%</span>
-              </Link>
-              <Link href="detailCart.aspx" className="mobile_info">
-                <Image
-                  height={400}
-                  width={400}
-                  src="/assets/images/sp/xiaomi/xiaomi-mi-10t-pro_2_.jpg"
-                  alt=""
-                />
-                <p className="mobile_name">xiaomi Mi 10t Pro</p>
-                <p className="mobile_paid">
-                  26.550.000đ <s>28.800.000đ</s>
-                </p>
-                <span className="sale">-2%</span>
-              </Link>
-              <Link href="detailCart.aspx" className="mobile_info">
-                <Image
-                  height={400}
-                  width={400}
-                  src="/assets/images/sp/iphone/iphone_11_white_4_.jpg"
-                  alt=""
-                />
-                <p className="mobile_name">Iphone 11</p>
-                <p className="mobile_paid">20.000.000đ</p>
-              </Link>
-              <Link href="detailCart.aspx" className="mobile_info">
-                <Image
-                  height={400}
-                  width={400}
-                  src="/assets/images/sp/samsung/samsung-galaxy-tab-s8-002.jpg"
-                  alt=""
-                />
-                <p className="mobile_name">Samsung galaxy tab S8</p>
-                <p className="mobile_paid">30.000.000đ</p>
-              </Link>
-              <Link href="detailCart.aspx" className="mobile_info">
-                <Image
-                  height={400}
-                  width={400}
-                  src="/assets/images/sp/xiaomi/xiaomi-mi-11-lite-5g-2_10.jpg"
-                  alt=""
-                />
-                <p className="mobile_name">Xiaomi mi11 lite 5g</p>
-                <p className="mobile_paid">
-                  26.600.000đ <s>28.300.000đ</s>
-                </p>
-                <span className="sale">-3%</span>
-              </Link>
-              <Link href="detailCart.aspx" className="mobile_info">
-                <Image
-                  height={400}
-                  width={400}
-                  src="/assets/images/sp/samsung/samsung-galaxy-tab-s7-1.jpg"
-                  alt=""
-                />
-                <p className="mobile_name">Samsung galaxy tab S8</p>
-                <p className="mobile_paid">
-                  26.600.000đ <s>28.300.000đ</s>
-                </p>
-                <span className="sale">-5%</span>
-              </Link>
-              <Link href="detailCart.aspx" className="mobile_info">
-                <Image
-                  height={400}
-                  width={400}
-                  src="/assets/images/sp/iphone/iphone_12_pro_max_white_1.jpg"
-                  alt=""
-                />
-                <p className="mobile_name">Iphone 12 pro max</p>
-                <p className="mobile_paid">25.000.000đ</p>
-              </Link>
-
-              <Link href="detailCart.aspx" className="mobile_info">
-                <Image
-                  height={400}
-                  width={400}
-                  src="/assets/images/sp/iphone/iphoneSE.jpg"
-                  alt=""
-                />
-                <p className="mobile_name">Iphone SE 2</p>
-                <p className="mobile_paid">
-                  17.550.000đ <s>19.550.000đ</s>
-                </p>
-                <span className="sale">-10%</span>
-              </Link>
+              {newProduct.length &&
+                newProduct.map((value: product) => (
+                  <Link href={`product/${value.id}`} className="mobile_info">
+                    <Image
+                      height={400}
+                      width={400}
+                      className="aspect-[1/1] "
+                      src={value.thumbnail}
+                      alt={value.title}
+                    />
+                    <p className="mobile_name">{value.title}</p>
+                    <p className="mobile_paid">
+                      {value.price} ${' '}
+                      {value.discountPercentage > 0 && (
+                        <s>
+                          {(
+                            value.price /
+                            (1 - value.discountPercentage / 100)
+                          ).toFixed(2)}
+                          $
+                        </s>
+                      )}
+                    </p>
+                    {value.discountPercentage > 0 && (
+                      <span className="sale animate-pulse">
+                        -{Math.ceil(value.discountPercentage)}%
+                      </span>
+                    )}
+                  </Link>
+                ))}
             </div>
           </section>
         </div>
 
         <div className="sale_off">
           <div className="side_left effect">
-            <Link href="#">
+            <Link href="laptops">
               <Image
                 height={400}
                 width={400}
@@ -237,7 +153,7 @@ export default function Home() {
               <span></span>
               <span></span>
             </Link>
-            <Link href="#">
+            <Link href="laptops">
               <Image
                 height={400}
                 width={400}
@@ -251,7 +167,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="side_right effect++">
-            <Link href="#">
+            <Link href="laptops">
               <Image
                 height={400}
                 width={400}
@@ -273,136 +189,40 @@ export default function Home() {
                 <h4>Giảm giá lên tới 50%</h4>
               </div>
               <div className="device_product_sale">
-                <Link href="#" className="mobile_sale">
-                  <Image
-                    height={400}
-                    width={400}
-                    src="/assets/images/sp/iphone/ip13-pro_2.jpg"
-                    alt=""
-                  />
-                  <div className="right_info">
-                    <p className="mobile_name">Điện thoại Iphone 13 ProMax</p>
-                    <p className="mobile_paid">30.000.000đ</p>
-                  </div>
-                </Link>
-                <Link href="#" className="mobile_sale">
-                  <Image
-                    height={400}
-                    width={400}
-                    src="/assets/images/sp/iphone/ipad-pro-12-9-2021-1-0009.jpg"
-                    alt=""
-                  />
-                  <div className="right_info">
-                    <p className="mobile_name">Máy tính bảng Ipad pro 2021</p>
-                    <p className="mobile_paid">30.000.000đ</p>
-                  </div>
-                </Link>
-                <Link href="#" className="mobile_sale">
-                  <Image
-                    height={400}
-                    width={400}
-                    src="/assets/images/sp/samsung/samsung-galaxy-s21-fe.jpg"
-                    alt=""
-                  />
-                  <div className="right_info">
-                    <p className="mobile_name">Điện thoại Samsung s21 fe</p>
-                    <p className="mobile_paid">
-                      25.900.000đ <s> 27.000.000đ</s>
-                    </p>
-                  </div>
+                {saleOff.length &&
+                  saleOff.map((value: product) => (
+                    <Link href={`product/${value.id}`} className="mobile_sale">
+                      <Image
+                        height={400}
+                        width={400}
+                        className="aspect-[1/1]"
+                        src={value.thumbnail}
+                        alt={value.title}
+                      />
+                      <div className="right_info">
+                        <p className="mobile_name">{value.title}</p>
 
-                  <span className="sale">-5%</span>
-                </Link>
-                <Link href="#" className="mobile_sale">
-                  <Image
-                    height={400}
-                    width={400}
-                    src="/assets/images/sp/xiaomi/xiaomi-mi-10t-pro_2_.jpg"
-                    alt=""
-                  />
-                  <div className="right_info">
-                    <p className="mobile_name">Điện thoại xiaomi Mi 10t Pro</p>
-                    <p className="mobile_paid">
-                      26.550.000đ <s>28.800.000đ</s>
-                    </p>
-                  </div>
-                  <span className="sale">-2%</span>
-                </Link>
-                <Link href="#" className="mobile_sale">
-                  <Image
-                    height={400}
-                    width={400}
-                    src="/assets/images/sp/iphone/iphone_11_white_4_.jpg"
-                    alt=""
-                  />
-                  <div className="right_info">
-                    <p className="mobile_name">Điện thoại Iphone 11</p>
-                    <p className="mobile_paid">20.000.000đ</p>
-                  </div>
-                </Link>
-                <Link href="#" className="mobile_sale">
-                  <Image
-                    height={400}
-                    width={400}
-                    src="/assets/images/sp/samsung/samsung-galaxy-tab-s8-002.jpg"
-                    alt=""
-                  />
-                  <div className="right_info">
-                    <p className="mobile_name">
-                      Máy tính bảng Samsung galaxy tab S8
-                    </p>
-                    <p className="mobile_paid">30.000.000đ</p>
-                  </div>
-                </Link>
-                <Link href="#" className="mobile_sale">
-                  <Image
-                    height={400}
-                    width={400}
-                    src="/assets/images/sp/xiaomi/xiaomi-mi-11-lite-5g-2_10.jpg"
-                    alt=""
-                  />
-                  <div className="right_info">
-                    <p className="mobile_name">
-                      Điện thoại Xiaomi mi11 lite 5g
-                    </p>
-                    <p className="mobile_paid">
-                      26.600.000đ <s>28.300.000đ</s>
-                    </p>
-                  </div>
-                  <span className="sale">-3%</span>
-                </Link>
-                <Link href="#" className="mobile_sale">
-                  <Image
-                    height={400}
-                    width={400}
-                    src="/assets/images/sp/samsung/samsung-galaxy-tab-s7-1.jpg"
-                    alt=""
-                  />
-                  <div className="right_info">
-                    <p className="mobile_name">
-                      Máy tính bảng Samsung galaxy tab S8
-                    </p>
-                    <p className="mobile_paid">
-                      26.600.000đ <s>28.300.000đ</s>
-                    </p>
-                  </div>
-                  <span className="sale">-5%</span>
-                </Link>
-                <Link href="#" className="mobile_sale">
-                  <Image
-                    height={400}
-                    width={400}
-                    src="/assets/images/sp/iphone/iphoneSE.jpg"
-                    alt=""
-                  />
-                  <div className="right_info">
-                    <p className="mobile_name">Điện thoại Iphone SE 2</p>
-                    <p className="mobile_paid">
-                      17.550.000đ <s>19.550.000đ</s>
-                    </p>
-                  </div>
-                  <span className="sale">-10%</span>
-                </Link>
+                        <p className="mobile_paid">
+                          {value.price} ${' '}
+                          {value.discountPercentage > 0 && (
+                            <s>
+                              {(
+                                value.price /
+                                (1 - value.discountPercentage / 100)
+                              ).toFixed(2)}
+                              $
+                            </s>
+                          )}
+                        </p>
+                      </div>
+
+                      {value.discountPercentage > 0 && (
+                        <span className="sale animate-pulse">
+                          -{Math.ceil(value.discountPercentage)}%
+                        </span>
+                      )}
+                    </Link>
+                  ))}
               </div>
             </section>
           </div>
