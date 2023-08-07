@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 import NextTopLoader from 'nextjs-toploader';
 import '/assets/css/reset.css';
 import FacebookChat from '@/components/FacebookChat';
+import StyledComponentsRegistry from '@/lib/StyleAntd';
 
 const DynamicReduxProvider = dynamic(() => import('@/redux/Provider'));
 
@@ -15,7 +16,7 @@ export default function RootLayout({
       <body>
         <DynamicReduxProvider>
           <NextTopLoader color="#fff" />
-          {children}
+          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
           <FacebookChat />
         </DynamicReduxProvider>
       </body>

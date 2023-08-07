@@ -1,7 +1,6 @@
 import { api } from '@/utils/api';
 import { Metadata } from 'next';
 import dynamicImport from 'next/dynamic';
-
 export const dynamic = 'force-dynamic';
 export const revalidate = 60;
 export const dynamicParams = true;

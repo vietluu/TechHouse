@@ -64,8 +64,8 @@ function Header() {
 
       getItem('Liên hệ', '/contact'),
       localStorage?.getItem('token')
-        ? getItem('SignOut', 'signout')
-        : getItem('SignIn/SignUp', '/signIn'),
+        ? getItem('Đăng xuất', 'signout')
+        : getItem('Đăng nhập/Đăng kí', '/signIn'),
     ];
   }
 
@@ -192,7 +192,7 @@ function Header() {
                 setShow(false);
               }}
             >
-              <Link href="/cart">
+              <Link href="/cart" className="h-full">
                 <span className="cart">
                   <b className="fa fa-cart-plus fa-2x"></b>
                   <sup id="count">
@@ -204,23 +204,32 @@ function Header() {
               {user.name && (
                 <>
                   {show && (
-                    <div className="z-20 right-0 mt-1 cart-list absolute max-w-[250px] w-[250px] max-h-[200px] rounded-sm overflow-y-scroll bg-slate-200 p-1 top-[1.5rem]">
+                    <div className="lg:hidden z-20 right-0 mt-1 cart-list absolute  w-[350px]  rounded-sm  bg-white py-1 px-3 top-[1.7rem] shadow-sm shadow-slate-400">
+                      <h2 className="font-bold text-xl text-sky-500 p-3 border-b border-gray-200 ">
+                        Giỏ Hàng
+                      </h2>
                       {data?.carts[0].products.length ? (
-                        <>
+                        <div className="overflow-y-scroll h-full max-h-[200px]">
                           {data.carts[0].products.map((val: any) => (
-                            <Link key={val.id} href={`/product/${val.id}`}>
-                              <div className="rounded-sm  bg-white px-1 py-3 text-black flex flex-row flex-nowrap mb-1">
-                                <div className="w-[87%] mx-0">{val.title}</div>
-                                <div className="w-[13%]">
+                            <Link
+                              key={val.id}
+                              href={`/product/${val.id}`}
+                              className=""
+                            >
+                              <div className="rounded-sm  bg-white px-1 py-3 text-black flex flex-row flex-nowrap mb-1 shadow-sm shadow-slate-300">
+                                <div className="w-[87%] mx-0 font-bold">
+                                  {val.title}
+                                </div>
+                                <div className="w-[13%] text-sky-500">
                                   {' x '}
                                   {val?.quantity}
                                 </div>
                               </div>
                             </Link>
                           ))}
-                        </>
+                        </div>
                       ) : (
-                        <h3>no data</h3>
+                        <h3 className="py-4">no data</h3>
                       )}
                     </div>
                   )}
@@ -248,8 +257,8 @@ function Header() {
                       {user.name}
                     </span>
                     {userMenu && (
-                      <ul className="min-w-[80px] absolute bottom-[-45px] right-0 z-20 bg-white shadow-md shadow-gray-400 text-black p-3 list-none">
-                        <li onClick={signOutAction}>Sign Out</li>
+                      <ul className="min-w-[90px] absolute bottom-[-45px] right-0 z-20 bg-white shadow-md shadow-gray-400 text-black p-3 list-none">
+                        <li onClick={signOutAction}>Đăng xuất</li>
                       </ul>
                     )}
                   </>
@@ -278,7 +287,7 @@ function Header() {
               <Link href="/">Trang chủ</Link>
             </li>
             <li>
-              <Link href="product">Sản Phẩm</Link>
+              <Link href="/product">Sản Phẩm</Link>
               <ul className="sub-menu">
                 <li>
                   <Link href="/product">Sản phẩm mới</Link>

@@ -4,24 +4,14 @@ import { api } from '@/utils/api';
 import { Metadata, ResolvingMetadata } from 'next';
 import dynamic from 'next/dynamic';
 import React from 'react';
-const ProductLoading = dynamic(() => import('@/components/ProductLoading'));
-const Detail = dynamic(() => import('@/ui/Product/detail'), {
-  loading: () => <ProductLoading />,
-  ssr: false,
-});
+const Detail = dynamic(() => import('@/ui/Product/detail'));
 type data = [];
 export async function generateMetadata({
   params,
   searchParams,
 }: PropsType): Promise<Metadata> {
-  // read route params
   const id = params.id;
-
-  // fetch data
   const res = await api.get(`/products/${id}`);
-
-  // optionally access and extend (rather than replace) parent metadata
-
   return {
     title: res.data.title,
 

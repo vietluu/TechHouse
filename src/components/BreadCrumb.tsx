@@ -8,11 +8,11 @@ function BreadCrumb({ title }: { title: string }) {
   const breadcrumbData = [
     {
       path: '/',
-      label: 'Home',
+      label: 'Trang chủ',
     },
     {
       path: '/product',
-      label: 'Product',
+      label: 'sản phẩm',
     },
   ];
   const generateBreadcrumbs = () => {
@@ -36,7 +36,9 @@ function BreadCrumb({ title }: { title: string }) {
 
     return crumbs;
   };
-  return <Breadcrumb className="pt-2">{generateBreadcrumbs()}</Breadcrumb>;
+  return (
+    <Breadcrumb style={{ paddingTop: 10 }}>{generateBreadcrumbs()}</Breadcrumb>
+  );
 }
 
 export default BreadCrumb;
