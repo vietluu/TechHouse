@@ -144,7 +144,7 @@ ul li img {
 }
 
 .color-choose input[type='radio']:checked + label span {
-  background-image: url(../Image/check-icn.svg);
+  background-image: url(/assets/Image/check-icn.svg);
   background-repeat: no-repeat;
   background-position: center;
 }
