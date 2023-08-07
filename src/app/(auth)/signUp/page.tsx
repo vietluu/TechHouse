@@ -8,7 +8,6 @@ function page() {
   const login = async (data: any) => {
     const res = await api.post('/auth/login', data);
     if (res.status === 200) {
-      console.log(res.data.token);
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('name', res.data.lastName);
       localStorage.setItem('image', res.data.image);

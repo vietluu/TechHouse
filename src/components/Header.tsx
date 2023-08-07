@@ -151,7 +151,6 @@ function Header() {
                   style={{ width: '100%' }}
                   items={navData}
                   onSelect={async (items: MenuItem) => {
-                    console.log(items?.key);
                     if (items?.key == 'signout') {
                       setMenuToggle(false);
                       return signOutAction();
