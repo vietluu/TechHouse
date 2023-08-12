@@ -18,7 +18,7 @@ function Cart() {
         <div className="cart_info w-full">
           <div className="mr-5 mt-0 h-full w-full bg-white">
             <div className="" id="list_show">
-              <div className="grid grid-cols-3">
+              <div className="grid grid-cols-3 py-4">
                 <div>Tên</div>
                 <div>Số lượng</div>
                 <div>Giá</div>

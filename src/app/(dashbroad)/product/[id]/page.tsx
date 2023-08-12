@@ -4,7 +4,11 @@ import { api } from '@/utils/api';
 import { Metadata, ResolvingMetadata } from 'next';
 import dynamic from 'next/dynamic';
 import React from 'react';
-const Detail = dynamic(() => import('@/ui/Product/detail'));
+import Loading from '../loading';
+
+const Detail = dynamic(() => import('@/ui/Product/detail'), {
+  loading: () => <Loading />,
+});
 type data = [];
 export async function generateMetadata({
   params,

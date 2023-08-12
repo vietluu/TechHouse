@@ -4,7 +4,10 @@ import dynamicImport from 'next/dynamic';
 export const dynamic = 'force-dynamic';
 export const revalidate = 60;
 export const dynamicParams = true;
-const Product = dynamicImport(() => import('@/ui/Product'));
+import Loading from './loading';
+const Product = dynamicImport(() => import('@/ui/Product'), {
+  loading: () => <Loading />,
+});
 type data = { products: []; total: number; skip: number; limit: number };
 const getData = async (data: number) => {
   const res = await api.get(

@@ -9,6 +9,12 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/', request.url));
     }
   }
+  if (request.nextUrl.pathname.startsWith('/cart')) {
+    const token = requestHeaders.get('cookie'); // Get cookies object
+    if (!token) {
+      return NextResponse.redirect(new URL('/', request.url));
+    }
+  }
   requestHeaders.set('cookie', '');
   const response = NextResponse.next({
     request: {

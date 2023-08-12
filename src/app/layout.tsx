@@ -1,10 +1,12 @@
 import dynamic from 'next/dynamic';
 import NextTopLoader from 'nextjs-toploader';
 import '/assets/css/reset.css';
-import FacebookChat from '@/components/FacebookChat';
 import StyledComponentsRegistry from '@/lib/StyleAntd';
 
 const DynamicReduxProvider = dynamic(() => import('@/redux/Provider'));
+const FacebookChat = dynamic(() => import('@/components/FacebookChat'), {
+  ssr: false,
+});
 
 export default function RootLayout({
   children,
