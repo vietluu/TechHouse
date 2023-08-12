@@ -6,8 +6,8 @@ export const FacebookChat = () => {
 
   useEffect(() => {
     if (messengerRef.current) {
-      messengerRef.current.setAttribute('attribution', 'biz_inbox');
       messengerRef.current.setAttribute('page_id', '109967950338730');
+      messengerRef.current.setAttribute('attribution', 'biz_inbox');
       //@ts-ignore
       window.fbAsyncInit = function () {
         //@ts-ignore
