@@ -19,7 +19,7 @@
       "eslint --fix",
       "git add --force"
     ],
-    "*.{json,md,tsx,ts,css,ts}": [
+    "*.{json,md,tsx,ts,css}": [
       "prettier --write",
       "git add --force"
     ]
