@@ -2,6 +2,7 @@ import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import { Metadata } from 'next';
 import '/assets/scss/style.scss';
+import Template from './template';
 
 export const metadata: Metadata = {
   title: {
@@ -44,10 +45,10 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <Template>
       <Header />
       {children}
       <Footer />
-    </>
+    </Template>
   );
 }

@@ -22,7 +22,8 @@ const AdModal = () => {
         <div className="text-lg">
           <p>
             Giao diện được sử dụng bởi API có sẵn nên sẽ không khớp với chủ đề
-            giao diện hiện tại.
+            giao diện hiện tại. API đang được cập nhật bổ sung để phù hợp với
+            chủ đề.
           </p>
           <p>các chức năng có thể sử dụng:</p>
           <ol>

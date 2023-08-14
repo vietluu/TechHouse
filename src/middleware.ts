@@ -1,15 +1,20 @@
+import { NextURL } from 'next/dist/server/web/next-url';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
-  if (request.nextUrl.pathname.startsWith('/signIn')) {
+  const path = request.nextUrl.pathname;
+  if (path.startsWith('/signIn')) {
     const token = requestHeaders.get('cookie'); // Get cookies object
     if (token) {
       return NextResponse.redirect(new URL('/', request.url));
     }
   }
-  if (request.nextUrl.pathname.startsWith('/cart')) {
+  if (path.startsWith('/category') && path.endsWith('/category')) {
+    return NextResponse.redirect(new URL('/product', request.url));
+  }
+  if (path.startsWith('/cart')) {
     const token = requestHeaders.get('cookie'); // Get cookies object
     if (!token) {
       return NextResponse.redirect(new URL('/', request.url));

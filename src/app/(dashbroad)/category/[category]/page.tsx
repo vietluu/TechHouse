@@ -1,11 +1,14 @@
 import { api } from '@/utils/api';
 import { Metadata } from 'next';
 import dynamicImport from 'next/dynamic';
+import Loading from '../loading';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 60;
 export const dynamicParams = true;
-const Product = dynamicImport(() => import('@/ui/Product'));
+const Product = dynamicImport(() => import('@/ui/Product'), {
+  loading: () => <Loading />,
+});
 type data = { products: []; total: number; skip: number; limit: number };
 const getData = async (category: string | any, data: number) => {
   const res = await api.get(

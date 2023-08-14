@@ -1,11 +1,14 @@
 import { api } from '@/utils/api';
 import dynamicImport from 'next/dynamic';
+import Loading from './loading';
 
+const Product = dynamicImport(() => import('@/ui/Product'), {
+  loading: () => <Loading />,
+});
 export const dynamic = 'force-dynamic';
 export const revalidate = 60;
 export const dynamicParams = true;
 
-const Product = dynamicImport(() => import('@/ui/Product'), { ssr: true });
 type data = any;
 const getData = async (query: string, data: number) => {
   const res = await api.get(

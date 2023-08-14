@@ -30,7 +30,7 @@ export default function Home({
       <AdModal />
       <div className="slideshow-container">
         <Slider {...setting}>
-          <Link className="img-box" href={'mens-watches'}>
+          <Link className="img-box" href={'/category/mens-watches'}>
             <Image
               width={1000}
               height={1000}
@@ -41,7 +41,7 @@ export default function Home({
               quality={100}
             />
           </Link>
-          <Link className="img-box" href={'laptops'}>
+          <Link className="img-box" href={'/category/laptops'}>
             <Image
               priority
               src="/assets/images/banner/slideshow_2.jpg"
@@ -52,7 +52,7 @@ export default function Home({
               quality={100}
             />
           </Link>
-          <Link className="img-box" href={'lighting'}>
+          <Link className="img-box" href={'/category/lighting'}>
             <Image
               width={1000}
               height={1000}
@@ -109,7 +109,7 @@ export default function Home({
                 newProduct.map((value: product) => (
                   <Link
                     key={value.id}
-                    href={`/product/${value.id}`}
+                    href={`/category//product/${value.id}`}
                     className="mobile_info"
                   >
                     <Image
@@ -197,7 +197,7 @@ export default function Home({
                   saleOff.map((value: product) => (
                     <Link
                       key={value.id}
-                      href={`/product/${value.id}`}
+                      href={`/category//product/${value.id}`}
                       className="mobile_sale"
                     >
                       <Image
