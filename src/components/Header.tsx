@@ -134,7 +134,7 @@ function Header() {
   };
 
   return (
-    <header>
+    <header className="sticky">
       <div className="top-header">
         <div className="top-header-container">
           <div className="nav-menu">

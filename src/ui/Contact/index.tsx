@@ -25,8 +25,8 @@ function Index() {
                 <p className="text-sm text-slate-500">Địa chỉ chúng tôi</p>
                 <p>
                   <strong className="text-md text-slate-600">
-                    Tầng 4, tòa nhà Flemington, số 182, đường Lê Đại Hành,
-                    phường 15, quận 11, Tp. Hồ Chí Minh.
+                    19 đường Nguyễn trãi, phường Khương Trung, quận Thanh Xuân,
+                    Tp. Hà Nội.
                   </strong>
                 </p>
               </li>
@@ -34,7 +34,7 @@ function Index() {
                 <p className="text-sm text-slate-500">Email chúng tôi</p>
                 <p>
                   <strong className="text-md text-slate-600">
-                    hi@haravan.com
+                    contact@techhouse.com
                   </strong>
                 </p>
               </li>
@@ -150,9 +150,9 @@ function Index() {
                 </Form.Item>
                 <div>
                   <Button
-                    type="primary"
-                    className="!w-auto !h-auto !rounded-none !p-3"
+                    className="!w-auto !h-auto !rounded-none !p-3 !bg-[#1677ff]"
                     htmlType="submit"
+                    type="primary"
                     title="Gửi cho chúng tôi"
                   >
                     Gửi cho chúng tôi

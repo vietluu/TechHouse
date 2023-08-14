@@ -17,7 +17,6 @@ export function middleware(request: NextRequest) {
   if (path.startsWith('/cart')) {
     const token = requestHeaders.get('cookie'); // Get cookies object
     if (!token) {
-      console.log('run');
       return NextResponse.redirect(new URL('/signIn', request.url));
     }
   }
