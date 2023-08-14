@@ -68,7 +68,7 @@ export default function Home({
 
       <div className="news">
         <div className="news-container">
-          <Link href="mens-watches" className="tab-news">
+          <Link href="/category/mens-watches" className="tab-news">
             <Image
               height={400}
               width={400}
@@ -77,7 +77,7 @@ export default function Home({
             />
           </Link>
 
-          <Link href="smartphones" className="tab-news">
+          <Link href="/category/smartphones" className="tab-news">
             <Image
               height={400}
               width={400}
@@ -109,7 +109,7 @@ export default function Home({
                 newProduct.map((value: product) => (
                   <Link
                     key={value.id}
-                    href={`/category//product/${value.id}`}
+                    href={`/product/${value.id}`}
                     className="mobile_info"
                   >
                     <Image
@@ -145,7 +145,7 @@ export default function Home({
 
         <div className="sale_off">
           <div className="side_left effect">
-            <Link href="laptops">
+            <Link href="/category/laptops">
               <Image
                 height={400}
                 width={400}
@@ -157,7 +157,7 @@ export default function Home({
               <span></span>
               <span></span>
             </Link>
-            <Link href="laptops">
+            <Link href="/category/laptops">
               <Image
                 height={400}
                 width={400}
@@ -171,7 +171,7 @@ export default function Home({
             </Link>
           </div>
           <div className="side_right effect++">
-            <Link href="laptops">
+            <Link href="/category/laptops">
               <Image
                 height={400}
                 width={400}
@@ -197,7 +197,7 @@ export default function Home({
                   saleOff.map((value: product) => (
                     <Link
                       key={value.id}
-                      href={`/category//product/${value.id}`}
+                      href={`/product/${value.id}`}
                       className="mobile_sale"
                     >
                       <Image
