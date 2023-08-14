@@ -56,7 +56,7 @@ export default function Footer() {
             <Button
               htmlType="submit"
               type="primary"
-              className="!p-[0.9rem] w-[100vw] !bg-[#1677ff] hover:!bg-white hover:!transition-all hover:!text-black  max-w-[100px] !rounded-none !h-full "
+              className="!p-[0.92rem] w-[100vw] !bg-[#1677ff] hover:!bg-white hover:!transition-all hover:!text-black  max-w-[100px] !rounded-none !h-full "
             >
               Gửi
             </Button>
