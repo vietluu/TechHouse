@@ -37,7 +37,7 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
   let items: MenuItem[] = [];
   if (typeof window !== 'undefined') {
     items = [
-      getItem('Trang chủ', '/home'),
+      getItem('Trang chủ', '/'),
       getItem('Sản phẩm', '/product', '', [
         getItem('Tất cả sản phẩm', '/product'),
         getItem('Sản phẩm giảm giá', '/product'),
@@ -73,7 +73,7 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
       <div className="flex flex-row container max-w-[1378px]">
         <div className="header-logo w-1/4">
           <h1 className="text-center text-3xl text-sky-500 sm:text-3xl m-0 font-bold ">
-            <Link href="/home">TechHouse</Link>
+            <Link href="/">TechHouse</Link>
           </h1>
         </div>
         <div className="Primary__menu w-2/4">

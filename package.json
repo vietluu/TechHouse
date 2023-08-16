@@ -51,7 +51,7 @@
     "express": "^4.18.2",
     "img-optimize-loader": "^1.0.7",
     "js-cookie": "^3.0.5",
-    "next": "^13.4.12",
+    "next": "^13.4.16",
     "nextjs-toploader": "^1.4.2",
     "postcss": "8.4.24",
     "react": "18.2.0",

@@ -1,6 +1,6 @@
 'use client'; // Error components must be Client Components
 
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 
 export default function Error({
   error,
@@ -9,9 +9,9 @@ export default function Error({
   error: Error;
   reset: () => void;
 }) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Log the error to an error reporting service
-    console.error(error);
+    reset();
   }, [error]);
 
   return (
@@ -21,7 +21,7 @@ export default function Error({
         className="text-sky-500 text-xl border-sky-500 p-3"
         onClick={
           // Attempt to recover by trying to re-render the segment
-          () => window.location.reload()
+          () => reset()
         }
       >
         Try again

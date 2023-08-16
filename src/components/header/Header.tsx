@@ -68,7 +68,7 @@ function Header() {
 
           <div className="header-logo">
             <h1 className="text-3xl sm:text-3xl m-0 font-bold">
-              <Link href="/home">TechHouse</Link>
+              <Link href="/">TechHouse</Link>
             </h1>
           </div>
           <div className="search-bar">
@@ -186,7 +186,7 @@ function Header() {
         <div className="menu-wrapper">
           <ul className="menu-ul">
             <li>
-              <Link href="/home">Trang chủ</Link>
+              <Link href="/">Trang chủ</Link>
             </li>
             <li>
               <Link href="/product">Sản Phẩm</Link>
