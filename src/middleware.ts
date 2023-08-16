@@ -11,10 +11,6 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/', request.url));
     }
   }
-  if (path.startsWith('/') && path.length <= 1) {
-    return NextResponse.redirect(new URL('/', request.url));
-  }
-
   if (path.startsWith('/category') && path.endsWith('/category')) {
     return NextResponse.redirect(new URL('/product', request.url));
   }

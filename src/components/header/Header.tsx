@@ -64,7 +64,7 @@ function Header() {
     <header>
       <div className="top-header">
         <div className="top-header-container">
-          {size < 1100 && <MobileNav signOutAction={signOutAction} />}
+          {size <= 1024 && <MobileNav signOutAction={signOutAction} />}
 
           <div className="header-logo">
             <h1 className="text-3xl sm:text-3xl m-0 font-bold">
@@ -75,7 +75,7 @@ function Header() {
             <SearchBar />
           </div>
           <div className="header-contact">
-            {size > 900 && (
+            {size >= 1100 && (
               <Link href={'tel:19008198'} className="flex">
                 <span>
                   <span className="fas fa-phone fa-2x"></span>
@@ -215,7 +215,7 @@ function Header() {
           </ul>
         </div>
       </div>
-      {size > 1200 && (
+      {size >= 1024 && (
         <PrimaryNav
           data={data}
           signOutAction={signOutAction}
