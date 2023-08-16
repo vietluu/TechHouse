@@ -13,21 +13,20 @@ const nextConfig = {
   compiler: {
     removeConsole: true,
   },
-  trailingSlash: true,
   experimental: {
     appDir: true,
     optimizeCss: true,
     },
-  generateEtags: false,
-  onDemandEntries: {
-    maxInactiveAge: 1000 * 60 * 60,
-    pagesBufferLength: 5,
-  },
+  // generateEtags: false,
+  // onDemandEntries: {
+  //   maxInactiveAge: 1000 * 60 * 60,
+  //   pagesBufferLength: 5,
+  // },
   poweredByHeader: false,
   reactStrictMode: true,
-  sassOptions: {
-    includePaths: [path.join(__dirname, 'styles')],
-  },
+  // sassOptions: {
+  //   includePaths: [path.join(__dirname, 'styles')],
+  // },
   
   webpack: (config, { dev, isServer }) => {
     config.resolve.alias['@'] = path.resolve(__dirname, './src');
