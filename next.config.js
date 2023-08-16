@@ -11,8 +11,9 @@ const isDev = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
 const nextConfig = {
   swcMinify: true,
   compiler: {
-    removeConsole: false,
+    removeConsole: true,
   },
+  trailingSlash: true,
   experimental: {
     appDir: true,
     optimizeCss: true,
