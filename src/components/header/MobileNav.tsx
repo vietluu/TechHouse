@@ -34,7 +34,7 @@ function MobileNav({ signOutAction }: { signOutAction: any }) {
   let items: MenuItem[] = [];
   if (typeof window !== 'undefined') {
     items = [
-      getItem('Trang chủ', '/'),
+      getItem('Trang chủ', '/home'),
       getItem('Sản phẩm', '/product', '', [
         getItem('Tất cả sản phẩm', '/product'),
         getItem('Sản phẩm giảm giá', '/product'),

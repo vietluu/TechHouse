@@ -1,7 +1,7 @@
 import { product } from '@/types/productType';
 import { api } from '@/utils/api';
 import dynamic from 'next/dynamic';
-const Home = dynamic(() => import('@/ui/HomePage'), { ssr: true });
+const Home = dynamic(() => import('@/ui/HomePage'));
 
 type data = { products: []; total: number; skip: number; limit: number };
 const getData = async () => {
