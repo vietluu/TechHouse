@@ -19,7 +19,7 @@ export default function RootLayout({
         <DynamicReduxProvider>
           <NextTopLoader color="#fff" />
           <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
-          <FacebookChat />
+          {/* <FacebookChat /> */}
         </DynamicReduxProvider>
       </body>
     </html>

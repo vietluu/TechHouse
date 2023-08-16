@@ -1,39 +1,16 @@
 'use client';
 import Link from 'next/link';
 import { memo, use, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import type { MenuProps } from 'antd';
-import { Button, Form, Input, Menu } from 'antd';
 import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { useRouter } from 'next/navigation';
 import { getCart } from '@/redux/slice/cartSlice';
 import { signOut } from '@/redux/slice/profile';
-import Item from 'antd/es/list/Item';
-import SearchBar from './SearchBar';
+import SearchBar from '../SearchBar';
 import Cookies from 'js-cookie';
-type MenuItem = Required<MenuProps>['items'][number];
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-  type?: 'group'
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type,
-  } as MenuItem;
-}
-// submenu keys of first level
-const rootSubmenuKeys = ['sub1', 'sub2'];
+import MobileNav from './MobileNav';
+import PrimaryNav from './PrimaryNav';
 
 function Header() {
-  const [menuToggle, setMenuToggle] = useState<Boolean>(false);
-  const [openKeys, setOpenKeys] = useState(['']);
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(0);
   const [show, setShow] = useState(false);
@@ -42,54 +19,8 @@ function Header() {
     name: '',
     image: '',
   });
-  const [navData, setNavData] = useState<MenuItem[]>([]);
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.CartSlice.data);
-  const userData = useAppSelector((state) => state.AuthSlice.data);
-  const router = useRouter();
-  let items: MenuItem[] = [];
-  if (typeof window !== 'undefined') {
-    items = [
-      getItem('Trang chủ', '/'),
-      getItem('Sản phẩm', '/product', '', [
-        getItem('Tất cả sản phẩm', '/product'),
-        getItem('Sản phẩm giảm giá', '/product'),
-        getItem('Sản phẩm hot', '/product'),
-        getItem('Sản Phẩm mới', '/product'),
-      ]),
-
-      getItem('Blog', '/blog'),
-
-      getItem('Giới thiệu', '/about'),
-
-      getItem('Liên hệ', '/contact'),
-      localStorage?.getItem('token')
-        ? getItem('Đăng xuất', 'signout')
-        : getItem('Đăng nhập/Đăng kí', '/signIn'),
-    ];
-  }
-
-  useEffect(() => {
-    if (menuToggle) {
-      document.body.style.position = 'fixed';
-      document.body.style.height = '100vh';
-      document.body.style.overflowY = 'hidden';
-    } else {
-      document.body.style.position = 'static';
-      document.body.style.height = 'auto';
-      document.body.style.overflowY = 'auto';
-    }
-    items.length && setNavData(items);
-  }, [menuToggle]);
-
-  const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
-    const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
-    if (rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
-      setOpenKeys(keys);
-    } else {
-      setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
-    }
-  };
 
   useLayoutEffect(() => {
     setSize(window?.innerWidth);
@@ -113,10 +44,6 @@ function Header() {
     setPage(window.scrollY);
   };
 
-  const toggleMenu = () => {
-    setMenuToggle(!menuToggle);
-  };
-
   const signOutAction = async () => {
     setUsermenu(false);
     dispatch(signOut);
@@ -137,32 +64,8 @@ function Header() {
     <header>
       <div className="top-header">
         <div className="top-header-container">
-          <div className="nav-menu">
-            <div className="icon-menu" onClick={toggleMenu}></div>
-          </div>
+          {size < 1100 && <MobileNav signOutAction={signOutAction} />}
 
-          {menuToggle && size < 1200 && (
-            <div className="mobile-menu">
-              <div className="mobile-wrapper">
-                <Menu
-                  mode="inline"
-                  openKeys={openKeys}
-                  onOpenChange={onOpenChange}
-                  style={{ width: '100%' }}
-                  items={navData}
-                  onSelect={async (items: MenuItem) => {
-                    if (items?.key == 'signout') {
-                      setMenuToggle(false);
-                      return signOutAction();
-                    }
-                    return (
-                      await router.push(`${items?.key}`), setMenuToggle(false)
-                    );
-                  }}
-                />
-              </div>
-            </div>
-          )}
           <div className="header-logo">
             <h1 className="text-3xl sm:text-3xl m-0 font-bold">
               <Link href="/">TechHouse</Link>
@@ -279,7 +182,6 @@ function Header() {
           <SearchBar />
         </div>
       </div>
-
       <div className="dropdown-menu">
         <div className="menu-wrapper">
           <ul className="menu-ul">
@@ -313,6 +215,14 @@ function Header() {
           </ul>
         </div>
       </div>
+      {size > 1200 && (
+        <PrimaryNav
+          data={data}
+          signOutAction={signOutAction}
+          user={user}
+          size={page}
+        />
+      )}
     </header>
   );
 }

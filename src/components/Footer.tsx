@@ -29,7 +29,7 @@ export default function Footer() {
         >
           <Form.Item
             name="email"
-            className="w-full max-w-[500px] ms:w-[80%]"
+            className="!w-[40%] ms:!w-[80%] lg:!w-[55%]"
             rules={[
               {
                 validator: (_, value) => {

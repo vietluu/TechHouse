@@ -24,7 +24,7 @@ export default function index({
   return (
     <div className="fluid_container">
       <div className="product py-5">
-        <div className="bg-[#dedcdc] p-4 grid place-content-center items-center  gap-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5	">
+        <div className="bg-[#dedcdc] p-4 grid place-content-center items-center  gap-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5	">
           {data?.products?.length &&
             data.products.map((value: product) => (
               <Link

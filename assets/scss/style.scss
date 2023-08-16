@@ -30,7 +30,7 @@ $background-color_9: #717171;
 $background-color_10: rgb(0, 0, 0, 0.3);
 $background-color_11: rgb(255, 255, 255, 0.7);
 $background-color_12: rgb(0, 0, 0, 0);
-$background-color_13: #eeebeb;
+$background-color_13: #f3f5f6;
 $background-color_14: #f32f2f;
 $border-bottom-color_1: #fff;
 
@@ -267,50 +267,7 @@ header {
         }
       }
 
-      .header-contact {
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        width: 35%;
-        -ms-flex-align: center;
-        align-items: center;
-        font-size: 0.9rem;
-        cursor: pointer;
-
-        span {
-          vertical-align: middle;
-
-          &:last-child {
-            margin-left: 7px;
-          }
-        }
-
-        .header-hotline {
-          display: inherit;
-          -webkit-box-align: center;
-          -ms-flex-align: center;
-          align-items: center;
-        }
-
-        .header-cart {
-          .cart {
-            position: relative;
-            display: inline-block;
-
-            sup {
-              position: absolute;
-              top: -8px;
-              right: -9px;
-              padding: 10px 5px;
-              background-color: $background-color_6;
-              border-radius: 50%;
-              line-height: 1px;
-              font-size: 14px;
-            }
-          }
-        }
-      }
-
+     
       .mobile-menu {
         position: absolute;
         width: 100%;
@@ -372,7 +329,51 @@ header {
         }
       }
     }
+
   }
+ .header-contact {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        width: 35%;
+        -ms-flex-align: center;
+        align-items: center;
+        font-size: 0.9rem;
+        cursor: pointer;
+
+        span {
+          vertical-align: middle;
+
+          &:last-child {
+            margin-left: 7px;
+          }
+        }
+
+        .header-hotline {
+          display: inherit;
+          -webkit-box-align: center;
+          -ms-flex-align: center;
+          align-items: center;
+        }
+
+        .header-cart {
+          .cart {
+            position: relative;
+            display: inline-block;
+
+            sup {
+              position: absolute;
+              top: -8px;
+              right: -9px;
+              padding: 10px 5px;
+              background-color: $background-color_6;
+              border-radius: 50%;
+              line-height: 1px;
+              font-size: 14px;
+            }
+          }
+        }
+      }
 
   .search-bar-mobile {
     width: 100%;
@@ -589,6 +590,7 @@ header {
 
 .fluid_container {
   width: min(max(75vw, 880px), 100%);
+  background-color: #ebe8e8;
 }
 
 .product {
