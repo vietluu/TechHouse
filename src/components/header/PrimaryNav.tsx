@@ -37,21 +37,17 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
   let items: MenuItem[] = [];
   if (typeof window !== 'undefined') {
     items = [
-      getItem('Trang chủ', '/'),
-      getItem('Sản phẩm', '/product', '', [
-        getItem('Tất cả sản phẩm', '/product'),
-        getItem('Sản phẩm giảm giá', '/product'),
-        getItem('Sản phẩm hot', '/product'),
-        getItem('Sản Phẩm mới', '/product'),
-      ]),
+      getItem(<Link href="/">Trang Chủ</Link>, 'home'),
+      getItem(<Link href="/product">Sản phẩm</Link>, 'product'),
 
-      getItem('Blog', '/blog'),
+      getItem(<Link href="/blog">Blog</Link>, '/blog'),
 
-      getItem('Giới thiệu', '/about'),
+      getItem(<Link href="/about">Giới thiệu</Link>, '/about'),
 
-      getItem('Liên hệ', '/contact'),
+      getItem(<Link href="/contact">Liên hệ</Link>, '/contact'),
     ];
   }
+
   useLayoutEffect(() => {
     items.length && setNavData(items);
   }, []);
@@ -81,11 +77,12 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
             mode="horizontal"
             openKeys={openKeys}
             onOpenChange={onOpenChange}
-            style={{ display: 'list-item', textAlign: 'center' }}
-            items={navData}
-            onSelect={async (items: MenuItem) => {
-              return await router.push(`${items?.key}`);
+            style={{
+              display: 'list-item',
+              textAlign: 'center',
+              fontSize: '1rem',
             }}
+            items={navData}
           />
         </div>
         <div className="header-contact w-1/4">
@@ -99,7 +96,7 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
             <Link href="/cart" className="h-full">
               <span className="cart">
                 <b className="fa fa-cart-plus fa-2x text-slate-400"></b>
-                <sup id="count">
+                <sup id="count" className="text-white">
                   {data?.carts?.length ? data?.carts[0].totalProducts : 0}
                 </sup>
               </span>

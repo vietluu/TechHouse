@@ -6,7 +6,7 @@ import { useRef } from 'react';
 export default function Footer() {
   const formRef = useRef(null);
   return (
-    <footer>
+    <footer className="pt-7">
       <div className="text-center py-6 px-3">
         <h2 className="text-2xl text-sky-500 font-bold">
           HÃY LIÊN HỆ VỚI CHÚNG TÔI!
@@ -47,7 +47,7 @@ export default function Footer() {
             ]}
           >
             <Input
-              type="email"
+              type="text"
               placeholder="Nhập email của bạn"
               className="!rounded-none !p-4 "
             />
@@ -66,7 +66,7 @@ export default function Footer() {
       <div className="columns-3 sm:columns-1 delivery">
         <div className="delivery_content ">
           <div className="delivery_content-img mg-0 pd-3">
-            <img src="./assets/Image/policy_icon_1.png" alt="" />
+            <img src="/assets/Image/policy_icon_1.png" alt="" />
           </div>
 
           <div className="delivery_content-tilte ">

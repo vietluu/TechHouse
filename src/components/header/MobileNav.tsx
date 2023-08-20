@@ -5,6 +5,7 @@ import { Menu } from 'antd';
 import { useRouter } from 'next/navigation';
 import SearchBar from '../SearchBar';
 import Item from 'antd/es/list/Item';
+import Link from 'next/link';
 
 type MenuItem = Required<MenuProps>['items'][number];
 function getItem(
@@ -34,22 +35,25 @@ function MobileNav({ signOutAction }: { signOutAction: any }) {
   let items: MenuItem[] = [];
   if (typeof window !== 'undefined') {
     items = [
-      getItem('Trang chủ', '/'),
-      getItem('Sản phẩm', '/product', '', [
-        getItem('Tất cả sản phẩm', '/product'),
-        getItem('Sản phẩm giảm giá', '/product'),
-        getItem('Sản phẩm hot', '/product'),
-        getItem('Sản Phẩm mới', '/product'),
+      getItem(<Link href="/">Trang Chủ</Link>, 'home'),
+      getItem('Sản phẩm', 'product', '', [
+        getItem(<Link href="/product">Tất cả sản phẩm</Link>, 'all-product'),
+        getItem(<Link href="/product">Sản phẩm mới</Link>, 'product-new'),
+        getItem(<Link href="/product">Sản phẩm hot</Link>, 'product-hot'),
+        getItem(
+          <Link href="/product">Sản phẩm giảm giá</Link>,
+          'product-saleoff'
+        ),
       ]),
 
-      getItem('Blog', '/blog'),
+      getItem(<Link href="/blog">Blog</Link>, '/blog'),
 
-      getItem('Giới thiệu', '/about'),
+      getItem(<Link href="/about">Giới thiệu</Link>, '/about'),
 
-      getItem('Liên hệ', '/contact'),
+      getItem(<Link href="/contact">Liên hệ</Link>, '/contact'),
       localStorage?.getItem('token')
         ? getItem('Đăng xuất', 'signout')
-        : getItem('Đăng nhập/Đăng kí', '/signIn'),
+        : getItem(<Link href="/signIn">Đăng nhập/đăng kí</Link>, '/signIn'),
     ];
   }
   const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
@@ -67,7 +71,7 @@ function MobileNav({ signOutAction }: { signOutAction: any }) {
       document.body.style.height = '100vh';
       document.body.style.overflowY = 'hidden';
     } else {
-      document.body.style.position = 'static';
+      document.body.style.position = '';
       document.body.style.height = 'auto';
       document.body.style.overflowY = 'auto';
     }
@@ -92,11 +96,11 @@ function MobileNav({ signOutAction }: { signOutAction: any }) {
               style={{ width: '100%' }}
               items={navData}
               onSelect={async (items: MenuItem) => {
+                setMenuToggle(false);
                 if (items?.key == 'signout') {
                   setMenuToggle(false);
                   return signOutAction();
                 }
-                return await router.push(`${items?.key}`), setMenuToggle(false);
               }}
             />
           </div>

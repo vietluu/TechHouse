@@ -69,6 +69,7 @@ function SlideProduct({ image }: { image: [string] }) {
             src={data}
             quality={100}
             alt="product"
+            key={data}
           />
         ))}
       </Slider>
@@ -87,6 +88,7 @@ function SlideProduct({ image }: { image: [string] }) {
             className="aspect-[1/1] mt-4 p-1"
             src={data}
             alt="product"
+            key={data}
           />
         ))}
       </Slider>

@@ -19,7 +19,7 @@ function BreadCrumb({ title }: { title: string }) {
     const router = useRouter();
     const pathname = usePathname();
 
-    const crumbs = breadcrumbData.map((item) => (
+    const crumbs = breadcrumbData.map((item, index) => (
       <Breadcrumb.Item key={item.path}>
         <Link href={item.path}>{item.label}</Link>
       </Breadcrumb.Item>

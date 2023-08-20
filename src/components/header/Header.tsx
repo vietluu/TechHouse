@@ -34,7 +34,7 @@ function Header() {
       });
     }
     dispatch(getCart(Number(localStorage.getItem('id'))));
-  }, [use.name]);
+  }, [user.name]);
 
   const onChangeSize = (): void => {
     setSize(window?.innerWidth);
@@ -59,10 +59,17 @@ function Header() {
 
     dispatch(getCart(Number(localStorage.getItem('id'))));
   };
-
   return (
     <header>
-      <div className="top-header">
+      <div
+        className={
+          `${
+            page > 200
+              ? 'shadow-sm shadow-stone-300 fixed top-0 left-0 z-50'
+              : ''
+          }` + ' transition-all duration-500 top-header '
+        }
+      >
         <div className="top-header-container">
           {size <= 1024 && <MobileNav signOutAction={signOutAction} />}
 
@@ -95,7 +102,7 @@ function Header() {
                 setShow(false);
               }}
             >
-              <Link href="/cart" className="h-full">
+              <Link href="/cart" className="h-full mr-0">
                 <span className="cart">
                   <b className="fa fa-cart-plus fa-2x"></b>
                   <sup id="count">
@@ -140,7 +147,7 @@ function Header() {
               )}
             </div>
 
-            <div className="header-user">
+            <div className="header-user ml-0">
               <div
                 className=" relative"
                 onMouseOver={(e) => setUsermenu(true)}

@@ -17,7 +17,7 @@ export default function RootLayout({
     <html>
       <body>
         <DynamicReduxProvider>
-          <NextTopLoader color="#fff" />
+          <NextTopLoader color="green" />
           <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
           <FacebookChat />
         </DynamicReduxProvider>
