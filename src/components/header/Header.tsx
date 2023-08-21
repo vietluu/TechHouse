@@ -9,6 +9,7 @@ import SearchBar from '../SearchBar';
 import Cookies from 'js-cookie';
 import MobileNav from './MobileNav';
 import PrimaryNav from './PrimaryNav';
+import { Avatar } from 'antd';
 
 function Header() {
   const [page, setPage] = useState(0);
@@ -155,14 +156,15 @@ function Header() {
               >
                 {user.name ? (
                   <>
-                    <Image
+                    {/* <Image
                       priority
                       width={40}
                       height={40}
                       src={user.image}
                       alt="avt"
                       className=" inline-block rounded-full w-[40px] h-[40px] aspect-[1/1] "
-                    />
+                    /> */}
+                    <Avatar src={user.image} alt="avt" size={'default'} />
                     <span className="!m-0 lg:hidden pl-1 inline-block">
                       {user.name}
                     </span>

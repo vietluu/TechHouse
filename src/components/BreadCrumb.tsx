@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import React from 'react';
 
-function BreadCrumb({ title }: { title: string }) {
+function BreadCrumb({ title }: { title: string | any }) {
   const breadcrumbData = [
     {
       path: '/',
@@ -25,14 +25,15 @@ function BreadCrumb({ title }: { title: string }) {
       </Breadcrumb.Item>
     ));
 
-    crumbs.push(
-      <Breadcrumb.Item key={pathname}>
-        <span>
-          {title ||
-            breadcrumbData.find((item) => item.path === pathname)?.label}
-        </span>
-      </Breadcrumb.Item>
-    );
+    title &&
+      crumbs.push(
+        <Breadcrumb.Item key={pathname}>
+          <span>
+            {title ||
+              breadcrumbData.find((item) => item.path === pathname)?.label}
+          </span>
+        </Breadcrumb.Item>
+      );
 
     return crumbs;
   };

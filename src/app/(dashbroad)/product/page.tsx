@@ -1,18 +1,34 @@
 import { api } from '@/utils/api';
 import { Metadata } from 'next';
 import dynamicImport from 'next/dynamic';
+import Loading from './loading';
+import { product } from '@/types/productType';
+import Image from 'next/image';
+import BreadCrumb from '@/components/BreadCrumb';
+
 export const dynamic = 'force-dynamic';
 export const revalidate = 60;
 export const dynamicParams = true;
-import Loading from './loading';
 const Product = dynamicImport(() => import('@/ui/Product'), {
   loading: () => <Loading />,
 });
 type data = { products: []; total: number; skip: number; limit: number };
-const getData = async (data: number) => {
+const getData = async (data: number, oderBy: string) => {
   const res = await api.get(
     `/products?skip=${(data ? data - 1 : 0) * 10}&limit=20`
   );
+  if (oderBy) {
+    switch (oderBy) {
+      case 'increment':
+        res.data.products?.sort((a: product, b: product) => a.price - b.price);
+        break;
+      case 'decrement':
+        res.data.products?.sort((a: product, b: product) => b.price - a.price);
+        break;
+      default:
+        break;
+    }
+  }
   return res.data;
 };
 export const metadata: Metadata = {
@@ -27,6 +43,24 @@ export default async function page({
   searchParams: { [key: string]: string };
 }) {
   let page = Number(searchParams.page) || 1;
-  const data: data = await getData(page);
-  return <Product data={data} />;
+  const data: data = await getData(page, searchParams.oderBy);
+  return (
+    <div className="px-4 sm:px-0">
+      <div className="fluid_container !bg-transparent">
+        <BreadCrumb title={null} />
+      </div>
+      <div>
+        <Image
+          quality={100}
+          src="/assets/Image/product_banner.webp"
+          width={1920}
+          height={500}
+          className="w-full max-h-[500px] h-full aspect-[21/9]"
+          loading="lazy"
+          alt="product banner"
+        />
+      </div>
+      <Product data={data} />
+    </div>
+  );
 }

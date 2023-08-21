@@ -43,7 +43,7 @@ export default async function page({
   return (
     <>
       <div className="fluid_container">
-        <h3 className="text-2xl pt-3 text-left">
+        <h3 className="text-2xl px-3 pt-3 text-left">
           {' '}
           Kết quả tìm kiếm {`"`}
           {searchParams.keyword}

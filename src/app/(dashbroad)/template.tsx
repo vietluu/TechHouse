@@ -30,7 +30,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
     if (isOnline && !firstOnline) {
       setFirstOnline(true);
       notification.success({
-        message: 'Reconnected!',
+        message: 'Đã có kết nối internet!',
         closeIcon: true,
         duration: 4,
       });
@@ -38,7 +38,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
     if (!isOnline && firstOnline) {
       setFirstOnline(false);
       notification.error({
-        message: 'Disconnected!',
+        message: 'Đã mất kết nối internet!',
         closeIcon: true,
         duration: 4,
       });
