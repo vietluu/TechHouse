@@ -1,14 +1,9 @@
 import { Rate } from 'antd';
 import React from 'react';
 
-function Star({ rate, star }: { rate: number; star: boolean }) {
+function Star({ rate }: { rate: number }) {
   return (
-    <Rate
-      value={rate}
-      allowHalf
-      allowClear={star}
-      style={{ fontSize: '0.8rem' }}
-    />
+    <Rate value={rate} allowHalf disabled style={{ fontSize: '0.8rem' }} />
   );
 }
 

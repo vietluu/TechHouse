@@ -13,10 +13,13 @@ const Product = dynamicImport(() => import('@/ui/Product'), {
   loading: () => <Loading />,
 });
 type data = { products: []; total: number; skip: number; limit: number };
-const getData = async (data: number, oderBy: string) => {
-  const res = await api.get(
-    `/products?skip=${(data ? data - 1 : 0) * 10}&limit=20`
-  );
+const getData = async (
+  page: number,
+  oderBy: string,
+  rating: string,
+  range: string
+) => {
+  const res = await api.get(`/products?limit=100`);
   if (oderBy) {
     switch (oderBy) {
       case 'increment':
@@ -29,6 +32,27 @@ const getData = async (data: number, oderBy: string) => {
         break;
     }
   }
+  if (rating) {
+    const dataRate = res.data.products.filter(
+      (e: product) =>
+        e.rating >= Number(rating) && e.rating <= Number(rating) + 1
+    );
+    res.data.products = dataRate;
+  }
+  if (range) {
+    const slide = range.split('-');
+    const dataRate = res.data.products.filter(
+      (e: product) => e.price >= Number(slide[0]) && e.price <= Number(slide[1])
+    );
+    res.data.products = dataRate;
+  }
+  res.data.total = res.data.products.length;
+
+  let arr = res.data.products;
+  res.data.products = arr.slice(
+    (page - 1) * 30,
+    page * 30 > res.data.total ? res.data.total : page * 30
+  );
   return res.data;
 };
 export const metadata: Metadata = {
@@ -43,7 +67,12 @@ export default async function page({
   searchParams: { [key: string]: string };
 }) {
   let page = Number(searchParams.page) || 1;
-  const data: data = await getData(page, searchParams.oderBy);
+  const data: data = await getData(
+    page,
+    searchParams.oderBy,
+    searchParams.rating,
+    searchParams.range
+  );
   return (
     <div className="px-4 sm:px-0">
       <div className="fluid_container !bg-transparent">
@@ -56,7 +85,7 @@ export default async function page({
           width={1920}
           height={500}
           className="w-full max-h-[500px] h-full aspect-[21/9]"
-          loading="lazy"
+          priority
           alt="product banner"
         />
       </div>

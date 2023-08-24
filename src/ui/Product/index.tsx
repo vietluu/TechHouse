@@ -1,7 +1,7 @@
 'use client';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import { product } from '@/types/productType';
-import { Button, Pagination, Select } from 'antd';
+import { Button, Pagination, Select, Rate, Slider, Drawer, Radio } from 'antd';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -12,33 +12,61 @@ export default function index({
 }: {
   data: { products: []; total: number; skip: number; limit: number };
 }) {
-  const filter = useState({});
+  const [show, setShow] = useState(false);
+  const [rating, setRating] = useState<number | null>(null);
+  const [range, setRange] = useState<[number, number] | undefined>([0, 2000]);
   const path = usePathname();
   const router = useRouter();
   const searchParams: any = useSearchParams();
-  const param = useSearchParams().get('keyword');
+  const page = useSearchParams().get('page');
   const changePage = (value: number) => {
     router.push(path + '?' + createQueryString('page', value));
   };
   const createQueryString = useCallback(
-    (name: string, value: string | number) => {
+    (
+      name: string,
+      value: string | number | [number, number] | null | undefined
+    ) => {
       const params = new URLSearchParams(searchParams);
 
       if (!value) {
         params.delete(name);
       } else {
-        params.set(name, value.toString());
+        if (typeof value == 'object') {
+          params.set(name, `${value[0] + '-' + value[1]}`);
+        } else params.set(name, value.toString());
       }
-
       return params.toString();
     },
     [searchParams]
   );
+  const resetFilter = () => {
+    setRange([0, 2000]);
+    setRating(null);
+    return router.push(path);
+  };
 
+  useLayoutEffect(() => {
+    router.push(path + '?' + createQueryString('rating', rating));
+  }, [rating]);
+
+  const Footer = () => (
+    <div className="flex flex-row flex-1 justify-evenly gap-3 absolute bottom-2 right-2">
+      <Button
+        className="p-3 w-full !text-white !rounded-none !bg-red-400"
+        onClick={resetFilter}
+      >
+        Bỏ lọc
+      </Button>
+    </div>
+  );
   return (
     <div className="fluid_container py-5">
       <div className="grid grid-cols-3 items-center px-2">
-        <Button className="ml-0 w-1/6 lg:w-1/5 sm:w-4/5 sm:col-[1/6]">
+        <Button
+          className="ml-0 w-1/6 lg:w-1/5 sm:w-4/5 sm:col-[1/6]"
+          onClick={(e) => setShow(true)}
+        >
           <b className="fas fa-filter text-slate-400"></b> Lọc
         </Button>
         <div className="sm:hidden text-2xl text-sky-500 font-bold text-center">
@@ -90,7 +118,7 @@ export default function index({
                   </span>
                 </p>
                 <div>
-                  <Star rate={value.rating} star={false} />
+                  <Star rate={value.rating} />
                   <span className="text-sm">{` (${value.stock})`}</span>
                 </div>
               </Link>
@@ -99,12 +127,69 @@ export default function index({
         <div className="flex justify-center items-center py-5">
           <Pagination
             total={data.total}
-            pageSize={20}
+            pageSize={30}
+            current={Number(page) || 1}
             onChange={changePage}
             showSizeChanger={false}
           />
         </div>
       </div>
+
+      <Drawer
+        title="Bộ lọc"
+        bodyStyle={{ width: '100%' }}
+        onClose={(e) => setShow(false)}
+        open={show}
+        placement="left"
+        footer={<Footer />}
+      >
+        <div className="flex flex-col mt-5">
+          <h2 className="text-xl pb-4">Đánh giá</h2>
+          <Radio.Group
+            value={rating}
+            onChange={(e) => setRating(e.target.value)}
+          >
+            <Radio value={5}>
+              <Rate className="text-small" key={5} value={5} disabled />
+            </Radio>
+            <Radio value={4}>
+              <Rate className="text-small" key={4} value={4} disabled />
+            </Radio>
+            <Radio value={3}>
+              <Rate className="text-small" key={3} value={3} disabled />
+            </Radio>
+            <Radio value={2}>
+              <Rate className="text-small" key={2} value={2} disabled />
+            </Radio>
+            <Radio value={1}>
+              <Rate className="text-small" key={1} value={1} disabled />
+            </Radio>
+          </Radio.Group>
+        </div>
+        <div className="mt-5">
+          <h2 className="text-xl pb-4">Khoảng giá</h2>
+          <Slider
+            range
+            step={10}
+            defaultValue={[0, 2000]}
+            min={0}
+            max={2000}
+            onChange={(e) => setRange(e)}
+            value={range}
+            marks={{ 0: '0', 2000: '2000' }}
+          />
+          <div className="text-center">
+            <Button
+              className="p-3 w-2/4 mx-auto !text-white !rounded-none !bg-red-400"
+              onClick={(e) =>
+                router.push(path + '?' + createQueryString('range', range))
+              }
+            >
+              Xác nhận
+            </Button>
+          </div>
+        </div>
+      </Drawer>
     </div>
   );
 }
