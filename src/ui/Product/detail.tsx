@@ -153,7 +153,7 @@ function detail({ data }: { data: { product: product; sub: Listproduct } }) {
                       </span>
                     </p>
                     <div>
-                      <Star rate={value.rating} star={false} />
+                      <Star rate={value.rating} />
                       <span className="text-sm">{` (${value.stock})`}</span>
                     </div>
                   </Link>
