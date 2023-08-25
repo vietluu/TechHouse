@@ -1,7 +1,16 @@
 'use client';
 import React, { useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import { product } from '@/types/productType';
-import { Button, Pagination, Select, Rate, Slider, Drawer, Radio } from 'antd';
+import {
+  Button,
+  Pagination,
+  Select,
+  Rate,
+  Slider,
+  Drawer,
+  Radio,
+  Empty,
+} from 'antd';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -15,12 +24,14 @@ export default function index({
   const [show, setShow] = useState(false);
   const [rating, setRating] = useState<number | null>(null);
   const [range, setRange] = useState<[number, number] | undefined>([0, 2000]);
+
   const path = usePathname();
   const router = useRouter();
   const searchParams: any = useSearchParams();
   const page = useSearchParams().get('page');
-  const changePage = (value: number) => {
-    router.push(path + '?' + createQueryString('page', value));
+
+  const changePage = async (value: number) => {
+    await router.push(path + '?' + createQueryString('page', value));
   };
   const createQueryString = useCallback(
     (
@@ -40,10 +51,11 @@ export default function index({
     },
     [searchParams]
   );
-  const resetFilter = () => {
-    setRange([0, 2000]);
-    setRating(null);
-    return router.push(path);
+
+  const resetFilter = async () => {
+    Promise.all([setRange([0, 2000]), setRating(null)]).then(() =>
+      router.push(path)
+    );
   };
 
   useLayoutEffect(() => {
@@ -92,9 +104,9 @@ export default function index({
         </div>
       </div>
       <div className="product pt-1 pb-5">
-        <div className="bg-[#dedcdc] p-4 grid place-content-center items-center  gap-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5	">
-          {data?.products?.length &&
-            data.products.map((value: product) => (
+        {data?.products?.length ? (
+          <div className="bg-[#dedcdc] p-4 grid place-content-center items-center  gap-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5	">
+            {data.products.map((value: product) => (
               <Link
                 key={value.id}
                 href={'/product/' + value?.id}
@@ -123,7 +135,11 @@ export default function index({
                 </div>
               </Link>
             ))}
-        </div>
+          </div>
+        ) : (
+          <Empty />
+        )}
+
         <div className="flex justify-center items-center py-5">
           <Pagination
             total={data.total}
