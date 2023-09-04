@@ -163,7 +163,7 @@ export default function Footer() {
               </li>
               <li className="pd-1">
                 <i className="pd-1 fas fa-envelope"></i>
-                <span>hellomyphen@gmail.com</span>
+                <span>contact@techhouse.com</span>
               </li>
             </ul>
 

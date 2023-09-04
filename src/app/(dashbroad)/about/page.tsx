@@ -1,4 +1,4 @@
-import ComingSoon from '@/components/ComingSoon';
+import About from '@/ui/About';
 import { Metadata } from 'next';
 import React from 'react';
 
@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'About',
 };
 function page() {
-  return <ComingSoon />;
+  return <About />;
 }
 
 export default page;

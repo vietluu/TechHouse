@@ -62,6 +62,28 @@ export default function index({
     router.push(path + '?' + createQueryString('rating', rating));
   }, [rating]);
 
+  const CategoryList = () => {
+    const listCategory = data.products.map((value: product) => value.brand);
+    const arr = Array.from(new Set(listCategory));
+    return (
+      <div>
+        <ul>
+          {arr &&
+            arr.map((value: string) => (
+              <li>
+                <Link
+                  href={`/category/${value}`}
+                  className="text-lg py-3 !text-black"
+                >
+                  {value}
+                </Link>
+              </li>
+            ))}
+        </ul>
+      </div>
+    );
+  };
+
   const Footer = () => (
     <div className="flex flex-row flex-1 justify-evenly gap-3 absolute bottom-2 right-2">
       <Button
@@ -159,8 +181,13 @@ export default function index({
         placement="left"
         footer={<Footer />}
       >
+        {/* <div>
+          <h2 className="text-xl pb-4 font-bold">Danh muc</h2>
+          <CategoryList/>
+
+        </div> */}
         <div className="flex flex-col mt-5">
-          <h2 className="text-xl pb-4">Đánh giá</h2>
+          <h2 className="text-xl pb-4 font-bold">Đánh giá</h2>
           <Radio.Group
             value={rating}
             onChange={(e) => setRating(e.target.value)}
@@ -183,7 +210,7 @@ export default function index({
           </Radio.Group>
         </div>
         <div className="mt-5">
-          <h2 className="text-xl pb-4">Khoảng giá</h2>
+          <h2 className="text-xl pb-4 font-bold">Khoảng giá</h2>
           <Slider
             range
             step={10}
