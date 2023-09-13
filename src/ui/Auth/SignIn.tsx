@@ -14,6 +14,7 @@ const SignIn = ({ callback }: { callback: string | undefined }) => {
   const dispatch = useAppDispatch();
 
   const login = async (data: any) => {
+    message.destroy();
     message.loading({
       key: 'loadind',
       duration: 3,

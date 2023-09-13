@@ -26,14 +26,14 @@ export default function Home({
     customPaging: () => <span className="dot"></span>,
   };
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
+    <main className="flex flex-col items-center justify-between">
       <AdModal />
       <div className="slideshow-container">
         <Slider {...setting}>
           <Link className="img-box" href={'/category/mens-watches'}>
             <Image
               width={1000}
-              height={1000}
+              height={800}
               priority
               src="/assets/images/banner/slideshow_1.jpg"
               alt=""
@@ -47,7 +47,7 @@ export default function Home({
               src="/assets/images/banner/slideshow_2.jpg"
               alt=""
               width={1000}
-              height={1000}
+              height={800}
               className="w-full h-full"
               quality={100}
             />
@@ -55,7 +55,7 @@ export default function Home({
           <Link className="img-box" href={'/category/lighting'}>
             <Image
               width={1000}
-              height={1000}
+              height={800}
               quality={100}
               priority
               src="/assets/images/banner/slideshow_3.jpg"

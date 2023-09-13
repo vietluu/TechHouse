@@ -95,12 +95,9 @@ export default function index({
     </div>
   );
   return (
-    <div className="fluid_container py-5">
-      <div className="grid grid-cols-3 items-center px-2">
-        <Button
-          className="ml-0 w-1/6 lg:w-1/5 sm:w-4/5 sm:col-[1/6]"
-          onClick={(e) => setShow(true)}
-        >
+    <div className="fluid_container !bg-transparent py-5">
+      <div className="grid grid-cols-3 items-center px-1">
+        <Button className="w-fit" onClick={(e) => setShow(true)}>
           <b className="fas fa-filter text-slate-400"></b> Lọc
         </Button>
         <div className="sm:hidden text-2xl text-sky-500 font-bold text-center">
@@ -125,7 +122,7 @@ export default function index({
           </Select>
         </div>
       </div>
-      <div className="product pt-1 pb-5">
+      <div className="product pt-1 ">
         {data?.products?.length ? (
           <div className="bg-[#dedcdc] p-4 grid place-content-center items-center  gap-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5	">
             {data.products.map((value: product) => (
