@@ -97,7 +97,7 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
               <span className="cart">
                 <b className="fa fa-cart-plus fa-2x text-slate-400"></b>
                 <sup id="count" className="text-white">
-                  {data?.carts?.length ? data?.carts[0].totalProducts : 0}
+                  {data?.totalProducts ?? 0}
                 </sup>
               </span>
             </Link>
@@ -108,7 +108,7 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
                     <h2 className="font-bold text-xl text-sky-500 p-3 border-b border-gray-200 ">
                       Giỏ Hàng
                     </h2>
-                    {data?.carts[0].products.length ? (
+                    {data?.products.length ? (
                       <div className="overflow-y-scroll h-full max-h-[200px]">
                         {data.carts[0].products.map((val: any) => (
                           <Link
