@@ -54,6 +54,7 @@
     "next": "^13.4.16",
     "nextjs-toploader": "^1.4.2",
     "postcss": "8.4.24",
+    "rc-swipeout": "^2.0.11",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-facebook": "^9.0.12",

@@ -1,4 +1,10 @@
-import { cart, cartAdd, product } from '@/types/productType';
+import {
+  Listproduct,
+  cart,
+  cartAdd,
+  product,
+  productDetailCartType,
+} from '@/types/productType';
 import { Profile } from '@/types/profileType';
 import { api } from '@/utils/api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
@@ -8,6 +14,14 @@ const initialState: cart = {
   hasErr: false,
   data: null,
 };
+type productUpdateType = {
+  cartId: number;
+  data: {
+    merge: boolean;
+    products: [{ id: number; quantity: number }];
+  };
+};
+
 export const getCart = createAsyncThunk('cart/get', async (id: Number) => {
   const res: any = await api.get(`https://dummyjson.com/carts/user/${id}`);
   return res;
@@ -16,15 +30,22 @@ export const addCart = createAsyncThunk('cart/add', async (body: cartAdd) => {
   const res: any = await api.post(`https://dummyjson.com/carts/add`, body);
   return res;
 });
+export const updateQualityProduct = createAsyncThunk(
+  'cart/update',
+  async (body: productUpdateType) => {
+    console.log('cart', body.cartId);
+    const res = await api.put(
+      `https://dummyjson.com/carts/${body.cartId}`,
+      body.data
+    );
+    return res;
+  }
+);
 
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {
-    SignOut: (state) => {
-      state.data = null;
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(getCart.pending, (state) => {
@@ -34,9 +55,23 @@ export const cartSlice = createSlice({
       .addCase(getCart.fulfilled, (state, action) => {
         state.isLoading = false;
         state.hasErr = false;
-        state.data = action.payload.data;
+        state.data = action.payload.data.carts[0];
       })
       .addCase(getCart.rejected, (state) => {
+        state.hasErr = true;
+        state.isLoading = false;
+        state.data = null;
+      })
+      .addCase(updateQualityProduct.pending, (state) => {
+        state.isLoading = true;
+        state.hasErr = false;
+      })
+      .addCase(updateQualityProduct.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.hasErr = false;
+        state.data = action.payload.data;
+      })
+      .addCase(updateQualityProduct.rejected, (state) => {
         state.hasErr = true;
         state.isLoading = false;
         state.data = null;
