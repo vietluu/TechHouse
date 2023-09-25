@@ -8,8 +8,8 @@ interface StyledRegistryProps {
   children: React.ReactNode;
 }
 
+const cache = createCache();
 const StyledComponentsRegistry = ({ children }: StyledRegistryProps) => {
-  const cache = createCache();
   useServerInsertedHTML(() => (
     <style
       id="antd"
