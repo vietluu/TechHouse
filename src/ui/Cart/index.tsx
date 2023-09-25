@@ -9,6 +9,7 @@ import Swipeout from 'rc-swipeout';
 import 'rc-swipeout/assets/index.css';
 import { useRouter } from 'next/navigation';
 import { message } from 'antd';
+import SkeletonCart from '@/components/SkeletonCart';
 
 function Cart() {
   const data = useAppSelector((state) => state.CartSlice.data);
@@ -43,10 +44,11 @@ function Cart() {
                 <div>Giá</div>
                 <div className="sm:hidden">Thao tác</div>
               </div>
-              {data &&
+              {data ? (
                 data.products.map((value: productDetailCartType) => (
                   //@ts-ignore
                   <Swipeout
+                    key={value.id}
                     style={{ overflow: 'visible' }}
                     left={[
                       {
@@ -76,7 +78,10 @@ function Cart() {
                   >
                     <div className="grid grid-cols-5 sm:grid-cols-3 py-3 px-2 bg-white mb-2 min-h-[100px] rounded-sm">
                       <div className="md:w-full  w-3/4 text-left text-sky-500">
-                        {value.title}
+                        <Link href={`/product/${value.id}`}>
+                          {' '}
+                          {value.title}
+                        </Link>
                       </div>
                       <div className="sm:hidden">{value?.price}$</div>
                       <div>
@@ -115,7 +120,10 @@ function Cart() {
                       </div>
                     </div>
                   </Swipeout>
-                ))}
+                ))
+              ) : (
+                <SkeletonCart />
+              )}
             </div>
           </div>
           <div className="paid">
