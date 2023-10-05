@@ -46,80 +46,89 @@ function Cart() {
               </div>
               {data ? (
                 data.products.map((value: productDetailCartType) => (
-                  //@ts-ignore
-                  <Swipeout
-                    key={value.id}
-                    style={{ overflow: 'visible' }}
-                    left={[
-                      {
-                        text: 'Thêm thông tin',
-                        onPress: () => router.push(`/product/${value.id}`),
-                        style: {
-                          backgroundColor: 'orange',
-                          color: 'white',
-                          height: '100%',
-                        },
-                      },
-                    ]}
-                    right={[
-                      {
-                        text: 'Xóa',
-                        onPress: () =>
-                          message.warning({
-                            content: 'Tạm thời chưa thể xóa!',
-                          }),
-                        style: {
-                          backgroundColor: 'red',
-                          color: 'white',
-                          height: '100%',
-                        },
-                      },
-                    ]}
-                  >
-                    <div className="grid grid-cols-5 sm:grid-cols-3 py-3 px-2 bg-white mb-2 min-h-[100px] rounded-sm">
-                      <div className="md:w-full  w-3/4 text-left text-sky-500">
-                        <Link href={`/product/${value.id}`}>
-                          {' '}
-                          {value.title}
-                        </Link>
-                      </div>
-                      <div className="sm:hidden">{value?.price}$</div>
-                      <div>
-                        <button
-                          className="bg-[#eee] w-[25px] mr-1"
-                          onClick={() =>
-                            updateQuality(value.id, value.quantity - 1)
-                          }
+                  <>
+                    {
+                      //@ts-ignore
+                      value.quantity > 0 && (
+                        <Swipeout
+                          key={value.id}
+                          style={{ overflow: 'visible' }}
+                          left={[
+                            {
+                              text: 'Thêm thông tin',
+                              onPress: () =>
+                                router.push(`/product/${value.id}`),
+                              style: {
+                                backgroundColor: 'orange',
+                                color: 'white',
+                                height: '100%',
+                              },
+                            },
+                          ]}
+                          right={[
+                            {
+                              text: 'Xóa',
+                              onPress: () =>
+                                message.warning({
+                                  content: 'Tạm thời chưa thể xóa!',
+                                }),
+                              style: {
+                                backgroundColor: 'red',
+                                color: 'white',
+                                height: '100%',
+                              },
+                            },
+                          ]}
                         >
-                          -
-                        </button>
-                        <span className="text-center w-[20px] inline-block">
-                          {value?.quantity}
-                        </span>
-                        <button
-                          className="bg-[#eee] w-[25px] ml-1"
-                          onClick={() =>
-                            updateQuality(value.id, value.quantity + 1)
-                          }
-                        >
-                          +
-                        </button>
-                      </div>
+                          <div className="grid grid-cols-5 sm:grid-cols-3 py-3 px-2 bg-white mb-2 min-h-[100px] rounded-sm">
+                            <div className="md:w-full  w-3/4 text-left text-sky-500">
+                              <Link href={`/product/${value.id}`}>
+                                {' '}
+                                {value.title}
+                              </Link>
+                            </div>
+                            <div className="sm:hidden">{value?.price}$</div>
+                            <div>
+                              <button
+                                className="bg-[#eee] w-[25px] mr-1"
+                                onClick={() =>
+                                  updateQuality(value.id, value.quantity - 1)
+                                }
+                              >
+                                -
+                              </button>
+                              <span className="text-center w-[20px] inline-block">
+                                {value?.quantity}
+                              </span>
+                              <button
+                                className="bg-[#eee] w-[25px] ml-1"
+                                onClick={() =>
+                                  updateQuality(value.id, value.quantity + 1)
+                                }
+                              >
+                                +
+                              </button>
+                            </div>
 
-                      <div className="text-left text-slate-600">
-                        {value?.discountedPrice}
-                        {''}$ <s> {value.total}$</s>
-                      </div>
-                      <div
-                        className="text-red-500 sm:hidden cursor-pointer hover:text-blue"
-                        onClick={() =>
-                          message.warning({ content: 'Tạm thời chưa thể xóa!' })
-                        }
-                      >
-                        xóa
-                      </div>
-                    </div>
-                  </Swipeout>
+                            <div className="text-left text-slate-600">
+                              {value?.discountedPrice}
+                              {''}$ <s> {value.total}$</s>
+                            </div>
+                            <div
+                              className="text-red-500 sm:hidden cursor-pointer hover:text-blue"
+                              onClick={() =>
+                                message.warning({
+                                  content: 'Tạm thời chưa thể xóa!',
+                                })
+                              }
+                            >
+                              xóa
+                            </div>
+                          </div>
+                        </Swipeout>
+                      )
+                    }
+                  </>
                 ))
               ) : (
                 <SkeletonCart />
