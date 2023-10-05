@@ -183,7 +183,7 @@ export default function Footer() {
             </ul>
           </div>
           <div className="  sm:w-full my-0 pt-4">
-            <h4 className="text-main pb-4">Thông tin liên hệ</h4>
+            <h4 className="text-main pb-4 text-center">FanPage</h4>
             <iframe
               src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61550311406566&tabs&width=350&height=270&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false&appId=978312696721588"
               style={{ border: 'none', overflow: 'hidden' }}
