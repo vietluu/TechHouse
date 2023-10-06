@@ -33,7 +33,6 @@ export const addCart = createAsyncThunk('cart/add', async (body: cartAdd) => {
 export const updateQualityProduct = createAsyncThunk(
   'cart/update',
   async (body: productUpdateType) => {
-    console.log('cart', body.cartId);
     const res = await api.put(
       `https://dummyjson.com/carts/${body.cartId}`,
       body.data
@@ -45,7 +44,11 @@ export const updateQualityProduct = createAsyncThunk(
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {},
+  reducers: {
+    resetCart: (state) => {
+      state.data = null;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(getCart.pending, (state) => {
@@ -55,7 +58,7 @@ export const cartSlice = createSlice({
       .addCase(getCart.fulfilled, (state, action) => {
         state.isLoading = false;
         state.hasErr = false;
-        state.data = action.payload.data.carts[0];
+        state.data = action.payload.data?.carts[0] || null;
       })
       .addCase(getCart.rejected, (state) => {
         state.hasErr = true;
@@ -103,4 +106,5 @@ export const cartSlice = createSlice({
       });
   },
 });
+export const { resetCart } = cartSlice.actions;
 export default cartSlice.reducer;

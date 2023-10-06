@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { memo, use, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { getCart } from '@/redux/slice/cartSlice';
+import { getCart, resetCart } from '@/redux/slice/cartSlice';
 import { signOut } from '@/redux/slice/profile';
 import SearchBar from '../SearchBar';
 import Cookies from 'js-cookie';
@@ -33,8 +33,8 @@ function Header() {
         name: localStorage.getItem('name') || '',
         image: localStorage.getItem('image') || '',
       });
+      dispatch(getCart(Number(localStorage.getItem('id'))));
     }
-    dispatch(getCart(Number(localStorage.getItem('id'))));
   }, [user.name]);
 
   const onChangeSize = (): void => {
@@ -58,7 +58,7 @@ function Header() {
       image: '',
     });
 
-    dispatch(getCart(Number(localStorage.getItem('id'))));
+    await dispatch(resetCart());
     router.push('/');
   };
   return (
