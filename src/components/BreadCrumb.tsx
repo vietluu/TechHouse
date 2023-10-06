@@ -4,17 +4,18 @@ import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import React from 'react';
 
+const breadcrumbData = [
+  {
+    path: '/',
+    label: 'Trang chủ',
+  },
+  {
+    path: '/product',
+    label: 'sản phẩm',
+  },
+];
+
 function BreadCrumb({ title }: { title: string | any }) {
-  const breadcrumbData = [
-    {
-      path: '/',
-      label: 'Trang chủ',
-    },
-    {
-      path: '/product',
-      label: 'sản phẩm',
-    },
-  ];
   const generateBreadcrumbs = () => {
     const router = useRouter();
     const pathname = usePathname();
