@@ -12,7 +12,7 @@ export default function Home({
   saleOff: product[];
   newProduct: product[];
 }) {
-  const setting: Settings = {
+  const setting: Settings | any = {
     arrows: false,
     dots: true,
     slidesToShow: 1,

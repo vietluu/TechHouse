@@ -3,7 +3,7 @@ import { api } from '@/utils/api';
 import { Button, Form, Input, message } from 'antd';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
-import { useAppDispatch } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { signIn } from '@/redux/slice/profile';
 import '/assets/css/SignIn.css';
 import '/assets/css/reset.css';
@@ -12,7 +12,7 @@ import { useLayoutEffect } from 'react';
 const SignIn = ({ callback }: { callback: string | undefined }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-
+  const auth = useAppSelector((state) => state.AuthSlice);
   const login = async (data: any) => {
     message.destroy();
     message.loading({
@@ -66,7 +66,9 @@ const SignIn = ({ callback }: { callback: string | undefined }) => {
             <Input.Password />
           </Form.Item>
           <div className="mt-2 flex flex-row justify-around">
-            <Button htmlType="submit">Đăng nhập</Button>
+            <Button htmlType="submit" loading={auth.isLoading}>
+              Đăng nhập
+            </Button>
             <span className="pl-1">
               <span>Chưa có tài khoản?</span> <a> Đăng Ký tại đây!</a>
             </span>

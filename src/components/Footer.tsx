@@ -96,7 +96,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="column-1 px-3">
-        <div className="grid grid-cols-3 sm:grid-cols-1 sm:w-full text-left">
+        <div className="grid grid-cols-4 sm:grid-cols-1 sm:w-full text-left">
           <div className="px-4 sm:p-0 footer__content1">
             <h4 className="pd-3 text-main "> Giới thiệu</h4>
             <div className="p-2 columns-1 p-1 w-full">
@@ -105,7 +105,7 @@ export default function Footer() {
                 bạn tiếp cận xu hướng công nghệ mới nhất.
               </p>
               <img
-                className="p-1 max-w-xs w-full"
+                className="p-1 max-w-[12rem] w-full"
                 src="/assets/Image/logo_bocongthuong.png"
                 alt=""
               />
@@ -150,7 +150,7 @@ export default function Footer() {
           </div>
 
           <div className="  sm:w-full  footer__content3">
-            <h4 className="pd-1 text-main">Thông tin liên hệ</h4>
+            <h4 className="mt-3 text-main">Thông tin liên hệ</h4>
 
             <ul className="p-1 sm:w-full">
               <li className="pd-1">
@@ -169,18 +169,26 @@ export default function Footer() {
 
             <ul className="social row c-12 pd-3">
               <li className="pd-1">
-                <i className="fab fa-facebook-f fa-2x"></i>
+                <i className="fab fa-facebook-f text-3xl"></i>
               </li>
               <li className="pd-1">
-                <i className="fab fa-twitter fa-2x"></i>
+                <i className="fab fa-twitter text-3xl"></i>
               </li>
               <li className="pd-1">
-                <i className="fab fa-instagram fa-2x"></i>
+                <i className="fab fa-instagram text-3xl"></i>
               </li>
               <li className="pd-1">
-                <i className="fab fa-youtube fa-2x"></i>
+                <i className="fab fa-youtube text-3xl"></i>
               </li>
             </ul>
+          </div>
+          <div className="  sm:w-full my-0 pt-4">
+            <h4 className="text-main pb-4 text-center">FanPage</h4>
+            <iframe
+              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61550311406566&tabs&width=350&height=270&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false&appId=978312696721588"
+              style={{ border: 'none', overflow: 'hidden' }}
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            ></iframe>
           </div>
         </div>
       </div>

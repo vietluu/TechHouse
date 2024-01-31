@@ -11,10 +11,10 @@ import React, {
 import Slider, { Settings } from 'react-slick';
 
 function SlideProduct({ image }: { image: [string] }) {
-  const [nav1, setNav1] = useState(null);
-  const [nav2, setNav2] = useState(null);
-  const ref1 = useRef(null);
-  const ref2 = useRef(null);
+  const [nav1, setNav1] = useState<Slider | null>(null);
+  const [nav2, setNav2] = useState<Slider | null>(null);
+  const ref1 = useRef<Slider | null>(null);
+  const ref2 = useRef<Slider | null>(null);
 
   useLayoutEffect(() => {
     if (image.length < 4) {
@@ -22,7 +22,7 @@ function SlideProduct({ image }: { image: [string] }) {
     }
   }, []);
 
-  const setting: Settings = {
+  const setting: Settings | any = {
     arrows: false,
     dots: false,
     slidesToShow: 1,
@@ -34,7 +34,7 @@ function SlideProduct({ image }: { image: [string] }) {
     adaptiveHeight: true,
     infinite: true,
   };
-  const subSetting: Settings = {
+  const subSetting: Settings | any = {
     arrows: false,
     dots: false,
     slidesToShow: 4,
@@ -54,12 +54,7 @@ function SlideProduct({ image }: { image: [string] }) {
   }, []);
   return (
     <div className="max-w-[450px]">
-      <Slider
-        {...setting}
-        //@ts-ignore
-        asNavFor={nav2}
-        ref={ref1}
-      >
+      <Slider {...setting} asNavFor={nav2} ref={ref1}>
         {image?.map((data: string) => (
           <Image
             width={1000}
@@ -73,12 +68,7 @@ function SlideProduct({ image }: { image: [string] }) {
           />
         ))}
       </Slider>
-      <Slider
-        {...subSetting}
-        ref={ref2}
-        //@ts-ignore
-        asNavFor={nav1}
-      >
+      <Slider {...subSetting} ref={ref2} asNavFor={nav1}>
         {image?.map((data: string) => (
           <Image
             width={100}

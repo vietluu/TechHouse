@@ -1,15 +1,15 @@
 'use client';
 import Link from 'next/link';
 import { memo, use, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { getCart } from '@/redux/slice/cartSlice';
+import { getCart, resetCart } from '@/redux/slice/cartSlice';
 import { signOut } from '@/redux/slice/profile';
 import SearchBar from '../SearchBar';
 import Cookies from 'js-cookie';
 import MobileNav from './MobileNav';
 import PrimaryNav from './PrimaryNav';
 import { Avatar } from 'antd';
+import { useRouter } from 'next/navigation';
 
 function Header() {
   const [page, setPage] = useState(0);
@@ -22,7 +22,7 @@ function Header() {
   });
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.CartSlice.data);
-
+  const router = useRouter();
   useLayoutEffect(() => {
     setSize(window?.innerWidth);
     window.addEventListener('scroll', scroll);
@@ -33,8 +33,8 @@ function Header() {
         name: localStorage.getItem('name') || '',
         image: localStorage.getItem('image') || '',
       });
+      dispatch(getCart(Number(localStorage.getItem('id'))));
     }
-    dispatch(getCart(Number(localStorage.getItem('id'))));
   }, [user.name]);
 
   const onChangeSize = (): void => {
@@ -58,7 +58,8 @@ function Header() {
       image: '',
     });
 
-    dispatch(getCart(Number(localStorage.getItem('id'))));
+    await dispatch(resetCart());
+    router.push('/');
   };
   return (
     <header>
@@ -84,7 +85,7 @@ function Header() {
           </div>
           <div className="header-contact">
             {size >= 1100 && (
-              <Link href={'tel:19008198'} className="flex">
+              <a href={'tel:19008198'} className="flex">
                 <span>
                   <span className="fas fa-phone fa-2x"></span>
                 </span>
@@ -93,7 +94,7 @@ function Header() {
                   <br />
                   0963638362
                 </span>
-              </Link>
+              </a>
             )}
 
             <div
@@ -106,9 +107,7 @@ function Header() {
               <Link href="/cart" className="h-full mr-0">
                 <span className="cart">
                   <b className="fa fa-cart-plus fa-2x"></b>
-                  <sup id="count">
-                    {data?.carts?.length ? data?.carts[0].totalProducts : 0}
-                  </sup>
+                  <sup id="count">{data?.totalProducts ?? 0}</sup>
                 </span>
                 <span>Giỏ Hàng</span>
               </Link>
@@ -119,9 +118,9 @@ function Header() {
                       <h2 className="font-bold text-xl text-sky-500 p-3 border-b border-gray-200 ">
                         Giỏ Hàng
                       </h2>
-                      {data?.carts[0].products.length ? (
+                      {data?.products.length ? (
                         <div className="overflow-y-scroll h-full max-h-[200px]">
-                          {data.carts[0].products.map((val: any) => (
+                          {data.products.map((val: any) => (
                             <Link
                               key={val.id}
                               href={`/product/${val.id}`}
