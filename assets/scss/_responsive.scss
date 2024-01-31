@@ -91,6 +91,9 @@
     transform: translateY(10px);
     .tab-news {
       width: 100% !important;
+      flex-basis: auto;
+      margin: 0;
+      padding: 10px 0;
     }
   }
   .mobile_info {
@@ -111,6 +114,10 @@
   }
   .mobile_sale {
     width: 100% !important;
+  }
+  .tab-news {
+    flex-basis: auto;
+    margin: 0;
   }
 }
 

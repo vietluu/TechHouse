@@ -18,7 +18,7 @@ export default async function page() {
     .slice(0, 9);
   const newProduct: product[] = data.products
     .sort((a: product, b: product) => a.price - b.price)
-    .slice(0, 10);
+    .slice(0, 20);
 
   return <Home saleOff={saleOff} newProduct={newProduct} />;
 }

@@ -63,12 +63,14 @@ function detail({ data }: { data: { product: product; sub: Listproduct } }) {
 
         <div className="ml-0 mt-0 w-full pl-3 md:pl-0">
           <div className="product-description">
-            <span id="product_id">{product.title}</span>
+            <span id="product_id" className="text-3xl py-1">
+              {product.title}
+            </span>
             <div>
-              <span className="text-sm">{product.rating + ' '}</span>
+              <span className="text-md">{product.rating + ' '}</span>
               <Rate value={product.rating} allowHalf />
               <span>{'  '}Đã mua: </span>
-              <span className="text-sm">{`${product.stock}`}</span>
+              <span className="text-md">{`${product.stock}`}</span>
             </div>
             <p className="py-3">{product.description}</p>
             <div className="py-3">
@@ -87,15 +89,17 @@ function detail({ data }: { data: { product: product; sub: Listproduct } }) {
             </p>
             <div>
               <button
-                className="p-2 bg-slate-200 tex-lg"
+                className="px-2 py-1 bg-slate-200 tex-lg"
                 onClick={(e) => changeCount('reduce')}
                 disabled={count <= 1 ? true : false}
               >
                 -
               </button>
-              <span className="p-2 text-md mx-1 bg-slate-200">{count}</span>
+              <span className="px-2 py-1 text-md mx-1 bg-slate-200">
+                {count}
+              </span>
               <button
-                className="p-2 bg-slate-200 tex-lg"
+                className="px-2 py-1 bg-slate-200 tex-lg"
                 onClick={(e) => changeCount('increase')}
               >
                 +
@@ -125,7 +129,7 @@ function detail({ data }: { data: { product: product; sub: Listproduct } }) {
       </div>
       <div className="fluid_container">
         <div className="product py-5">
-          <div className="bg-[#dedcdc] p-4 grid place-content-center items-center  gap-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5	">
+          <div className="bg-[#dedcdc] p-2 sm:p-1 sm:gap-1 grid place-content-center items-center  gap-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5	">
             {sub?.products?.length &&
               sub.products
                 .filter((e: product) => e.id !== product.id)

@@ -124,7 +124,7 @@ export default function index({
       </div>
       <div className="product pt-1 ">
         {data?.products?.length ? (
-          <div className="bg-[#dedcdc] p-4 grid place-content-center items-center  gap-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5	">
+          <div className="bg-[#dedcdc] p-4 grid place-content-center items-center sm:gap-1 sm:p-1 gap-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5	">
             {data.products.map((value: product) => (
               <Link
                 key={value.id}
