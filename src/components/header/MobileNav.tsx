@@ -73,7 +73,7 @@ function MobileNav({ signOutAction }: { signOutAction: any }) {
     } else {
       document.body.style.position = '';
       document.body.style.height = 'auto';
-      document.body.style.overflowY = 'auto';
+      document.body.style.overflowY = '';
     }
     items.length && setNavData(items);
   }, [menuToggle]);

@@ -10,8 +10,8 @@ import { api } from '@/utils/api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const initialState: cart = {
-  isLoading: false,
-  hasErr: false,
+  isLoading: {},
+  hasErr: {},
   data: null,
 };
 type productUpdateType = {
@@ -52,40 +52,40 @@ export const cartSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getCart.pending, (state) => {
-        state.isLoading = true;
-        state.hasErr = false;
+        state.isLoading[getCart.typePrefix] = true;
+        state.hasErr[getCart.typePrefix] = undefined;
       })
       .addCase(getCart.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.hasErr = false;
+        state.isLoading[getCart.typePrefix] = false;
+        state.hasErr[getCart.typePrefix] = undefined;
         state.data = action.payload.data?.carts[0] || null;
       })
-      .addCase(getCart.rejected, (state) => {
-        state.hasErr = true;
-        state.isLoading = false;
+      .addCase(getCart.rejected, (state, action) => {
+        state.hasErr[getCart.typePrefix] = action.error.message;
+        state.isLoading[getCart.typePrefix] = false;
         state.data = null;
       })
       .addCase(updateQualityProduct.pending, (state) => {
-        state.isLoading = true;
-        state.hasErr = false;
+        state.isLoading[updateQualityProduct.typePrefix] = true;
+        state.hasErr[updateQualityProduct.typePrefix] = undefined;
       })
       .addCase(updateQualityProduct.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.hasErr = false;
+        state.isLoading[updateQualityProduct.typePrefix] = false;
+        state.hasErr[updateQualityProduct.typePrefix] = undefined;
         state.data = action.payload.data;
       })
-      .addCase(updateQualityProduct.rejected, (state) => {
-        state.hasErr = true;
-        state.isLoading = false;
+      .addCase(updateQualityProduct.rejected, (state, action) => {
+        state.hasErr[updateQualityProduct.typePrefix] = action.error.message;
+        state.isLoading[updateQualityProduct.typePrefix] = false;
         state.data = null;
       })
       .addCase(addCart.pending, (state) => {
-        state.isLoading = true;
-        state.hasErr = false;
+        state.isLoading[addCart.typePrefix] = true;
+        state.hasErr[addCart.typePrefix] = undefined;
       })
       .addCase(addCart.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.hasErr = false;
+        state.isLoading[addCart.typePrefix] = false;
+        state.hasErr[addCart.typePrefix] = undefined;
         action.payload.data.products.map((e: any) => {
           state.data?.products.map((x: any) => {
             if (x.id == e.id) {
@@ -100,9 +100,9 @@ export const cartSlice = createSlice({
           }
         });
       })
-      .addCase(addCart.rejected, (state) => {
-        state.hasErr = true;
-        state.isLoading = false;
+      .addCase(addCart.rejected, (state, action) => {
+        state.hasErr[addCart.typePrefix] = action.error.message;
+        state.isLoading[addCart.typePrefix] = false;
       });
   },
 });

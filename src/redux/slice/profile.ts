@@ -4,8 +4,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { Sign } from 'crypto';
 
 const initialState: ProfileData = {
-  isLoading: false,
-  hasErr: false,
+  isLoading: {},
+  hasErr: {},
   data: null,
 };
 export const signIn = createAsyncThunk('auth/login', async (body: any) => {
@@ -24,17 +24,17 @@ export const authSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(signIn.pending, (state) => {
-        state.isLoading = true;
-        state.hasErr = false;
+        state.isLoading[signIn.typePrefix] = true;
+        state.hasErr[signIn.typePrefix] = undefined;
       })
       .addCase(signIn.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.hasErr = false;
+        state.isLoading[signIn.typePrefix] = false;
+        state.hasErr[signIn.typePrefix] = undefined;
         state.data = action.payload.data;
       })
-      .addCase(signIn.rejected, (state) => {
-        state.hasErr = true;
-        state.isLoading = false;
+      .addCase(signIn.rejected, (state, action) => {
+        state.hasErr[signIn.typePrefix] = action.error.message;
+        state.isLoading[signIn.typePrefix] = false;
       });
   },
 });

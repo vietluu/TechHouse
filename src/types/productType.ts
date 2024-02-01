@@ -33,8 +33,8 @@ export type Listproduct = {
   limit: number;
 };
 export type cart = {
-  isLoading: Boolean;
-  hasErr: Boolean;
+  isLoading: { [key: string]: boolean };
+  hasErr: { [key: string]: string | undefined };
   data:
     | {
         carts: [

@@ -12,7 +12,7 @@ import { useLayoutEffect } from 'react';
 const SignIn = ({ callback }: { callback: string | undefined }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const auth = useAppSelector((state) => state.AuthSlice);
+  const { isLoading } = useAppSelector((state) => state.AuthSlice);
   const login = async (data: any) => {
     message.destroy();
     message.loading({
@@ -66,7 +66,7 @@ const SignIn = ({ callback }: { callback: string | undefined }) => {
             <Input.Password />
           </Form.Item>
           <div className="mt-2 flex flex-row justify-around">
-            <Button htmlType="submit" loading={auth.isLoading}>
+            <Button htmlType="submit" loading={isLoading[signIn.typePrefix]}>
               Đăng nhập
             </Button>
             <span className="pl-1">

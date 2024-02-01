@@ -2,8 +2,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Listproduct, cartAdd, product } from '@/types/productType';
 import SlideProduct from '@/components/SlideProduct';
-import { Rate, message } from 'antd';
-import { useAppDispatch } from '@/redux/hooks';
+import { Button, Rate, message } from 'antd';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { addCart } from '@/redux/slice/cartSlice';
 import { useRouter, usePathname } from 'next/navigation';
 import BreadCrumb from '@/components/BreadCrumb';
@@ -17,7 +17,7 @@ function detail({ data }: { data: { product: product; sub: Listproduct } }) {
   const router = useRouter();
   const path = usePathname();
   const { product, sub } = data;
-
+  const { isLoading } = useAppSelector((state) => state.CartSlice);
   const addCartData = async () => {
     if (localStorage.getItem('id')) {
       const body: cartAdd = {
@@ -63,10 +63,10 @@ function detail({ data }: { data: { product: product; sub: Listproduct } }) {
 
         <div className="ml-0 mt-0 w-full pl-3 md:pl-0">
           <div className="product-description">
-            <span id="product_id" className="text-3xl py-1">
+            <span id="product_id" className="text-3xl mb-6">
               {product.title}
             </span>
-            <div>
+            <div className="mt-6">
               <span className="text-md">{product.rating + ' '}</span>
               <Rate value={product.rating} allowHalf />
               <span>{'  '}Đã mua: </span>
@@ -108,18 +108,22 @@ function detail({ data }: { data: { product: product; sub: Listproduct } }) {
           </div>
 
           <div className=" grid grid-cols-2 py-7 gap-6">
-            <button type="button" className="px-4 py-3 bg-green-500">
+            <Button
+              type="default"
+              className="!px-4 !border-Sky-500 !text-white !h-auto !py-3 !rounded-sm !bg-sky-500"
+            >
               Mua ngay
-            </button>
+            </Button>
 
-            <button
-              type="button"
+            <Button
+              type="default"
               id="btn_process"
-              className="px-4 py-3 bg-green-300"
+              loading={isLoading[addCart.typePrefix]}
+              className="!px-4 !border-Sky-700 !text-sky-700 !h-auto !py-3 !rounded-sm !bg-sky-200"
               onClick={addCartData}
             >
               Thêm vào giỏ
-            </button>
+            </Button>
           </div>
         </div>
       </div>

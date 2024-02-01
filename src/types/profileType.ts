@@ -9,8 +9,8 @@ export type Profile = {
   token: string;
 };
 export type ProfileData = {
-  isLoading: boolean;
-  hasErr: boolean;
+  isLoading: { [key: string]: boolean };
+  hasErr: { [key: string]: string | undefined };
   data: {
     id: number;
     username: string;
