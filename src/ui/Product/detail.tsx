@@ -56,14 +56,14 @@ function detail({ data }: { data: { product: product; sub: Listproduct } }) {
   return (
     <section className="fluid_container">
       <BreadCrumb title={product.title} />
-      <div className=" bg-white container gri grid grid-cols-2 md:grid-cols-1 p-3 my-3">
-        <div className="ml-0 pr-3 max-w-full ">
+      <div className=" bg-white container justify-start flex flex-row flex-wrap p-3 my-3">
+        <div className="max-w-full flex-auto ">
           <SlideProduct image={product.images} />
         </div>
 
-        <div className="ml-0 mt-0 w-full pl-3 md:pl-0">
+        <div className="ml-0 mt-0 flex-auto pl-3 md:pl-0 md:mt-3">
           <div className="product-description">
-            <span id="product_id" className="text-3xl mb-6">
+            <span id="product_id" className="text-3xl font-bold mb-6">
               {product.title}
             </span>
             <div className="mt-6">
@@ -82,8 +82,10 @@ function detail({ data }: { data: { product: product; sub: Listproduct } }) {
               <span className=" p-1 bg-slate-300 ml-2">{product.category}</span>
             </div>
             <p className="mobile_paid my-5 bg-slate-300 p-3">
-              <span className="text-xl">{product.price + '$  '}</span>
-              <span className="text-[#eb5757] p-1 bg-[#fff0e9] rounded-sm ml-7">
+              <span className="text-2xl font-bold">
+                {product.price + '$  '}
+              </span>
+              <span className="text-[#eb5757] p-1 rounded-sm ml-2">
                 {'-' + Math.floor(product.discountPercentage) + '%'}
               </span>
             </p>

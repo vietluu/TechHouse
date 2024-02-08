@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { memo, use, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { memo, useLayoutEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getCart, resetCart } from '@/redux/slice/cartSlice';
 import { signOut } from '@/redux/slice/profile';
@@ -8,14 +8,13 @@ import SearchBar from '../SearchBar';
 import Cookies from 'js-cookie';
 import MobileNav from './MobileNav';
 import PrimaryNav from './PrimaryNav';
-import { Avatar } from 'antd';
+import { Avatar, Badge, Dropdown, Empty, Popover, Space } from 'antd';
 import { useRouter } from 'next/navigation';
+import type { MenuProps } from 'antd/lib/menu';
 
 function Header() {
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(0);
-  const [show, setShow] = useState(false);
-  const [userMenu, setUsermenu] = useState(false);
   const [user, setUser] = useState<{ name: string; image: string }>({
     name: '',
     image: '',
@@ -40,13 +39,7 @@ function Header() {
   const onChangeSize = (): void => {
     setSize(window?.innerWidth);
   };
-
-  const scroll = (): void => {
-    setPage(window.scrollY);
-  };
-
   const signOutAction = async () => {
-    setUsermenu(false);
     dispatch(signOut);
     await Cookies.remove('token');
     localStorage.removeItem('id');
@@ -61,6 +54,36 @@ function Header() {
     await dispatch(resetCart());
     router.push('/');
   };
+  const scroll = (): void => {
+    setPage(window.scrollY);
+  };
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: <span onClick={() => signOutAction()}>Đăng xuất</span>,
+    },
+  ];
+  const Content = (
+    <div className=" max-w-[350px] w-full min-w-[290px]   py-1 px-3 ">
+      {data?.products.length ? (
+        <div className="overflow-y-scroll h-full max-h-[200px]">
+          {data.products.map((val: any) => (
+            <Link key={val.id} href={`/product/${val.id}`} className="">
+              <div className="rounded-sm  bg-white px-1 py-3 text-black flex flex-row flex-nowrap mb-1 shadow-sm shadow-slate-300">
+                <div className="w-[87%] mx-0 font-bold">{val.title}</div>
+                <div className="w-[13%] text-sky-500">
+                  {' x '}
+                  {val?.quantity}
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <Empty className="py-4" description="Không có đơn hàng nào" />
+      )}
+    </div>
+  );
   return (
     <header>
       <div
@@ -83,13 +106,13 @@ function Header() {
           <div className="search-bar">
             <SearchBar />
           </div>
-          <div className="header-contact">
+          <div className="header-contact justify-center items-center gap-2">
             {size >= 1100 && (
-              <a href={'tel:19008198'} className="flex">
-                <span>
+              <a href={'tel:19008198'} className="flex justify-start flex-auto">
+                <span className="mr-0">
                   <span className="fas fa-phone fa-2x"></span>
                 </span>
-                <span>
+                <span className="ml-2">
                   Hotline:
                   <br />
                   0963638362
@@ -97,81 +120,56 @@ function Header() {
               </a>
             )}
 
-            <div
-              className="header-cart relative"
-              onMouseOver={() => setShow(true)}
-              onMouseLeave={() => {
-                setShow(false);
-              }}
-            >
-              <Link href="/cart" className="h-full mr-0">
-                <span className="cart">
-                  <b className="fa fa-cart-plus fa-2x"></b>
-                  <sup id="count">{data?.totalProducts ?? 0}</sup>
-                </span>
-                <span>Giỏ Hàng</span>
+            <div className="header-cart h-full flex-auto">
+              <Link
+                href="/cart"
+                className="h-full flex justify-center items-center w-full mr-0"
+              >
+                <Popover
+                  placement="bottom"
+                  trigger={['hover', 'hover']}
+                  title={
+                    <h2 className="font-bold text-xl text-sky-500 p-3 border-b border-gray-200">
+                      Giỏ Hàng
+                    </h2>
+                  }
+                  content={Content}
+                >
+                  <Badge count={data?.totalProducts ?? 0} overflowCount={99}>
+                    <b className="fa fa-cart-plus fa-2x text-white"></b>
+                  </Badge>
+
+                  <span className="ml-2 md:hidden">Giỏ Hàng</span>
+                </Popover>
               </Link>
-              {user.name && (
-                <>
-                  {show && (
-                    <div className="lg:hidden z-20 right-0 mt-1 cart-list absolute  w-[350px]  rounded-sm  bg-white py-1 px-3 top-[1.7rem] shadow-sm shadow-slate-400">
-                      <h2 className="font-bold text-xl text-sky-500 p-3 border-b border-gray-200 ">
-                        Giỏ Hàng
-                      </h2>
-                      {data?.products.length ? (
-                        <div className="overflow-y-scroll h-full max-h-[200px]">
-                          {data.products.map((val: any) => (
-                            <Link
-                              key={val.id}
-                              href={`/product/${val.id}`}
-                              className=""
-                            >
-                              <div className="rounded-sm  bg-white px-1 py-3 text-black flex flex-row flex-nowrap mb-1 shadow-sm shadow-slate-300">
-                                <div className="w-[87%] mx-0 font-bold">
-                                  {val.title}
-                                </div>
-                                <div className="w-[13%] text-sky-500">
-                                  {' x '}
-                                  {val?.quantity}
-                                </div>
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                      ) : (
-                        <h3 className="py-4">no data</h3>
-                      )}
-                    </div>
-                  )}
-                </>
-              )}
             </div>
 
-            <div className="header-user ml-0">
-              <div
-                className=" relative"
-                onMouseOver={(e) => setUsermenu(true)}
-                onMouseLeave={() => setUsermenu(false)}
-              >
+            <div className=" header-user flex-auto ml-0 flex justify-center">
+              <div>
                 {user.name ? (
                   <>
-                    {/* <Image
-                      priority
-                      width={40}
-                      height={40}
-                      src={user.image}
-                      alt="avt"
-                      className=" inline-block rounded-full w-[40px] h-[40px] aspect-[1/1] "
-                    /> */}
-                    <Avatar src={user.image} alt="avt" size={'default'} />
-                    <span className="!m-0 lg:hidden pl-1 inline-block">
-                      {user.name}
-                    </span>
-                    {userMenu && (
+                    <Dropdown
+                      menu={{ items }}
+                      placement="bottom"
+                      trigger={['click', 'hover']}
+                      className="!rounded-sm"
+                    >
+                      <Space className="w-fit">
+                        <Avatar
+                          src={user.image || '/assets/Image/logo.png'}
+                          alt="avt"
+                          size={'default'}
+                        />
+                        <span className="!m-0 lg:hidden pl-1 inline-block">
+                          {user.name}
+                        </span>
+                      </Space>
+                    </Dropdown>
+                    {/* {userMenu && (
                       <ul className="min-w-[90px] absolute bottom-[-45px] right-0 z-20 bg-white shadow-md shadow-gray-400 text-black p-3 list-none">
                         <li onClick={signOutAction}>Đăng xuất</li>
                       </ul>
-                    )}
+                    )} */}
                   </>
                 ) : (
                   <Link href="/signIn" className="flex">

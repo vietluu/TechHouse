@@ -1,10 +1,8 @@
 'use client';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import type { MenuProps } from 'antd';
-import { Menu } from 'antd';
+import type { MenuProps } from 'antd/lib/menu';
+import { Dropdown, Empty, Menu, Popover, Badge } from 'antd';
 import { useRouter } from 'next/navigation';
-import SearchBar from '../SearchBar';
-import Item from 'antd/es/list/Item';
 import Link from 'next/link';
 import Image from 'next/image';
 type MenuItem = Required<MenuProps>['items'][number];
@@ -59,6 +57,33 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
     }
   };
+  const DropDownitems: MenuProps['items'] = [
+    {
+      key: '1',
+      label: <span onClick={() => signOutAction()}>Đăng xuất</span>,
+    },
+  ];
+  const Content = (
+    <div className=" max-w-[350px] w-full min-w-[290px]   py-1 px-3 ">
+      {data?.products.length ? (
+        <div className="overflow-y-scroll h-full max-h-[200px]">
+          {data.products.map((val: any) => (
+            <Link key={val.id} href={`/product/${val.id}`} className="">
+              <div className="rounded-sm  bg-white px-1 py-3 text-black flex flex-row flex-nowrap mb-1 shadow-sm shadow-slate-300">
+                <div className="w-[87%] mx-0 font-bold">{val.title}</div>
+                <div className="w-[13%] text-sky-500">
+                  {' x '}
+                  {val?.quantity}
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <Empty className="py-4" description="Không có đơn hàng nào" />
+      )}
+    </div>
+  );
   return (
     <div
       className={
@@ -86,65 +111,28 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
           />
         </div>
         <div className="header-contact w-1/4">
-          <div
-            className="header-cart relative mr-4"
-            onMouseOver={() => setShow(true)}
-            onMouseLeave={() => {
-              setShow(false);
-            }}
-          >
+          <div className="header-cart relative mr-4">
             <Link href="/cart" className="h-full">
-              <span className="cart">
-                <b className="fa fa-cart-plus fa-2x text-slate-400"></b>
-                <sup id="count" className="text-white">
-                  {data?.totalProducts ?? 0}
-                </sup>
-              </span>
+              <Popover
+                placement="bottom"
+                title={
+                  <h2 className="font-bold text-xl text-sky-500 p-3 border-b border-gray-200 ">
+                    Giỏ Hàng
+                  </h2>
+                }
+                content={Content}
+              >
+                <Badge count={data?.totalProducts ?? 0} overflowCount={99}>
+                  <b className="fa fa-cart-plus fa-2x text-gray-500"></b>
+                </Badge>
+              </Popover>
             </Link>
-            {user.name && (
-              <>
-                {show && (
-                  <div className=" lg:hidden z-20 right-0 mt-1 cart-list absolute  w-[350px]  rounded-sm  bg-white py-1 px-3 top-[1.7rem] shadow-sm shadow-slate-400">
-                    <h2 className="font-bold text-xl text-sky-500 p-3 border-b border-gray-200 ">
-                      Giỏ Hàng
-                    </h2>
-                    {data?.products.length ? (
-                      <div className="overflow-y-scroll h-full max-h-[200px]">
-                        {data.carts[0].products.map((val: any) => (
-                          <Link
-                            key={val.id}
-                            href={`/product/${val.id}`}
-                            className=""
-                          >
-                            <div className="rounded-sm  bg-white px-1 py-3 text-black flex flex-row flex-nowrap mb-1 shadow-sm shadow-slate-300">
-                              <div className="w-[87%] mx-0 font-bold">
-                                {val.title}
-                              </div>
-                              <div className="w-[13%] text-sky-500">
-                                {' x '}
-                                {val?.quantity}
-                              </div>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    ) : (
-                      <h3 className="py-4">no data</h3>
-                    )}
-                  </div>
-                )}
-              </>
-            )}
           </div>
 
           <div className="header-user ml-3">
-            <div
-              className=" relative"
-              onMouseOver={(e) => setUsermenu(true)}
-              onMouseLeave={() => setUsermenu(false)}
-            >
+            <div>
               {user.name ? (
-                <>
+                <Dropdown menu={{ items: DropDownitems }} placement="bottom">
                   <Image
                     priority
                     width={40}
@@ -153,12 +141,7 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
                     alt="avt"
                     className=" inline-block rounded-full w-[40px] h-[40px] aspect-[1/1] "
                   />
-                  {userMenu && (
-                    <ul className="min-w-[90px] absolute bottom-[-45px] right-0 z-20 bg-white shadow-md shadow-gray-400 text-black p-3 list-none">
-                      <li onClick={signOutAction}>Đăng xuất</li>
-                    </ul>
-                  )}
-                </>
+                </Dropdown>
               ) : (
                 <Link href="/signIn" className="flex">
                   {' '}

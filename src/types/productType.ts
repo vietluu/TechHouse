@@ -12,22 +12,7 @@ export type product = {
   stock: number;
 };
 export type Listproduct = {
-  products: [
-    {
-      id: number;
-      title: string;
-      price: number;
-      category: string;
-      description: string;
-      images: [string];
-      discountPercentage: number;
-      rating: number;
-      brand: string;
-      thumbnail: string;
-      stock: number;
-    }
-  ];
-
+  products: product[];
   total: number;
   skip: number;
   limit: number;
@@ -40,17 +25,7 @@ export type cart = {
         carts: [
           {
             id: number;
-            products: [
-              {
-                id: number;
-                title: string;
-                price: number;
-                quantity: number;
-                total: number;
-                discountPercentage: number;
-                discountedPrice: number;
-              }
-            ];
+            products: product[];
             total: number;
             discountedTotal: number;
             userId: number; // user id is 5
