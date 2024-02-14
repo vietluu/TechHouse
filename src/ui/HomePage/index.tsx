@@ -70,6 +70,7 @@ export default function Home({
         <div className="news-container">
           <Link href="/category/mens-watches" className="tab-news">
             <Image
+              className="w-full h-auto"
               height={400}
               width={400}
               src="/assets/images/banner/img_banner_home_1.jpg"
@@ -79,6 +80,7 @@ export default function Home({
 
           <Link href="/category/smartphones" className="tab-news">
             <Image
+              className="w-full h-auto"
               height={400}
               width={400}
               src="/assets/images/banner/img_banner_home_2.jpg"
@@ -88,6 +90,7 @@ export default function Home({
 
           <Link href="product" className="tab-news">
             <Image
+              className="w-full h-auto"
               height={400}
               width={400}
               src="/assets/images/banner/img_banner_home_3.jpg"

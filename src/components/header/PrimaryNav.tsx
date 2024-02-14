@@ -88,7 +88,7 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
     <div
       className={
         `${size > 150 ? 'fixed ' : 'hidden '}` +
-        '  duration-500 top-0 z-50 w-full py-2 bg-white shadow-sm shadow-slate-400 top-header-container'
+        '  duration-500 top-0 left-0 z-50 w-full py-2 bg-white shadow-sm shadow-slate-400 top-header-container'
       }
     >
       <div className="flex flex-row container max-w-[1378px]">
