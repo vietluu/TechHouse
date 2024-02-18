@@ -56,6 +56,10 @@ const SignIn = ({ callback }: { callback: string | undefined }) => {
           onFinish={async (value) => {
             await login(value);
           }}
+          initialValues={{
+            username: 'kminchelle',
+            password: '0lelplR',
+          }}
         >
           <h1 className="text-2xl text-center">Đăng Nhập</h1>
           <Form.Item name="username" label="Tài khoản">
@@ -63,13 +67,13 @@ const SignIn = ({ callback }: { callback: string | undefined }) => {
           </Form.Item>
 
           <Form.Item name="password" label="Mật khẩu" className="w-full">
-            <Input.Password />
+            <Input.Password allowClear visibilityToggle />
           </Form.Item>
-          <div className="mt-2 flex flex-row justify-around">
+          <div className="mt-2 flex gap-2 flex-row justify-around">
             <Button htmlType="submit" loading={isLoading[signIn.typePrefix]}>
               Đăng nhập
             </Button>
-            <span className="pl-1">
+            <span>
               <span>Chưa có tài khoản?</span> <a> Đăng Ký tại đây!</a>
             </span>
           </div>
