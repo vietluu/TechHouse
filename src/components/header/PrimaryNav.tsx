@@ -115,6 +115,7 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
             <Link href="/cart" className="h-full">
               <Popover
                 placement="bottom"
+                open={size <= 1024 ? false : undefined}
                 title={
                   <h2 className="font-bold text-xl text-sky-500 p-3 border-b border-gray-200 ">
                     Giỏ Hàng

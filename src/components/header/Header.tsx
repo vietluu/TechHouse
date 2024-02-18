@@ -35,13 +35,12 @@ function Header() {
       dispatch(getCart(Number(localStorage.getItem('id'))));
     }
   }, [user.name]);
-
   const onChangeSize = (): void => {
     setSize(window?.innerWidth);
   };
   const signOutAction = async () => {
     dispatch(signOut);
-    await Cookies.remove('token');
+    Cookies.remove('token');
     localStorage.removeItem('id');
     localStorage.removeItem('name');
     localStorage.removeItem('image');
@@ -51,7 +50,7 @@ function Header() {
       image: '',
     });
 
-    await dispatch(resetCart());
+    dispatch(resetCart());
     router.push('/');
   };
   const scroll = (): void => {
@@ -127,7 +126,8 @@ function Header() {
               >
                 <Popover
                   placement="bottom"
-                  trigger={['hover', 'hover']}
+                  trigger={['hover']}
+                  open={size <= 1024 ? false : undefined}
                   title={
                     <h2 className="font-bold text-xl text-sky-500 p-3 border-b border-gray-200">
                       Giỏ Hàng
