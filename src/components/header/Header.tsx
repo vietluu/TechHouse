@@ -175,7 +175,7 @@ function Header() {
                   <Link href="/signIn" className="flex">
                     {' '}
                     <b className="fa fa-user fa-2x"></b>
-                    <span className="pl-1"> Đăng Ký/ Đăng Nhập</span>
+                    <span className="pl-1 md:hidden"> Đăng Ký/ Đăng Nhập</span>
                   </Link>
                 )}
               </div>
