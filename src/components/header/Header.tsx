@@ -138,7 +138,6 @@ function Header() {
                   <Badge count={data?.totalProducts ?? 0} overflowCount={99}>
                     <b className="fa fa-cart-plus fa-2x text-white"></b>
                   </Badge>
-
                   <span className="ml-2 md:hidden">Giỏ Hàng</span>
                 </Popover>
               </Link>
