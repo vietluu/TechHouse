@@ -1,5 +1,11 @@
 'use client';
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, {
+  Children,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import type { MenuProps } from 'antd/lib/menu';
 import { Dropdown, Empty, Menu, Popover, Badge } from 'antd';
 import { useRouter } from 'next/navigation';
@@ -36,7 +42,20 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
   if (typeof window !== 'undefined') {
     items = [
       getItem(<Link href="/">Trang Chủ</Link>, 'home'),
-      getItem(<Link href="/product">Sản phẩm</Link>, 'product'),
+      getItem(<Link href="/product">Sản phẩm</Link>, 'product', null, [
+        {
+          label: <Link href="/product">Sản phẩm mới</Link>,
+          key: 'setting:3',
+        },
+        {
+          label: <Link href="/product">Sản phẩm bán chạy</Link>,
+          key: 'setting:4',
+        },
+        {
+          label: <Link href="/product">Sản phẩm khuyến mãi</Link>,
+          key: 'setting:5',
+        },
+      ]),
 
       getItem(<Link href="/blog">Blog</Link>, '/blog'),
 
@@ -97,7 +116,7 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
             <Link href="/">TechHouse</Link>
           </h1>
         </div>
-        <div className="Primary__menu w-2/4">
+        <div className="Primary__menu w-fit">
           <Menu
             mode="horizontal"
             openKeys={openKeys}
