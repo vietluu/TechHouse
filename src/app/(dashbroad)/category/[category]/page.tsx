@@ -16,13 +16,20 @@ const getData = async (
   page: number,
   oderBy: string,
   rating: string,
-  range: string
+  range: string,
+  brand?: string
 ) => {
   const res = await api.get(`/products?limit=100`);
 
   res.data.products = await res.data.products.filter(
     (data: product) => data.category === category
   );
+
+  if (brand) {
+    res.data.products = res.data.products?.filter(
+      (data: product) => data.brand?.toLowerCase() === brand.toLowerCase()
+    );
+  }
 
   if (oderBy) {
     switch (oderBy) {
@@ -32,14 +39,17 @@ const getData = async (
       case 'decrement':
         res.data.products?.sort((a: product, b: product) => b.price - a.price);
         break;
+      case 'rating':
+        res.data.products?.sort((a: product, b: product) => b.rating - a.rating);
+        break;
       default:
         break;
     }
   }
   if (rating) {
+    const minRating = Number(rating);
     const dataRate = res.data.products.filter(
-      (e: product) =>
-        e.rating >= Number(rating) && e.rating <= Number(rating) + 1
+      (e: product) => e.rating >= minRating
     );
     res.data.products = dataRate;
   }
@@ -75,7 +85,8 @@ export default async function page({
     Number(searchParams.page || 1),
     searchParams.oderBy,
     searchParams.rating,
-    searchParams.range
+    searchParams.range,
+    searchParams.brand
   );
   return <Product data={data} />;
 }

@@ -17,9 +17,21 @@ const getData = async (
   page: number,
   oderBy: string,
   rating: string,
-  range: string
+  range: string,
+  brand?: string,
+  category?: string
 ) => {
   const res = await api.get(`/products?limit=100`);
+  if (category) {
+    res.data.products = res.data.products?.filter(
+      (e: product) => e.category?.toLowerCase() === category.toLowerCase()
+    );
+  }
+  if (brand) {
+    res.data.products = res.data.products?.filter(
+      (e: product) => e.brand?.toLowerCase() === brand.toLowerCase()
+    );
+  }
   if (oderBy) {
     switch (oderBy) {
       case 'increment':
@@ -28,27 +40,30 @@ const getData = async (
       case 'decrement':
         res.data.products?.sort((a: product, b: product) => b.price - a.price);
         break;
+      case 'rating':
+        res.data.products?.sort((a: product, b: product) => b.rating - a.rating);
+        break;
       default:
         break;
     }
   }
   if (rating) {
-    const dataRate = res.data.products.filter(
-      (e: product) =>
-        e.rating >= Number(rating) && e.rating <= Number(rating) + 1
+    const minRating = Number(rating);
+    const dataRate = res.data.products?.filter(
+      (e: product) => e.rating >= minRating
     );
     res.data.products = dataRate;
   }
   if (range) {
     const slide = range.split('-');
-    const dataRate = res.data.products.filter(
+    const dataRate = res.data.products?.filter(
       (e: product) => e.price >= Number(slide[0]) && e.price <= Number(slide[1])
     );
     res.data.products = dataRate;
   }
-  res.data.total = res.data.products.length;
+  res.data.total = res.data.products?.length || 0;
 
-  let arr = res.data.products;
+  let arr = res.data.products || [];
   res.data.products = arr.slice(
     (page - 1) * 30,
     page * 30 > res.data.total ? res.data.total : page * 30
@@ -71,7 +86,9 @@ export default async function page({
     page,
     searchParams.oderBy,
     searchParams.rating,
-    searchParams.range
+    searchParams.range,
+    searchParams.brand,
+    searchParams.category
   );
   return (
     <div className="w-full">

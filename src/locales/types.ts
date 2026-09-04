@@ -97,6 +97,14 @@ export interface Translations {
     buyNow: string;
     relatedProducts: string;
     productDetailTitle: string;
+    closeFilter: string;
+    applyFilter: string;
+    allRatings: string;
+    starsAndUp: string;
+    allPrices: string;
+    popularBrands: string;
+    categories: string;
+    clearAll: string;
   };
   cart: {
     title: string;
