@@ -55,6 +55,8 @@ const getData = async (
   return res.data;
 };
 
+import SearchResultHeader from '@/components/SearchResultHeader';
+
 export default async function page({
   params,
   searchParams,
@@ -71,26 +73,18 @@ export default async function page({
   );
   if (data?.products?.length < 1) {
     return (
-      <div className="fluid_container">
-        <h3 className="text-2xl py-[50px] text-center">
-          {' '}
-          Kết quả tìm kiếm {`"`}
-          {searchParams.keyword}
-          {`"`}: Không có dữ liệu
-        </h3>
-      </div>
+      <SearchResultHeader
+        keyword={searchParams.keyword}
+        hasResults={false}
+      />
     );
   }
   return (
     <>
-      <div className="fluid_container">
-        <h3 className="text-2xl px-3 pt-3 text-left">
-          {' '}
-          Kết quả tìm kiếm {`"`}
-          {searchParams.keyword}
-          {`"`}:
-        </h3>
-      </div>
+      <SearchResultHeader
+        keyword={searchParams.keyword}
+        hasResults={true}
+      />
       <Product data={data} />
     </>
   );

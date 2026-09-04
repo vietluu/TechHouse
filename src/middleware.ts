@@ -1,31 +1,28 @@
-import { NextURL } from 'next/dist/server/web/next-url';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const requestHeaders = new Headers(request.headers);
   const path = request.nextUrl.pathname;
-  if (path.startsWith('/signIn')) {
-    const token = requestHeaders.get('cookie'); // Get cookies object
+  const token = request.cookies.get('token')?.value;
+
+  // If already logged in, redirect away from signIn and signUp
+  if (path.startsWith('/signIn') || path.startsWith('/signUp')) {
     if (token) {
       return NextResponse.redirect(new URL('/', request.url));
     }
   }
+
+  // Redirect malformed category urls
   if (path.startsWith('/category') && path.endsWith('/category')) {
     return NextResponse.redirect(new URL('/product', request.url));
   }
+
+  // Require login to access cart
   if (path.startsWith('/cart')) {
-    const token = requestHeaders.get('cookie'); // Get cookies object
     if (!token) {
-      return NextResponse.redirect(new URL('/signIn', request.url));
+      return NextResponse.redirect(new URL('/signIn?callbackUrl=/cart', request.url));
     }
   }
-  requestHeaders.set('cookie', '');
-  const response = NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  });
 
-  return response;
+  return NextResponse.next();
 }

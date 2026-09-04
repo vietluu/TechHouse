@@ -74,21 +74,31 @@ export default async function page({
     searchParams.range
   );
   return (
-    <div className="px-4 sm:px-0">
-      <div className="fluid_container !bg-transparent">
-        <BreadCrumb title={null} />
+    <div className="w-full">
+      {/* Breadcrumb Bar */}
+      <div className="bg-slate-100/70 border-b border-slate-200/60 py-3 mb-6 sm:mb-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-3">
+          <BreadCrumb title={null} />
+        </div>
       </div>
-      <div>
-        <Image
-          quality={100}
-          src="/assets/Image/product_banner.webp"
-          width={1920}
-          height={500}
-          className="w-full max-h-[500px] h-full aspect-[21/9]"
-          priority
-          alt="product banner"
-        />
+
+      {/* Banner */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-3 mb-6 sm:mb-4">
+        <div className="w-full overflow-hidden rounded-2xl sm:rounded-xl shadow-xs border border-slate-150 bg-slate-50">
+          <div className="relative w-full h-[280px] md:h-[200px] sm:h-[145px]">
+            <Image
+              quality={100}
+              src="/assets/Image/product_banner.webp"
+              fill
+              sizes="(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 1280px"
+              className="object-cover object-center"
+              priority
+              alt="product banner"
+            />
+          </div>
+        </div>
       </div>
+
       <Product data={data} />
     </div>
   );

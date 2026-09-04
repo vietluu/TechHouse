@@ -15,12 +15,14 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import Star from '@/components/Star';
+import { useTranslation } from '@/context/I18nContext';
 
 export default function index({
   data,
 }: {
   data: { products: []; total: number; skip: number; limit: number };
 }) {
+  const { t } = useTranslation();
   const [show, setShow] = useState(false);
   const [rating, setRating] = useState<number | null>(null);
   const [range, setRange] = useState<[number, number] | undefined>([0, 2000]);
@@ -90,76 +92,100 @@ export default function index({
         className="p-3 w-full !text-white !rounded-none !bg-red-400"
         onClick={resetFilter}
       >
-        Bỏ lọc
+        {t('product.resetFilter')}
       </Button>
     </div>
   );
   return (
-    <div className="fluid_container !bg-transparent py-5">
-      <div className="grid grid-cols-3 items-center px-1">
-        <Button className="w-fit" onClick={(e) => setShow(true)}>
-          <b className="fas fa-filter text-slate-400"></b> Lọc
-        </Button>
-        <div className="sm:hidden text-2xl text-sky-500 font-bold text-center">
-          Sản phẩm
+    <div className="fluid_container py-6 sm:py-3">
+      <div className="flex flex-col gap-2.5 py-2 px-1 mb-4">
+        {/* Title row */}
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl sm:text-xl text-slate-800 font-bold tracking-tight m-0">
+            {t('common.products')}
+          </h1>
+          <span className="text-xs text-slate-500 font-medium">
+            {data?.total ?? data?.products?.length ?? 0} {t('common.products').toLowerCase()}
+          </span>
         </div>
 
-        <div className="grid grid-cols-2 mr-0 w-3/4 sm:col-[6/12]  sm:w-full py-3 pr-0 ">
-          <span>Sắp xếp theo:</span>
-          <Select
-            allowClear
-            onClear={() => {
-              router.push(path + window?.location.search);
-            }}
-            className="!w-full !text-center !rounded-none"
-            placeholder="Mặc định"
-            onChange={(e) => {
-              router.push(path + '?' + createQueryString('oderBy', e));
-            }}
+        {/* Actions row: Filter & Sort */}
+        <div className="flex items-center justify-between gap-3 pt-1">
+          <Button
+            className="flex items-center gap-1.5 sm:gap-1 !rounded-full !px-4 sm:!px-3 !py-2 sm:!py-1.5 !h-auto !border-slate-200 hover:!border-sky-500 !shadow-xs font-medium text-sm sm:text-xs"
+            onClick={(e) => setShow(true)}
           >
-            <Select.Option value="increment">Tăng dần</Select.Option>
-            <Select.Option value="decrement">Giảm dần</Select.Option>
-          </Select>
+            <b className="fas fa-filter text-sky-600"></b> {t('product.filterButton')}
+          </Button>
+
+          <div className="flex items-center gap-2 sm:gap-1.5">
+            <span className="text-sm sm:text-xs text-slate-500 whitespace-nowrap">{t('product.sortBy')}</span>
+            <Select
+              allowClear
+              onClear={() => {
+                router.push(path + window?.location.search);
+              }}
+              className="!w-36 sm:!w-32 text-xs"
+              placeholder={t('product.sortDefault')}
+              onChange={(e) => {
+                router.push(path + '?' + createQueryString('oderBy', e));
+              }}
+            >
+              <Select.Option value="increment">{t('product.sortPriceAsc')}</Select.Option>
+              <Select.Option value="decrement">{t('product.sortPriceDesc')}</Select.Option>
+            </Select>
+          </div>
         </div>
       </div>
-      <div className="product pt-1 ">
+      <div className="product pt-1">
         {data?.products?.length ? (
-          <div className="bg-[#dedcdc] p-4 grid place-content-center items-center sm:gap-1 sm:p-1 gap-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5	">
+          <div className="grid gap-4 sm:gap-2.5 grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2">
             {data.products.map((value: product) => (
               <Link
                 key={value.id}
                 href={'/product/' + value?.id}
-                className="rounded-md w-full h-full  bg-white block pt-1 pb-4 px-2"
+                className="rounded-2xl w-full h-full bg-white p-3 border border-slate-150 shadow-soft hover:shadow-card-hover hover:-translate-y-1.5 transition-all duration-300 flex flex-col group"
               >
-                <Image
-                  className=" aspect-[4/3]"
-                  width={1000}
-                  height={1000}
-                  src={value?.thumbnail}
-                  alt={value.title}
-                  quality={100}
-                  priority
-                  title={value.title}
-                />
-                <p className="mobile_name pt-2 mb-2 mt-3">{value.title}</p>
-                <p className="mobile_paid mb-2">
-                  <span className="text-xl">{value.price + '$  '}</span>
-                  <span className="text-sm text-[#eb5757] p-1 bg-[#fff0e9] rounded-sm">
-                    {'-' + Math.floor(value.discountPercentage) + '%'}
-                  </span>
+                <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-slate-50 mb-3 flex items-center justify-center">
+                  <Image
+                    className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500 ease-out"
+                    width={400}
+                    height={400}
+                    src={value?.thumbnail}
+                    alt={value.title}
+                    quality={90}
+                    priority
+                    title={value.title}
+                  />
+                  {value.discountPercentage > 0 && (
+                    <span className="sale text-xs font-semibold px-2 py-0.5 rounded-full top-2 left-2 absolute">
+                      -{Math.floor(value.discountPercentage)}%
+                    </span>
+                  )}
+                </div>
+                <p className="mobile_name text-slate-800 group-hover:text-sky-600 transition-colors font-semibold text-sm sm:text-xs line-clamp-2 mb-2 break-words min-h-[2.5rem] sm:min-h-[2rem]" title={value.title}>
+                  {value.title}
                 </p>
-                <div>
+                <p className="mobile_paid mt-auto mb-2 flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
+                  <span className="text-lg sm:text-sm font-bold text-rose-600">{value.price}$</span>
+                  {value.discountPercentage > 0 && (
+                    <span className="text-xs sm:text-[11px] text-slate-400 line-through">
+                      {(value.price / (1 - value.discountPercentage / 100)).toFixed(2)}$
+                    </span>
+                  )}
+                </p>
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-1 pt-1 border-t border-slate-100 text-xs sm:text-[11px]">
                   <Star rate={value.rating} />
-                  <span className="text-sm">{` (${value.stock})`}</span>
+                  <span className="text-xs sm:text-[10px] text-slate-400">{`(${value.stock})`}</span>
                 </div>
               </Link>
             ))}
           </div>
         ) : (
-          <Empty />
+          <Empty className="py-12" description={t('product.noData')} />
         )}
 
-        <div className="flex justify-center items-center py-5">
+        <div className="flex justify-center items-center py-8">
           <Pagination
             total={data.total}
             pageSize={30}
@@ -171,20 +197,16 @@ export default function index({
       </div>
 
       <Drawer
-        title="Bộ lọc"
-        bodyStyle={{ width: '100%' }}
+        title={t('product.filterTitle')}
+        placement={'left'}
+        closable={false}
         onClose={(e) => setShow(false)}
         open={show}
-        placement="left"
+        key={'left'}
         footer={<Footer />}
       >
-        {/* <div>
-          <h2 className="text-xl pb-4 font-bold">Danh muc</h2>
-          <CategoryList/>
-
-        </div> */}
         <div className="flex flex-col mt-5">
-          <h2 className="text-xl pb-4 font-bold">Đánh giá</h2>
+          <h2 className="text-xl pb-4 font-bold">{t('product.rating')}</h2>
           <Radio.Group
             value={rating}
             onChange={(e) => setRating(e.target.value)}
@@ -207,7 +229,7 @@ export default function index({
           </Radio.Group>
         </div>
         <div className="mt-5">
-          <h2 className="text-xl pb-4 font-bold">Khoảng giá</h2>
+          <h2 className="text-xl pb-4 font-bold">{t('product.priceRange')}</h2>
           <Slider
             range
             step={10}
@@ -220,12 +242,13 @@ export default function index({
           />
           <div className="text-center">
             <Button
-              className="p-3 w-2/4 mx-auto !text-white !rounded-none !bg-red-400"
-              onClick={(e) =>
-                router.push(path + '?' + createQueryString('range', range))
-              }
+              className="p-3 w-2/4 mx-auto !text-white !rounded-none !bg-sky-600 hover:!bg-sky-700"
+              onClick={(e) => {
+                router.push(path + '?' + createQueryString('range', range));
+                setShow(false);
+              }}
             >
-              Xác nhận
+              OK
             </Button>
           </div>
         </div>

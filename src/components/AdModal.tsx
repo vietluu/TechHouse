@@ -2,7 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal } from 'antd';
 
+import { useTranslation } from '@/context/I18nContext';
+
 const AdModal = () => {
+  const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     if (localStorage.getItem('isModalOpen') !== null) {
@@ -15,17 +18,21 @@ const AdModal = () => {
   return (
     <>
       <Modal
-        title="Thông báo"
+        title={
+          <div className="flex items-center gap-2 text-sky-600 font-bold text-base">
+            <i className="fas fa-info-circle text-lg"></i>
+            <span>{t('common.noticeTitle')}</span>
+          </div>
+        }
         open={isModalOpen}
         onCancel={(e) => setIsModalOpen(false)}
         footer={null}
         afterOpenChange={(e) => localStorage.setItem('isModalOpen', 'true')}
         centered={true}
       >
-        <div className="text-lg">
+        <div className="py-3 text-slate-600 text-sm leading-relaxed">
           <p>
-            Giao diện được sử dụng json-server để lưu trữ dữ liệu, vì vậy một số
-            tính năng không hoạt động như mong muốn!
+            {t('common.welcomeNotice')}
           </p>
         </div>
       </Modal>

@@ -4,36 +4,70 @@ import { Listproduct, cartAdd, product } from '@/types/productType';
 import SlideProduct from '@/components/SlideProduct';
 import { Button, Rate, message } from 'antd';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { addCart } from '@/redux/slice/cartSlice';
+import { addCart, addToCart } from '@/redux/slice/cartSlice';
 import { useRouter, usePathname } from 'next/navigation';
 import BreadCrumb from '@/components/BreadCrumb';
 import Image from 'next/image';
 import Link from 'next/link';
 import Star from '@/components/Star';
+import { useTranslation } from '@/context/I18nContext';
+import Cookies from 'js-cookie';
 
 function detail({ data }: { data: { product: product; sub: Listproduct } }) {
+  const { t } = useTranslation();
   const [count, setCount] = useState<number>(1);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const path = usePathname();
   const { product, sub } = data;
   const { isLoading } = useAppSelector((state) => state.CartSlice);
+
+  const isValidAuthToken = (t: any): boolean => {
+    return typeof t === 'string' &&
+      t.trim().length > 10 &&
+      t !== 'undefined' &&
+      t !== 'null';
+  };
+
   const addCartData = async () => {
-    if (localStorage.getItem('id')) {
-      const body: cartAdd = {
-        userId: Number(localStorage.getItem('id')),
-        products: [
-          {
-            id: product.id,
-            quantity: count,
-          },
-        ],
-      };
-      await dispatch(addCart(body));
-      message.success('thêm thành công!');
+    const token = typeof window !== 'undefined' ? (localStorage.getItem('token') || Cookies.get('token')) : null;
+
+    if (isValidAuthToken(token)) {
+      dispatch(
+        addToCart({
+          id: product.id,
+          title: product.title,
+          price: product.price,
+          quantity: count,
+          discountPercentage: product.discountPercentage,
+          thumbnail: product.thumbnail || (product.images && product.images[0]) || '',
+        })
+      );
+      message.success(t('common.addedToCartSuccess'));
     } else {
-      message.warning('vui lòng đăng nhập!');
-      router.push(`/signIn?callbackUrl=${path}`);
+      message.warning(t('common.requireLoginToAddCart'));
+      router.push(`/signIn?callbackUrl=${encodeURIComponent(path)}`);
+    }
+  };
+
+  const buyNowData = async () => {
+    const token = typeof window !== 'undefined' ? (localStorage.getItem('token') || Cookies.get('token')) : null;
+
+    if (isValidAuthToken(token)) {
+      dispatch(
+        addToCart({
+          id: product.id,
+          title: product.title,
+          price: product.price,
+          quantity: count,
+          discountPercentage: product.discountPercentage,
+          thumbnail: product.thumbnail || (product.images && product.images[0]) || '',
+        })
+      );
+      router.push('/cart');
+    } else {
+      message.warning(t('common.requireLoginToBuy'));
+      router.push(`/signIn?callbackUrl=/cart`);
     }
   };
 
@@ -54,88 +88,101 @@ function detail({ data }: { data: { product: product; sub: Listproduct } }) {
   );
 
   return (
-    <section className="fluid_container">
+    <section className="fluid_container py-6 sm:py-3">
       <BreadCrumb title={product.title} />
-      <div className=" bg-white container justify-start flex flex-row flex-wrap p-3 my-3">
-        <div className="max-w-full flex-auto ">
+      <div className="bg-white rounded-3xl sm:rounded-2xl border border-slate-150 shadow-soft p-6 sm:p-3.5 my-6 sm:my-3 flex flex-row lg:flex-col gap-8 sm:gap-4">
+        <div className="w-[480px] lg:w-full shrink-0 mx-auto">
           <SlideProduct image={product.images} />
         </div>
 
-        <div className="ml-0 mt-0 flex-auto pl-3 md:pl-0 md:mt-3">
+        <div className="flex-1 min-w-0 w-full">
           <div className="product-description">
-            <span id="product_id" className="text-3xl font-bold mb-6">
+            <h1 id="product_id" className="text-2xl sm:text-xl font-bold text-slate-800 tracking-tight mb-3 sm:mb-2">
               {product.title}
-            </span>
-            <div className="mt-6">
-              <span className="text-md">{product.rating + ' '}</span>
-              <Rate value={product.rating} allowHalf />
-              <span>{'  '}Đã mua: </span>
-              <span className="text-md">{`${product.stock}`}</span>
+            </h1>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center gap-1 bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200/60">
+                <span className="text-sm font-bold text-amber-700">{product.rating}</span>
+                <Rate value={product.rating} allowHalf disabled className="text-xs !text-amber-500" />
+              </div>
+              <span className="text-slate-300">|</span>
+              <span className="text-sm text-slate-500">{t('product.sold')} <strong className="text-slate-700">{product.stock}</strong></span>
             </div>
-            <p className="py-3">{product.description}</p>
-            <div className="py-3">
-              <span>Thương hiệu: </span>
-              <span className=" p-1 bg-slate-300 ml-2">{product.brand}</span>
+            <p className="py-3 text-slate-600 text-sm leading-relaxed border-t border-slate-100">{product.description}</p>
+            <div className="flex items-center gap-6 py-2">
+              <span className="text-sm text-slate-500">{t('product.brand')} <strong className="ml-1 text-sky-600 font-semibold">{product.brand}</strong></span>
+              <span className="text-sm text-slate-500">{t('product.category')} <strong className="ml-1 text-slate-700 font-semibold">{product.category}</strong></span>
             </div>
-            <div className="py-3">
-              <span>Phân loại: </span>
-              <span className=" p-1 bg-slate-300 ml-2">{product.category}</span>
+
+            <div className="my-5 bg-gradient-to-r from-sky-50 to-blue-50/40 border border-sky-100/80 p-4 rounded-2xl flex items-center justify-between">
+              <div>
+                <span className="text-3xl sm:text-2xl font-extrabold text-rose-600">
+                  {product.price}$
+                </span>
+                {product.discountPercentage > 0 && (
+                  <span className="ml-3 text-sm text-slate-400 line-through">
+                    {(product.price / (1 - product.discountPercentage / 100)).toFixed(2)}$
+                  </span>
+                )}
+              </div>
+              {product.discountPercentage > 0 && (
+                <span className="bg-rose-50 text-rose-600 border border-rose-200/80 text-xs font-bold px-2.5 py-1 rounded-full">
+                  {t('product.savePercent')} {Math.floor(product.discountPercentage)}%
+                </span>
+              )}
             </div>
-            <p className="mobile_paid my-5 bg-slate-300 p-3">
-              <span className="text-2xl font-bold">
-                {product.price + '$  '}
-              </span>
-              <span className="text-[#eb5757] p-1 rounded-sm ml-2">
-                {'-' + Math.floor(product.discountPercentage) + '%'}
-              </span>
-            </p>
-            <div>
-              <button
-                className="px-2 py-1 bg-slate-200 tex-lg"
-                onClick={(e) => changeCount('reduce')}
-                disabled={count <= 1 ? true : false}
-              >
-                -
-              </button>
-              <span className="px-2 py-1 text-md mx-1 bg-slate-200">
-                {count}
-              </span>
-              <button
-                className="px-2 py-1 bg-slate-200 tex-lg"
-                onClick={(e) => changeCount('increase')}
-              >
-                +
-              </button>
+
+            <div className="flex items-center gap-4 my-6">
+              <span className="text-sm font-medium text-slate-600">{t('product.quantity')}</span>
+              <div className="flex items-center border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                <button
+                  className="w-10 h-10 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold transition-colors disabled:opacity-40"
+                  onClick={(e) => changeCount('reduce')}
+                  disabled={count <= 1}
+                >
+                  -
+                </button>
+                <span className="w-12 text-center text-sm font-semibold text-slate-800">
+                  {count}
+                </span>
+                <button
+                  className="w-10 h-10 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold transition-colors"
+                  onClick={(e) => changeCount('increase')}
+                >
+                  +
+                </button>
+              </div>
             </div>
           </div>
 
-          <div className=" grid grid-cols-2 py-7 gap-6">
+          <div className="grid grid-cols-2 gap-3 sm:gap-2 pt-2">
             <Button
               type="default"
-              className="!px-4 !border-Sky-500 !text-white !h-auto !py-3 !rounded-sm !bg-sky-500"
+              onClick={buyNowData}
+              className="!px-3 sm:!px-2 !border-sky-600 !text-white !h-auto !py-3.5 sm:!py-3 !rounded-xl !bg-sky-600 hover:!bg-sky-700 font-semibold text-sm sm:text-xs shadow-md shadow-sky-600/25 transition-all text-center flex items-center justify-center"
             >
-              Mua ngay
+              {t('product.buyNow')}
             </Button>
 
             <Button
               type="default"
               id="btn_process"
               loading={isLoading[addCart.typePrefix]}
-              className="!px-4 !border-Sky-700 !text-sky-700 !h-auto !py-3 !rounded-sm !bg-sky-200"
+              className="!px-3 sm:!px-2 !border-sky-200 !text-sky-700 !h-auto !py-3.5 sm:!py-3 !rounded-xl !bg-sky-50 hover:!bg-sky-100 font-semibold text-sm sm:text-xs transition-all text-center flex items-center justify-center"
               onClick={addCartData}
             >
-              Thêm vào giỏ
+              {t('product.addToCart')}
             </Button>
           </div>
         </div>
       </div>
 
-      <div className="product_title">
-        <h2>Sản phẩm liên quan</h2>
+      <div className="product_title my-8">
+        <h2>{t('product.relatedProducts')}</h2>
       </div>
-      <div className="fluid_container">
-        <div className="product py-5">
-          <div className="bg-[#dedcdc] p-2 sm:p-1 sm:gap-1 grid place-content-center items-center  gap-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5	">
+      <div className="fluid_container sm:!px-0">
+        <div className="product py-2">
+          <div className="grid gap-4 sm:gap-2.5 grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2">
             {sub?.products?.length &&
               sub.products
                 .filter((e: product) => e.id !== product.id)
@@ -143,28 +190,39 @@ function detail({ data }: { data: { product: product; sub: Listproduct } }) {
                   <Link
                     key={value.id}
                     href={'/product/' + value?.id}
-                    className="rounded-md w-full h-full  bg-white block pt-1 pb-4 px-2"
+                    className="rounded-2xl w-full h-full bg-white p-3 border border-slate-150 shadow-soft hover:shadow-card-hover hover:-translate-y-1.5 transition-all duration-300 flex flex-col group"
                   >
-                    <Image
-                      className=" aspect-[4/3]"
-                      width={1000}
-                      height={1000}
-                      src={value?.thumbnail}
-                      alt={value.title}
-                      quality={100}
-                      priority
-                      title={value.title}
-                    />
-                    <p className="mobile_name pt-2 mb-2 mt-3">{value.title}</p>
-                    <p className="mobile_paid mb-2">
-                      <span className="text-xl">{value.price + '$  '}</span>
-                      <span className="text-sm text-[#eb5757] p-1 bg-[#fff0e9] rounded-sm">
-                        {'-' + Math.floor(value.discountPercentage) + '%'}
-                      </span>
+                    <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-slate-50 mb-3 flex items-center justify-center">
+                      <Image
+                        className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500 ease-out"
+                        width={400}
+                        height={400}
+                        src={value?.thumbnail}
+                        alt={value.title}
+                        quality={90}
+                        priority
+                        title={value.title}
+                      />
+                      {value.discountPercentage > 0 && (
+                        <span className="sale text-xs font-semibold px-2 py-0.5 rounded-full top-2 left-2 absolute">
+                          -{Math.floor(value.discountPercentage)}%
+                        </span>
+                      )}
+                    </div>
+                    <p className="mobile_name text-slate-800 group-hover:text-sky-600 transition-colors font-semibold text-sm line-clamp-2 mb-2" title={value.title}>
+                      {value.title}
                     </p>
-                    <div>
+                    <p className="mobile_paid mt-auto mb-2 flex items-baseline gap-2">
+                      <span className="text-lg font-bold text-rose-600">{value.price}$</span>
+                      {value.discountPercentage > 0 && (
+                        <span className="text-xs text-slate-400 line-through">
+                          {(value.price / (1 - value.discountPercentage / 100)).toFixed(2)}$
+                        </span>
+                      )}
+                    </p>
+                    <div className="flex items-center gap-1.5 pt-1 border-t border-slate-100">
                       <Star rate={value.rating} />
-                      <span className="text-sm">{` (${value.stock})`}</span>
+                      <span className="text-xs text-slate-400">{`(${value.stock})`}</span>
                     </div>
                   </Link>
                 ))}

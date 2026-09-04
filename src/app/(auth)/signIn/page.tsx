@@ -7,7 +7,7 @@ type Props = {
   searchParams: { [key: string]: string | undefined };
 };
 function page({ params, searchParams }: Props) {
-  return <SignIn callback={searchParams.callbackUrl} />;
+  return <SignIn callback={searchParams.callbackUrl || searchParams.callback} />;
 }
 
 export default page;

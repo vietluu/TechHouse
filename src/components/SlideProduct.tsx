@@ -1,87 +1,105 @@
 'use client';
 import Image from 'next/image';
-import React, {
-  memo,
-  use,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
-import Slider, { Settings } from 'react-slick';
+import React, { memo, useState } from 'react';
 
-function SlideProduct({ image }: { image: [string] }) {
-  const [nav1, setNav1] = useState<Slider | null>(null);
-  const [nav2, setNav2] = useState<Slider | null>(null);
-  const ref1 = useRef<Slider | null>(null);
-  const ref2 = useRef<Slider | null>(null);
+function SlideProduct({ image }: { image: string[] | any }) {
+  const imageList: string[] = Array.isArray(image)
+    ? image.filter(Boolean)
+    : image
+    ? [image]
+    : [];
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  useLayoutEffect(() => {
-    if (image.length < 4) {
-      image.push(...image);
-    }
-  }, []);
+  if (imageList.length === 0) {
+    return (
+      <div className="w-full aspect-square bg-slate-100 rounded-3xl flex items-center justify-center text-slate-400">
+        <i className="fas fa-image text-4xl"></i>
+      </div>
+    );
+  }
 
-  const setting: Settings | any = {
-    arrows: false,
-    dots: false,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: false,
-    swipe: true,
-    autoplaySpeed: 3000,
-    swipeToSlide: true,
-    adaptiveHeight: true,
-    infinite: true,
-  };
-  const subSetting: Settings | any = {
-    arrows: false,
-    dots: false,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    autoplay: false,
-    swipe: true,
-    swipeToSlide: true,
-    adaptiveHeight: false,
-    infinite: true,
-    centerPadding: '30px',
-    focusOnSelect: true,
+  const currentImage = imageList[activeIndex] || imageList[0];
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev === 0 ? imageList.length - 1 : prev - 1));
   };
 
-  useLayoutEffect(() => {
-    setNav1(ref1.current);
-    setNav2(ref2.current);
-  }, []);
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev === imageList.length - 1 ? 0 : prev + 1));
+  };
+
   return (
-    <div className="max-w-[450px]">
-      <Slider {...setting} asNavFor={nav2} ref={ref1}>
-        {image?.map((data: string) => (
-          <Image
-            width={1000}
-            height={1000}
-            priority
-            className="aspect-[1/1] object-contain"
-            src={data}
-            quality={100}
-            alt="product"
-            key={data}
-          />
-        ))}
-      </Slider>
-      <Slider {...subSetting} ref={ref2} asNavFor={nav1}>
-        {image?.map((data: string) => (
-          <Image
-            width={100}
-            height={100}
-            loading="lazy"
-            quality={100}
-            className="aspect-[1/1] mt-4 p-1"
-            src={data}
-            alt="product"
-            key={data}
-          />
-        ))}
-      </Slider>
+    <div className="w-full max-w-[480px] mx-auto select-none">
+      {/* Main Image Showcase */}
+      <div className="relative w-full aspect-square bg-slate-50/80 rounded-3xl overflow-hidden border border-slate-150 shadow-soft group flex items-center justify-center p-4">
+        <Image
+          src={currentImage}
+          alt="product showcase"
+          width={600}
+          height={600}
+          priority
+          quality={95}
+          className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-105"
+        />
+
+        {/* Prev / Next Controls if multiple images */}
+        {imageList.length > 1 && (
+          <>
+            <button
+              onClick={handlePrev}
+              type="button"
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-7 sm:h-7 rounded-full bg-white/90 hover:bg-white text-slate-700 shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 sm:opacity-90 transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer z-10"
+              aria-label="Previous image"
+            >
+              <i className="fas fa-chevron-left text-xs"></i>
+            </button>
+            <button
+              onClick={handleNext}
+              type="button"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-7 sm:h-7 rounded-full bg-white/90 hover:bg-white text-slate-700 shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 sm:opacity-90 transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer z-10"
+              aria-label="Next image"
+            >
+              <i className="fas fa-chevron-right text-xs"></i>
+            </button>
+          </>
+        )}
+
+        {/* Counter Badge */}
+        {imageList.length > 1 && (
+          <span className="absolute bottom-3 right-3 bg-slate-900/60 backdrop-blur-sm text-white text-[11px] font-medium px-2.5 py-1 rounded-full">
+            {activeIndex + 1} / {imageList.length}
+          </span>
+        )}
+      </div>
+
+      {/* Thumbnails Row */}
+      {imageList.length > 1 && (
+        <div className="flex items-center gap-2 mt-3 overflow-x-auto pb-1.5 scrollbar-thin">
+          {imageList.map((imgUrl: string, idx: number) => {
+            const isActive = idx === activeIndex;
+            return (
+              <button
+                key={`${imgUrl}-${idx}`}
+                type="button"
+                onClick={() => setActiveIndex(idx)}
+                className={`relative flex-shrink-0 w-16 h-16 sm:w-13 sm:h-13 rounded-xl overflow-hidden p-1 bg-white border-2 transition-all duration-200 cursor-pointer ${
+                  isActive
+                    ? 'border-sky-600 ring-2 ring-sky-500/20 shadow-xs scale-102'
+                    : 'border-slate-200 hover:border-sky-300 opacity-70 hover:opacity-100'
+                }`}
+              >
+                <Image
+                  src={imgUrl}
+                  alt={`Thumbnail ${idx + 1}`}
+                  width={80}
+                  height={80}
+                  className="w-full h-full object-contain"
+                />
+              </button>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

@@ -2,10 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import SearchBar from '../SearchBar';
 import Item from 'antd/es/list/Item';
 import Link from 'next/link';
+
+import { useTranslation } from '@/context/I18nContext';
 
 type MenuItem = Required<MenuProps>['items'][number];
 function getItem(
@@ -27,35 +29,60 @@ function getItem(
 const rootSubmenuKeys = ['sub1', 'sub2'];
 
 function MobileNav({ signOutAction }: { signOutAction: any }) {
+  const { t, locale, changeLocale } = useTranslation();
   const [menuToggle, setMenuToggle] = useState<Boolean>(false);
   const [navData, setNavData] = useState<MenuItem[]>([]);
   const [openKeys, setOpenKeys] = useState(['']);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
 
-  let items: MenuItem[] = [];
-  if (typeof window !== 'undefined') {
-    items = [
-      getItem(<Link href="/">Trang Chủ</Link>, 'home'),
-      getItem('Sản phẩm', 'product', '', [
-        getItem(<Link href="/product">Tất cả sản phẩm</Link>, 'all-product'),
-        getItem(<Link href="/product">Sản phẩm mới</Link>, 'product-new'),
-        getItem(<Link href="/product">Sản phẩm hot</Link>, 'product-hot'),
-        getItem(
-          <Link href="/product">Sản phẩm giảm giá</Link>,
-          'product-saleoff'
+  // Auto-close menu when changing route
+  useEffect(() => {
+    setMenuToggle(false);
+  }, [pathname]);
+
+  const checkAuth = () => {
+    if (typeof window !== 'undefined') {
+      setIsLoggedIn(!!(localStorage.getItem('token') || document.cookie.includes('token=')));
+    }
+  };
+
+  useEffect(() => {
+    checkAuth();
+    window.addEventListener('storage', checkAuth);
+    window.addEventListener('auth-change', checkAuth);
+    return () => {
+      window.removeEventListener('storage', checkAuth);
+      window.removeEventListener('auth-change', checkAuth);
+    };
+  }, []);
+
+  const buildItems = (): MenuItem[] => [
+    getItem(<Link href="/">{t('common.home')}</Link>, 'home'),
+    getItem(t('common.products'), 'product', '', [
+      getItem(<Link href="/product">{t('common.allProducts')}</Link>, 'all-product'),
+      getItem(<Link href="/product">{t('common.newProducts')}</Link>, 'product-new'),
+      getItem(<Link href="/product">{t('common.bestSellerProducts')}</Link>, 'product-hot'),
+      getItem(<Link href="/product">{t('common.saleProducts')}</Link>, 'product-saleoff'),
+    ]),
+    getItem(<Link href="/blog">{t('common.blog')}</Link>, '/blog'),
+    getItem(<Link href="/about">{t('common.about')}</Link>, '/about'),
+    getItem(<Link href="/contact">{t('common.contact')}</Link>, '/contact'),
+    isLoggedIn
+      ? getItem(
+          <span className="text-rose-600 font-semibold flex items-center gap-2">
+            <i className="fas fa-sign-out-alt"></i> {t('common.logout')}
+          </span>,
+          'signout'
+        )
+      : getItem(
+          <Link href="/signIn" className="text-sky-600 font-semibold flex items-center gap-2">
+            <i className="fas fa-sign-in-alt"></i> {t('common.login')} / {t('auth.signUpNow')}
+          </Link>,
+          '/signIn'
         ),
-      ]),
-
-      getItem(<Link href="/blog">Blog</Link>, '/blog'),
-
-      getItem(<Link href="/about">Giới thiệu</Link>, '/about'),
-
-      getItem(<Link href="/contact">Liên hệ</Link>, '/contact'),
-      localStorage?.getItem('token')
-        ? getItem('Đăng xuất', 'signout')
-        : getItem(<Link href="/signIn">Đăng nhập/đăng kí</Link>, '/signIn'),
-    ];
-  }
+  ];
   const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
     if (rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
@@ -67,16 +94,18 @@ function MobileNav({ signOutAction }: { signOutAction: any }) {
 
   useEffect(() => {
     if (menuToggle) {
-      document.body.style.position = 'fixed';
-      document.body.style.height = '100vh';
-      document.body.style.overflowY = 'hidden';
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.position = '';
-      document.body.style.height = 'auto';
-      document.body.style.overflowY = '';
+      document.body.style.overflow = '';
     }
-    items.length && setNavData(items);
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [menuToggle]);
+
+  useEffect(() => {
+    setNavData(buildItems());
+  }, [menuToggle, isLoggedIn]);
 
   const toggleMenu = () => {
     setMenuToggle(!menuToggle);
@@ -87,22 +116,71 @@ function MobileNav({ signOutAction }: { signOutAction: any }) {
         <div className="icon-menu" onClick={toggleMenu}></div>
       </div>
       {menuToggle && (
-        <div className="mobile-menu">
-          <div className="mobile-wrapper">
-            <Menu
-              mode="inline"
-              openKeys={openKeys}
-              onOpenChange={onOpenChange}
-              style={{ width: '100%' }}
-              items={navData}
-              onSelect={async (items: MenuItem) => {
-                setMenuToggle(false);
-                if (items?.key == 'signout') {
+        <div className="mobile-menu" onClick={() => setMenuToggle(false)}>
+          <div className="mobile-wrapper flex flex-col justify-between" onClick={(e) => e.stopPropagation()}>
+            <div>
+              <div className="flex items-center justify-between pb-3 mb-2 border-b border-slate-100">
+                <span className="font-bold text-slate-800 text-sm flex items-center gap-2">
+                  <i className="fas fa-bolt text-amber-500"></i>
+                  <span>TechHouse</span>
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setMenuToggle(false)}
+                  className="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800 text-xs transition-colors cursor-pointer"
+                >
+                  ✕
+                </button>
+              </div>
+              <Menu
+                mode="inline"
+                openKeys={openKeys}
+                onOpenChange={onOpenChange}
+                style={{ width: '100%', border: 'none' }}
+                items={navData}
+                onSelect={async (items: MenuItem) => {
                   setMenuToggle(false);
-                  return signOutAction();
-                }
-              }}
-            />
+                  if (items?.key == 'signout') {
+                    setMenuToggle(false);
+                    return signOutAction();
+                  }
+                }}
+              />
+            </div>
+
+            {/* Language Switcher in Drawer */}
+            <div className="pt-4 mt-6 border-t border-slate-100">
+              <div className="text-xs font-semibold text-slate-500 mb-2 flex items-center gap-1.5">
+                <i className="fas fa-globe text-sky-600 text-xs"></i>
+                <span>{locale === 'vi' ? 'Ngôn ngữ hiển thị' : 'Display Language'}</span>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => changeLocale('vi')}
+                  className={`flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+                    locale === 'vi'
+                      ? 'bg-sky-50 border-sky-500 text-sky-700 shadow-xs font-bold'
+                      : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
+                  }`}
+                >
+                  <span className="text-sm leading-none">🇻🇳</span>
+                  <span>Tiếng Việt</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => changeLocale('en')}
+                  className={`flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+                    locale === 'en'
+                      ? 'bg-sky-50 border-sky-500 text-sky-700 shadow-xs font-bold'
+                      : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
+                  }`}
+                >
+                  <span className="text-sm leading-none">🇬🇧</span>
+                  <span>English</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
