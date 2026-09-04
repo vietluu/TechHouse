@@ -34,7 +34,7 @@ import { useTranslation } from '@/context/I18nContext';
 import LanguageSwitcher from '../LanguageSwitcher';
 
 function PrimaryNav({ data, user, signOutAction, size }: any) {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const [userMenu, setUsermenu] = useState(false);
   const [show, setShow] = useState(false);
   const [openKeys, setOpenKeys] = useState(['']);
@@ -233,6 +233,7 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
         </div>
         <div className="Primary__menu flex-1 flex justify-center min-w-0">
           <Menu
+            key={locale}
             mode="horizontal"
             disabledOverflow={true}
             selectedKeys={[getActiveKey()]}

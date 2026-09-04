@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import { usePathname, useRouter } from 'next/navigation';
@@ -31,7 +31,6 @@ const rootSubmenuKeys = ['sub1', 'sub2'];
 function MobileNav({ signOutAction }: { signOutAction: any }) {
   const { t, locale, changeLocale } = useTranslation();
   const [menuToggle, setMenuToggle] = useState<Boolean>(false);
-  const [navData, setNavData] = useState<MenuItem[]>([]);
   const [openKeys, setOpenKeys] = useState(['']);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
@@ -58,7 +57,7 @@ function MobileNav({ signOutAction }: { signOutAction: any }) {
     };
   }, []);
 
-  const buildItems = (): MenuItem[] => [
+  const navData = useMemo((): MenuItem[] => [
     getItem(<Link href="/">{t('common.home')}</Link>, 'home'),
     getItem(t('common.products'), 'product', '', [
       getItem(<Link href="/product">{t('common.allProducts')}</Link>, 'all-product'),
@@ -82,7 +81,8 @@ function MobileNav({ signOutAction }: { signOutAction: any }) {
           </Link>,
           '/signIn'
         ),
-  ];
+  ], [t, locale, isLoggedIn]);
+
   const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
     if (rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
@@ -102,10 +102,6 @@ function MobileNav({ signOutAction }: { signOutAction: any }) {
       document.body.style.overflow = '';
     };
   }, [menuToggle]);
-
-  useEffect(() => {
-    setNavData(buildItems());
-  }, [menuToggle, isLoggedIn]);
 
   const toggleMenu = () => {
     setMenuToggle(!menuToggle);
@@ -133,6 +129,7 @@ function MobileNav({ signOutAction }: { signOutAction: any }) {
                 </button>
               </div>
               <Menu
+                key={locale}
                 mode="inline"
                 openKeys={openKeys}
                 onOpenChange={onOpenChange}
