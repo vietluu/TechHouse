@@ -114,7 +114,7 @@ export default function Footer() {
             <img
               className="mt-3 max-w-[10rem] w-full"
               src="/assets/Image/logo_bocongthuong.png"
-              alt="Bộ Công Thương"
+              alt={t('footer.ministryOfCommerce')}
             />
           </div>
 

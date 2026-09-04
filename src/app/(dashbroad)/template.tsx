@@ -1,8 +1,10 @@
 'use client';
 import { notification } from 'antd';
 import { useLayoutEffect, useState, useSyncExternalStore } from 'react';
+import { useTranslation } from '@/context/I18nContext';
 
 export default function Template({ children }: { children: React.ReactNode }) {
+  const { t } = useTranslation();
   const isOnline = useSyncExternalStore(
     subscribe,
     getSnapshot,
@@ -30,7 +32,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
     if (isOnline && !firstOnline) {
       setFirstOnline(true);
       notification.success({
-        message: 'Đã có kết nối internet!',
+        message: t('common.internetOnline'),
         closeIcon: true,
         duration: 4,
       });
@@ -38,11 +40,11 @@ export default function Template({ children }: { children: React.ReactNode }) {
     if (!isOnline && firstOnline) {
       setFirstOnline(false);
       notification.error({
-        message: 'Đã mất kết nối internet!',
+        message: t('common.internetOffline'),
         closeIcon: true,
         duration: 4,
       });
     }
-  }, [isOnline]);
+  }, [isOnline, t]);
   return <>{children}</>;
 }

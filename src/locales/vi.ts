@@ -49,6 +49,10 @@ export const vi: Translations = {
     address: 'Thanh Xuân, Hà Nội, Việt Nam',
     noticeTitle: 'Thông báo',
     welcomeNotice: 'Chào mừng bạn đến với TechHouse! Giao diện đang chạy dữ liệu trực tuyến. Chúc bạn có trải nghiệm mua sắm mượt mà và tiện lợi!',
+    internetOnline: 'Đã có kết nối internet!',
+    internetOffline: 'Đã mất kết nối internet!',
+    locked: 'Khóa',
+    displayLanguage: 'Ngôn ngữ hiển thị',
   },
   newsletter: {
     badge: 'Đăng ký nhận ưu đãi',
@@ -74,6 +78,9 @@ export const vi: Translations = {
     laptopBanner1: 'Banner laptop văn phòng',
     laptopBanner2: 'Banner laptop gaming',
     laptopBanner3: 'Banner phụ kiện cao cấp',
+    fashionWatch: 'Đồng hồ thời trang',
+    smartphones: 'Điện thoại thông minh',
+    techAccessories: 'Phụ kiện công nghệ',
   },
   product: {
     filterButton: 'Bộ lọc',
@@ -105,6 +112,12 @@ export const vi: Translations = {
     popularBrands: 'Thương hiệu',
     categories: 'Danh mục',
     clearAll: 'Thiết lập lại',
+    sortRatingDesc: 'Đánh giá cao',
+    filteringBy: 'Đang lọc:',
+    priceLabel: 'Giá:',
+    brandLabel: 'Hãng:',
+    allBrands: 'Tất cả hãng',
+    fromRating: 'Từ',
   },
   cart: {
     title: 'Giỏ hàng của bạn',
@@ -222,5 +235,11 @@ export const vi: Translations = {
     faq2Ans: 'Mọi sản phẩm tại TechHouse đều được bảo hành chính hãng 12-24 tháng và 1 đổi 1 trong vòng 15 ngày nếu có lỗi từ nhà sản xuất ạ!',
     faq3: 'Kiểm tra tình trạng đơn hàng',
     faq3Ans: 'Bạn vui lòng cung cấp mã đơn hàng hoặc số điện thoại đặt hàng để chuyên viên hỗ trợ kiểm tra lộ trình giao hàng ngay nhé!',
+    openMessenger: 'Mở Messenger riêng',
+    closeChat: 'Đóng chat',
+    faqTitle: 'Câu hỏi thường gặp:',
+  },
+  footer: {
+    ministryOfCommerce: 'Bộ Công Thương',
   },
 };

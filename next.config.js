@@ -15,6 +15,7 @@ const nextConfig = {
 
   webpack: (config) => {
     config.resolve.alias['@'] = path.resolve(__dirname, './src');
+    config.resolve.alias['@assets'] = path.resolve(__dirname, './public/assets');
     return config;
   },
   images: {

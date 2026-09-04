@@ -49,6 +49,10 @@ export interface Translations {
     address: string;
     noticeTitle: string;
     welcomeNotice: string;
+    internetOnline: string;
+    internetOffline: string;
+    locked: string;
+    displayLanguage: string;
   };
   newsletter: {
     badge: string;
@@ -74,6 +78,9 @@ export interface Translations {
     laptopBanner1: string;
     laptopBanner2: string;
     laptopBanner3: string;
+    fashionWatch: string;
+    smartphones: string;
+    techAccessories: string;
   };
   product: {
     filterButton: string;
@@ -105,6 +112,12 @@ export interface Translations {
     popularBrands: string;
     categories: string;
     clearAll: string;
+    sortRatingDesc: string;
+    filteringBy: string;
+    priceLabel: string;
+    brandLabel: string;
+    allBrands: string;
+    fromRating: string;
   };
   cart: {
     title: string;
@@ -222,5 +235,11 @@ export interface Translations {
     faq2Ans: string;
     faq3: string;
     faq3Ans: string;
+    openMessenger: string;
+    closeChat: string;
+    faqTitle: string;
+  };
+  footer: {
+    ministryOfCommerce: string;
   };
 }

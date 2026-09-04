@@ -10,6 +10,7 @@ import BreadCrumb from '@/components/BreadCrumb';
 import Image from 'next/image';
 import Link from 'next/link';
 import Star from '@/components/Star';
+import ProductCard from '@/components/ProductCard';
 import { useTranslation } from '@/context/I18nContext';
 import Cookies from 'js-cookie';
 
@@ -187,44 +188,7 @@ function detail({ data }: { data: { product: product; sub: Listproduct } }) {
               sub.products
                 .filter((e: product) => e.id !== product.id)
                 .map((value: product) => (
-                  <Link
-                    key={value.id}
-                    href={'/product/' + value?.id}
-                    className="rounded-2xl w-full h-full bg-white p-3 border border-slate-150 shadow-soft hover:shadow-card-hover hover:-translate-y-1.5 transition-all duration-300 flex flex-col group"
-                  >
-                    <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-slate-50 mb-3 flex items-center justify-center">
-                      <Image
-                        className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500 ease-out"
-                        width={400}
-                        height={400}
-                        src={value?.thumbnail}
-                        alt={value.title}
-                        quality={90}
-                        priority
-                        title={value.title}
-                      />
-                      {value.discountPercentage > 0 && (
-                        <span className="sale text-xs font-semibold px-2 py-0.5 rounded-full top-2 left-2 absolute">
-                          -{Math.floor(value.discountPercentage)}%
-                        </span>
-                      )}
-                    </div>
-                    <p className="mobile_name text-slate-800 group-hover:text-sky-600 transition-colors font-semibold text-sm line-clamp-2 mb-2" title={value.title}>
-                      {value.title}
-                    </p>
-                    <p className="mobile_paid mt-auto mb-2 flex items-baseline gap-2">
-                      <span className="text-lg font-bold text-rose-600">{value.price}$</span>
-                      {value.discountPercentage > 0 && (
-                        <span className="text-xs text-slate-400 line-through">
-                          {(value.price / (1 - value.discountPercentage / 100)).toFixed(2)}$
-                        </span>
-                      )}
-                    </p>
-                    <div className="flex items-center gap-1.5 pt-1 border-t border-slate-100">
-                      <Star rate={value.rating} />
-                      <span className="text-xs text-slate-400">{`(${value.stock})`}</span>
-                    </div>
-                  </Link>
+                  <ProductCard key={value.id} product={value} />
                 ))}
           </div>
         </div>

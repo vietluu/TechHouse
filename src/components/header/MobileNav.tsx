@@ -152,7 +152,7 @@ function MobileNav({ signOutAction }: { signOutAction: any }) {
             <div className="pt-4 mt-4 pb-4 sm:pb-8 border-t border-slate-100 shrink-0">
               <div className="text-xs font-semibold text-slate-500 mb-2 flex items-center gap-1.5">
                 <i className="fas fa-globe text-sky-600 text-xs"></i>
-                <span>{locale === 'vi' ? 'Ngôn ngữ hiển thị' : 'Display Language'}</span>
+                <span>{t('common.displayLanguage')}</span>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <button

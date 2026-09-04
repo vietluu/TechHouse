@@ -4,11 +4,27 @@ import Link from 'next/link';
 import React from 'react';
 import { useTranslation } from '@/context/I18nContext';
 
+const ABOUT_VALUES = [
+  { titleKey: 'about.val1Title' as const, descKey: 'about.val1Desc' as const },
+  { titleKey: 'about.val2Title' as const, descKey: 'about.val2Desc' as const },
+  { titleKey: 'about.val3Title' as const, descKey: 'about.val3Desc' as const },
+  { titleKey: 'about.val4Title' as const, descKey: 'about.val4Desc' as const },
+];
+
+const PAGE_LINKS = [
+  { href: '/about', labelKey: 'common.about' as const, active: true },
+  { href: '#', labelKey: 'about.termsOfService' as const, active: false },
+  { href: '#', labelKey: 'about.privacyPolicy' as const, active: false },
+  { href: '#', labelKey: 'about.returnPolicy' as const, active: false },
+];
+
 function Index() {
   const { t } = useTranslation();
+
   return (
     <div className="fluid_container py-8 sm:py-4">
       <div className="flex flex-row lg:flex-col gap-8 sm:gap-4">
+        {/* Main Content */}
         <div className="flex-1 min-w-0 w-full">
           <div className="p-8 sm:p-4 bg-white rounded-3xl sm:rounded-2xl border border-slate-150 shadow-soft">
             <h1 className="text-2xl sm:text-xl text-slate-800 font-bold tracking-tight pb-4 sm:pb-3 border-b border-slate-100">
@@ -17,27 +33,24 @@ function Index() {
             <p className="py-4 text-slate-600 leading-relaxed text-base sm:text-sm">
               {t('about.introDesc1')} {t('about.introDesc2')}
             </p>
-            <h3 className="text-lg font-bold text-slate-800 pt-2 pb-3">{t('about.valuesTitle')}:</h3>
+            <h3 className="text-lg font-bold text-slate-800 pt-2 pb-3">
+              {t('about.valuesTitle')}:
+            </h3>
             <ul className="space-y-2.5 text-slate-600 text-sm">
-              <li className="flex items-center gap-2">
-                <i className="fas fa-check-circle text-sky-600"></i>
-                <span><strong>{t('about.val1Title')}</strong>{t('about.val1Desc')}</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <i className="fas fa-check-circle text-sky-600"></i>
-                <span><strong>{t('about.val2Title')}</strong>{t('about.val2Desc')}</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <i className="fas fa-check-circle text-sky-600"></i>
-                <span><strong>{t('about.val3Title')}</strong>{t('about.val3Desc')}</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <i className="fas fa-check-circle text-sky-600"></i>
-                <span><strong>{t('about.val4Title')}</strong>{t('about.val4Desc')}</span>
-              </li>
+              {ABOUT_VALUES.map((val, idx) => (
+                <li key={idx} className="flex items-center gap-2">
+                  <i className="fas fa-check-circle text-sky-600"></i>
+                  <span>
+                    <strong>{t(val.titleKey)}</strong>
+                    {t(val.descKey)}
+                  </span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
+
+        {/* Sidebar */}
         <div className="w-[340px] lg:w-full shrink-0">
           <div className="p-6 sm:p-4 bg-white rounded-3xl sm:rounded-2xl border border-slate-150 shadow-soft">
             <h2 className="text-lg text-slate-800 font-bold pb-3 border-b border-slate-100">
@@ -45,26 +58,20 @@ function Index() {
             </h2>
             <div>
               <ul className="py-3 space-y-2">
-                <li>
-                  <Link href={'/about'} className="font-semibold text-sky-600 block py-1">
-                    {t('common.about')}
-                  </Link>
-                </li>
-                <li>
-                  <Link href={'#'} className="text-slate-600 hover:text-sky-600 block py-1 transition-colors">
-                    {t('about.termsOfService')}
-                  </Link>
-                </li>
-                <li>
-                  <Link href={'#'} className="text-slate-600 hover:text-sky-600 block py-1 transition-colors">
-                    {t('about.privacyPolicy')}
-                  </Link>
-                </li>
-                <li>
-                  <Link href={'#'} className="text-slate-600 hover:text-sky-600 block py-1 transition-colors">
-                    {t('about.returnPolicy')}
-                  </Link>
-                </li>
+                {PAGE_LINKS.map((item, idx) => (
+                  <li key={idx}>
+                    <Link
+                      href={item.href}
+                      className={`block py-1 transition-colors ${
+                        item.active
+                          ? 'font-semibold text-sky-600'
+                          : 'text-slate-600 hover:text-sky-600'
+                      }`}
+                    >
+                      {t(item.labelKey)}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>

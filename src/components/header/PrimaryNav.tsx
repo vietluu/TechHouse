@@ -108,7 +108,7 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
           <span className="flex items-center gap-2 text-xs">
             <i className="fas fa-user-circle text-sky-600"></i> {t('common.myAccount')}
           </span>
-          <span className="text-[10px] bg-slate-100 text-slate-400 px-1.5 py-0.5 rounded">Khóa</span>
+          <span className="text-[10px] bg-slate-100 text-slate-400 px-1.5 py-0.5 rounded">{t('common.locked')}</span>
         </div>
       ),
     },
@@ -120,7 +120,7 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
           <span className="flex items-center gap-2 text-xs">
             <i className="fas fa-key text-amber-500"></i> {t('common.changePassword')}
           </span>
-          <span className="text-[10px] bg-slate-100 text-slate-400 px-1.5 py-0.5 rounded">Khóa</span>
+          <span className="text-[10px] bg-slate-100 text-slate-400 px-1.5 py-0.5 rounded">{t('common.locked')}</span>
         </div>
       ),
     },
@@ -132,7 +132,7 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
           <span className="flex items-center gap-2 text-xs">
             <i className="fas fa-box-open text-emerald-500"></i> {t('common.orderHistory')}
           </span>
-          <span className="text-[10px] bg-slate-100 text-slate-400 px-1.5 py-0.5 rounded">Khóa</span>
+          <span className="text-[10px] bg-slate-100 text-slate-400 px-1.5 py-0.5 rounded">{t('common.locked')}</span>
         </div>
       ),
     },
@@ -144,7 +144,7 @@ function PrimaryNav({ data, user, signOutAction, size }: any) {
           <span className="flex items-center gap-2 text-xs">
             <i className="fas fa-cog text-slate-400"></i> {t('common.accountSettings')}
           </span>
-          <span className="text-[10px] bg-slate-100 text-slate-400 px-1.5 py-0.5 rounded">Khóa</span>
+          <span className="text-[10px] bg-slate-100 text-slate-400 px-1.5 py-0.5 rounded">{t('common.locked')}</span>
         </div>
       ),
     },

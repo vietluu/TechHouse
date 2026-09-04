@@ -73,7 +73,7 @@ export const FacebookChat = () => {
       } else if (text.includes(t('chat.faq3')) || text.toLowerCase().includes('đơn hàng') || text.toLowerCase().includes('order')) {
         replyText = t('chat.faq3Ans');
       } else {
-        replyText = `${t('chat.faq1Ans')} Bạn cũng có thể bấm nút "Chat qua Messenger" bên dưới để gặp trực tiếp chuyên viên tư vấn nhé!`;
+        replyText = `${t('chat.faq1Ans')} ${t('chat.welcomeSub')}`;
       }
 
       const botReply: Message = {
@@ -113,15 +113,15 @@ export const FacebookChat = () => {
                 href={messengerUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                title="Mở Messenger riêng"
+                title={t('chat.openMessenger')}
                 className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xs transition-colors"
               >
                 <i className="fas fa-external-link-alt"></i>
               </a>
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm transition-colors font-bold"
-                aria-label="Đóng chat"
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm transition-colors font-bold cursor-pointer"
+                aria-label={t('chat.closeChat')}
               >
                 ✕
               </button>
@@ -154,7 +154,7 @@ export const FacebookChat = () => {
 
             {/* Quick Suggestions Chips */}
             <div className="pt-2 space-y-1.5">
-              <p className="text-[11px] font-semibold text-slate-500">Câu hỏi thường gặp:</p>
+              <p className="text-[11px] font-semibold text-slate-500">{t('chat.faqTitle')}</p>
               <div className="flex flex-col gap-1.5">
                 <button
                   onClick={() => handleSendMessage(t('chat.faq1'))}

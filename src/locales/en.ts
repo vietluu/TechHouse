@@ -49,6 +49,10 @@ export const en: Translations = {
     address: 'Thanh Xuan, Hanoi, Vietnam',
     noticeTitle: 'Notice',
     welcomeNotice: 'Welcome to TechHouse! This interface is connected to live online data. Enjoy a smooth and convenient shopping experience!',
+    internetOnline: 'Internet connection restored!',
+    internetOffline: 'Internet connection lost!',
+    locked: 'Locked',
+    displayLanguage: 'Display Language',
   },
   newsletter: {
     badge: 'Newsletter',
@@ -74,6 +78,9 @@ export const en: Translations = {
     laptopBanner1: 'Office Laptop Banner',
     laptopBanner2: 'Gaming Laptop Banner',
     laptopBanner3: 'Premium Accessories Banner',
+    fashionWatch: 'Fashion Watch',
+    smartphones: 'Smartphones',
+    techAccessories: 'Tech Accessories',
   },
   product: {
     filterButton: 'Filters',
@@ -105,6 +112,12 @@ export const en: Translations = {
     popularBrands: 'Brands',
     categories: 'Categories',
     clearAll: 'Reset All',
+    sortRatingDesc: 'Top Rated',
+    filteringBy: 'Filtering by:',
+    priceLabel: 'Price:',
+    brandLabel: 'Brand:',
+    allBrands: 'All Brands',
+    fromRating: 'From',
   },
   cart: {
     title: 'Your Shopping Cart',
@@ -222,5 +235,11 @@ export const en: Translations = {
     faq2Ans: 'All products at TechHouse come with an official 12-24 month warranty and 15-day 1-to-1 replacement for manufacturer defects!',
     faq3: 'Track my order status',
     faq3Ans: 'Please provide your order ID or phone number, and our support specialist will check your shipment status right away!',
+    openMessenger: 'Open Messenger',
+    closeChat: 'Close chat',
+    faqTitle: 'Frequently asked questions:',
+  },
+  footer: {
+    ministryOfCommerce: 'Ministry of Industry and Trade',
   },
 };
